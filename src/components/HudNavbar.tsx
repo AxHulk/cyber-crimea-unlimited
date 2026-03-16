@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { to: "/", label: "ГЛАВНАЯ" },
+  { to: "/arena", label: "АРЕНА" },
   { to: "/tournaments", label: "ТУРНИРЫ" },
   { to: "/news", label: "НОВОСТИ" },
   { to: "/about", label: "О ФЕДЕРАЦИИ" },
