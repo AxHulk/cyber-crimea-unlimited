@@ -9,6 +9,7 @@ import News from "./pages/News.tsx";
 import About from "./pages/About.tsx";
 import Arena from "./pages/Arena.tsx";
 import Ratings from "./pages/Ratings.tsx";
+import Auth from "./pages/Auth.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/arena" element={<Arena />} />
           <Route path="/ratings" element={<Ratings />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
