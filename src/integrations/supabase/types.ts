@@ -91,7 +91,7 @@ export type Database = {
           kda: number
           losses: number
           nickname: string
-          profile_id: string | null
+          profile_id: string
           updated_at: string
           wins: number
         }
@@ -103,7 +103,7 @@ export type Database = {
           kda?: number
           losses?: number
           nickname: string
-          profile_id?: string | null
+          profile_id: string
           updated_at?: string
           wins?: number
         }
@@ -115,7 +115,7 @@ export type Database = {
           kda?: number
           losses?: number
           nickname?: string
-          profile_id?: string | null
+          profile_id?: string
           updated_at?: string
           wins?: number
         }
