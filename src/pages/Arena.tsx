@@ -276,7 +276,7 @@ export default function Arena() {
               Зарегистрируйся и прими участие в турнирах Крыма
             </p>
             <Link
-              to="/about"
+              to="/auth"
               className="inline-block border-2 border-primary bg-primary/10 px-6 py-3 font-display text-sm tracking-wider text-primary hover:bg-primary/20 transition-colors neon-glow-purple"
             >
               РЕГИСТРАЦИЯ
