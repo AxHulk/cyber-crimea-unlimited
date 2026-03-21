@@ -8,6 +8,7 @@ const navLinks = [
   { to: "/ratings", label: "РЕЙТИНГИ" },
   { to: "/media-hub", label: "МЕДИА-ХАБ" },
   { to: "/infrastructure", label: "ПЛОЩАДКИ" },
+  { to: "/about", label: "О ФЕДЕРАЦИИ" },
 ];
 
 const HudNavbar = () => {
