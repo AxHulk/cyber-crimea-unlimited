@@ -10,6 +10,7 @@ import About from "./pages/About.tsx";
 import Arena from "./pages/Arena.tsx";
 import Ratings from "./pages/Ratings.tsx";
 import MediaHub from "./pages/MediaHub.tsx";
+import Infrastructure from "./pages/Infrastructure.tsx";
 import Auth from "./pages/Auth.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/arena" element={<Arena />} />
           <Route path="/ratings" element={<Ratings />} />
           <Route path="/media-hub" element={<MediaHub />} />
+          <Route path="/infrastructure" element={<Infrastructure />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

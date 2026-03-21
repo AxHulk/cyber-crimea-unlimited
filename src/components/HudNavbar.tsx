@@ -7,6 +7,7 @@ const navLinks = [
   { to: "/arena", label: "АРЕНА" },
   { to: "/ratings", label: "РЕЙТИНГИ" },
   { to: "/media-hub", label: "МЕДИА-ХАБ" },
+  { to: "/infrastructure", label: "ПЛОЩАДКИ" },
 ];
 
 const HudNavbar = () => {
