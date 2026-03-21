@@ -10,6 +10,7 @@ import About from "./pages/About.tsx";
 import Arena from "./pages/Arena.tsx";
 import Ratings from "./pages/Ratings.tsx";
 import MediaHub from "./pages/MediaHub.tsx";
+import Infrastructure from "./pages/Infrastructure.tsx";
 import Auth from "./pages/Auth.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
