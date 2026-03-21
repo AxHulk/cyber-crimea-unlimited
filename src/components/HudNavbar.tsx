@@ -7,6 +7,7 @@ const navLinks = [
   { to: "/", label: "ГЛАВНАЯ" },
   { to: "/arena", label: "АРЕНА" },
   { to: "/ratings", label: "РЕЙТИНГИ" },
+  { to: "/media-hub", label: "МЕДИА-ХАБ" },
   { to: "/tournaments", label: "ТУРНИРЫ" },
   { to: "/news", label: "НОВОСТИ" },
   { to: "/about", label: "О ФЕДЕРАЦИИ" },
