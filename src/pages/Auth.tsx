@@ -10,24 +10,29 @@ import roleFighter from "@/assets/dashboard/role_fighter.png";
 import roleCaptain from "@/assets/dashboard/role_captain.png";
 import roleOrganizer from "@/assets/dashboard/role_organizer.png";
 
+const nicknameRegex = /^[a-zA-Z0-9_а-яА-ЯёЁ]+$/;
+
 const signInSchema = z.object({
-  email: z.string().trim().email("Некорректный email").max(255),
+  nickname: z.string().trim().min(2, "Минимум 2 символа").max(32, "Максимум 32 символа").regex(nicknameRegex, "Только буквы, цифры и _"),
   password: z.string().min(6, "Минимум 6 символов").max(72),
 });
 
 const signUpSchema = signInSchema.extend({
   confirmPassword: z.string().min(6).max(72),
-  nickname: z.string().trim().min(2, "Минимум 2 символа").max(32, "Максимум 32 символа"),
   discipline: z.string().min(1),
 });
 
 const roles = [
-  { id: "fighter", label: "БОЕЦ", desc: "Рядовой игрок", icon: roleFighter, color: "neon-cyan" },
-  { id: "captain", label: "КАПИТАН", desc: "Лидер команды", icon: roleCaptain, color: "primary" },
-  { id: "organizer", label: "ОРГАНИЗАТОР", desc: "Администратор турниров", icon: roleOrganizer, color: "neon-magenta" },
+  { id: "fighter", label: "БОЕЦ", desc: "Рядовой игрок", icon: roleFighter },
+  { id: "captain", label: "КАПИТАН", desc: "Лидер команды", icon: roleCaptain },
+  { id: "organizer", label: "ОРГАНИЗАТОР", desc: "Администратор турниров", icon: roleOrganizer },
 ];
 
 const disciplines = ["CS2", "Dota 2", "Valorant", "FIFA"];
+
+/** Generate a deterministic fake email from nickname for Supabase Auth */
+const nicknameToEmail = (nick: string) =>
+  `${nick.toLowerCase().replace(/[^a-z0-9_]/g, "_")}@fks.local`;
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -35,15 +40,12 @@ export default function Auth() {
   const [mode, setMode] = useState<"signin" | "signup">("signup");
   const [message, setMessage] = useState<{ text: string; type: "error" | "success" }>({ text: "", type: "error" });
 
-  // Sign up fields
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [nickname, setNickname] = useState("");
   const [discipline, setDiscipline] = useState("CS2");
   const [selectedRole, setSelectedRole] = useState("fighter");
 
-  // Check if already logged in
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) navigate("/dashboard");
@@ -55,7 +57,7 @@ export default function Auth() {
     setMessage({ text: "", type: "error" });
 
     if (mode === "signup") {
-      const validation = signUpSchema.safeParse({ email, password, confirmPassword, nickname, discipline });
+      const validation = signUpSchema.safeParse({ nickname, password, confirmPassword, discipline });
       if (!validation.success) {
         setMessage({ text: validation.error.issues[0]?.message ?? "Проверьте поля", type: "error" });
         return;
@@ -65,7 +67,7 @@ export default function Auth() {
         return;
       }
     } else {
-      const validation = signInSchema.safeParse({ email, password });
+      const validation = signInSchema.safeParse({ nickname, password });
       if (!validation.success) {
         setMessage({ text: validation.error.issues[0]?.message ?? "Проверьте поля", type: "error" });
         return;
@@ -73,22 +75,34 @@ export default function Auth() {
     }
 
     setLoading(true);
+    const fakeEmail = nicknameToEmail(nickname);
 
     try {
       if (mode === "signup") {
-        const { data, error } = await supabase.auth.signUp({ email, password });
+        // Check if nickname already taken
+        const { data: existing } = await supabase
+          .from("players")
+          .select("id")
+          .eq("nickname", nickname)
+          .maybeSingle();
+
+        if (existing) {
+          setMessage({ text: "Этот никнейм уже занят", type: "error" });
+          setLoading(false);
+          return;
+        }
+
+        const { data, error } = await supabase.auth.signUp({ email: fakeEmail, password });
         if (error) throw error;
 
         const user = data.user;
         if (user) {
-          // Create profile
           await supabase.from("profiles").upsert({
             id: user.id,
             username: nickname,
             display_name: nickname,
           });
 
-          // Create player record
           await supabase.from("players").upsert(
             { profile_id: user.id, nickname, discipline },
             { onConflict: "profile_id" }
@@ -98,8 +112,13 @@ export default function Auth() {
         setMessage({ text: "Аккаунт создан! Перенаправление...", type: "success" });
         setTimeout(() => navigate("/dashboard"), 1000);
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
+        const { error } = await supabase.auth.signInWithPassword({ email: fakeEmail, password });
+        if (error) {
+          if (error.message.includes("Invalid login")) {
+            throw new Error("Неверный никнейм или пароль");
+          }
+          throw error;
+        }
         navigate("/dashboard");
       }
     } catch (error) {
@@ -168,48 +187,36 @@ export default function Auth() {
                       ))}
                     </div>
                   </div>
-
-                  {/* Nickname */}
-                  <div>
-                    <label className="font-mono text-[10px] tracking-widest text-muted-foreground mb-1.5 block">НИКНЕЙМ</label>
-                    <input
-                      className="w-full border border-border bg-muted/30 px-4 py-3 font-mono text-sm text-foreground outline-none focus:border-primary transition-colors"
-                      type="text"
-                      placeholder="YourNickname"
-                      value={nickname}
-                      onChange={(e) => setNickname(e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  {/* Discipline */}
-                  <div>
-                    <label className="font-mono text-[10px] tracking-widest text-muted-foreground mb-1.5 block">ДИСЦИПЛИНА</label>
-                    <select
-                      className="w-full border border-border bg-muted/30 px-4 py-3 font-mono text-sm text-foreground outline-none focus:border-primary transition-colors"
-                      value={discipline}
-                      onChange={(e) => setDiscipline(e.target.value)}
-                    >
-                      {disciplines.map((d) => (
-                        <option key={d} value={d}>{d}</option>
-                      ))}
-                    </select>
-                  </div>
                 </>
               )}
 
-              {/* Email */}
+              {/* Nickname — always visible */}
               <div>
-                <label className="font-mono text-[10px] tracking-widest text-muted-foreground mb-1.5 block">EMAIL</label>
+                <label className="font-mono text-[10px] tracking-widest text-muted-foreground mb-1.5 block">НИКНЕЙМ</label>
                 <input
                   className="w-full border border-border bg-muted/30 px-4 py-3 font-mono text-sm text-foreground outline-none focus:border-primary transition-colors"
-                  type="email"
-                  placeholder="player@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                  placeholder="YourNickname"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
                   required
                 />
               </div>
+
+              {mode === "signup" && (
+                <div>
+                  <label className="font-mono text-[10px] tracking-widest text-muted-foreground mb-1.5 block">ДИСЦИПЛИНА</label>
+                  <select
+                    className="w-full border border-border bg-muted/30 px-4 py-3 font-mono text-sm text-foreground outline-none focus:border-primary transition-colors"
+                    value={discipline}
+                    onChange={(e) => setDiscipline(e.target.value)}
+                  >
+                    {disciplines.map((d) => (
+                      <option key={d} value={d}>{d}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
 
               {/* Password */}
               <div>
