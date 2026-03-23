@@ -138,6 +138,20 @@ const HudNavbar = () => {
                   </Link>
                 );
               })}
+
+              {/* Auth link mobile */}
+              <Link
+                to={loggedIn ? "/dashboard" : "/auth"}
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center gap-2 px-4 py-3 font-display text-sm tracking-wider transition-all border-l-2 ${
+                  location.pathname === "/dashboard" || location.pathname === "/auth"
+                    ? "text-primary border-primary bg-primary/5"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/30 border-transparent"
+                }`}
+              >
+                <User className="w-4 h-4" />
+                {loggedIn ? "КОМАНДНЫЙ ПУНКТ" : "ВХОД / РЕГИСТРАЦИЯ"}
+              </Link>
             </div>
           </motion.div>
         )}
