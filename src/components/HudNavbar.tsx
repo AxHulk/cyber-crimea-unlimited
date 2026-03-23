@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Wifi, Users, Zap } from "lucide-react";
+import { Menu, X, Wifi, Users, Zap, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
 
 const navLinks = [
   { to: "/arena", label: "АРЕНА" },
