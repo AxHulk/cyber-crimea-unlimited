@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Wifi, Users, Zap } from "lucide-react";
+import { Menu, X, Wifi, Users, Zap, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
 
 const navLinks = [
   { to: "/arena", label: "АРЕНА" },
@@ -14,7 +15,14 @@ const navLinks = [
 
 const HudNavbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setLoggedIn(!!data.session));
+    const { data: listener } = supabase.auth.onAuthStateChange((_e, s) => setLoggedIn(!!s));
+    return () => listener.subscription.unsubscribe();
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
@@ -78,6 +86,19 @@ const HudNavbar = () => {
               </Link>
             );
           })}
+
+          {/* Auth button */}
+          <Link
+            to={loggedIn ? "/dashboard" : "/auth"}
+            className={`ml-2 flex items-center gap-1.5 px-4 py-2 font-display text-xs tracking-wider transition-all duration-300 border ${
+              location.pathname === "/dashboard" || location.pathname === "/auth"
+                ? "text-primary border-primary/30 bg-primary/5 neon-glow-purple"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border-transparent"
+            }`}
+          >
+            <User className="w-3.5 h-3.5" />
+            {loggedIn ? "ЛК" : "ВХОД"}
+          </Link>
         </div>
 
         {/* Mobile toggle */}
@@ -117,6 +138,20 @@ const HudNavbar = () => {
                   </Link>
                 );
               })}
+
+              {/* Auth link mobile */}
+              <Link
+                to={loggedIn ? "/dashboard" : "/auth"}
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center gap-2 px-4 py-3 font-display text-sm tracking-wider transition-all border-l-2 ${
+                  location.pathname === "/dashboard" || location.pathname === "/auth"
+                    ? "text-primary border-primary bg-primary/5"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/30 border-transparent"
+                }`}
+              >
+                <User className="w-4 h-4" />
+                {loggedIn ? "КОМАНДНЫЙ ПУНКТ" : "ВХОД / РЕГИСТРАЦИЯ"}
+              </Link>
             </div>
           </motion.div>
         )}

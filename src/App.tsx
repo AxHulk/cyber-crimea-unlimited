@@ -12,6 +12,7 @@ import Ratings from "./pages/Ratings.tsx";
 import MediaHub from "./pages/MediaHub.tsx";
 import Infrastructure from "./pages/Infrastructure.tsx";
 import Auth from "./pages/Auth.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
 import B2B from "./pages/B2B.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/media-hub" element={<MediaHub />} />
           <Route path="/infrastructure" element={<Infrastructure />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/b2b" element={<B2B />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
