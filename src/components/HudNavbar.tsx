@@ -86,6 +86,19 @@ const HudNavbar = () => {
               </Link>
             );
           })}
+
+          {/* Auth button */}
+          <Link
+            to={loggedIn ? "/dashboard" : "/auth"}
+            className={`ml-2 flex items-center gap-1.5 px-4 py-2 font-display text-xs tracking-wider transition-all duration-300 border ${
+              location.pathname === "/dashboard" || location.pathname === "/auth"
+                ? "text-primary border-primary/30 bg-primary/5 neon-glow-purple"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border-transparent"
+            }`}
+          >
+            <User className="w-3.5 h-3.5" />
+            {loggedIn ? "ЛК" : "ВХОД"}
+          </Link>
         </div>
 
         {/* Mobile toggle */}
