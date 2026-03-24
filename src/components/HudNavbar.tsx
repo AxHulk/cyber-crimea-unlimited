@@ -50,7 +50,7 @@ const HudNavbar = () => {
         <Link to="/" className="flex items-center gap-3 group">
           <div className="relative w-10 h-10 rounded overflow-hidden neon-glow-purple">
             <img
-              src="/logo-fks-v2.png"
+              src="/logo-fks-v3.png"
               alt="ФКС РК"
               className="w-full h-full object-contain"
             />
