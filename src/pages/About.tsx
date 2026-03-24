@@ -21,6 +21,10 @@ import iconJoinMember from "@/assets/about/icon_join_member.png";
 import iconBecomePartner from "@/assets/about/icon_become_partner.png";
 import iconPlayTournament from "@/assets/about/icon_play_tournament.png";
 import logoFks from "@/assets/about/logo_fks.png";
+import logoFpg from "@/assets/about/logo_fpg.png";
+import logoCyberx from "@/assets/about/logo_cyberx.png";
+import logoMvp from "@/assets/about/logo_mvp.png";
+import logoFabrikant from "@/assets/about/logo_fabrikant.png";
 
 const containerVariants = {
   hidden: {},
