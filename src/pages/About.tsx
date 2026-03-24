@@ -281,7 +281,7 @@ const About = () => {
           <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-8">ОФИЦИАЛЬНЫЕ ДОКУМЕНТЫ</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {documents.map((doc) => (
-              <div key={doc.name} className="bento-card group flex items-center gap-4 p-4 cursor-pointer">
+              <a key={doc.name} href={doc.href} target="_blank" rel="noopener noreferrer" className="bento-card group flex items-center gap-4 p-4 cursor-pointer">
                 <img src={iconDocument} alt="PDF" className="w-8 h-8 object-contain flex-shrink-0" />
                 <div className="flex-1">
                   <span className="font-display text-sm font-bold group-hover:text-primary transition-colors">{doc.name}</span>
