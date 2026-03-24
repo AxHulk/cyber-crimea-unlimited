@@ -267,7 +267,7 @@ const About = () => {
               <div key={partner.name} className="bento-card hud-corner p-5 text-center group flex flex-col items-center justify-center">
                 <div className="h-16 mx-auto mb-3 flex items-center justify-center">
                   <img src={partner.logo} alt={partner.name} className={`h-full w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity ${partner.imgClass}`} />
-              </a>
+              </div>
                 <div className="font-mono text-[9px] text-muted-foreground mt-1">{partner.role}</div>
               </div>
             ))}
