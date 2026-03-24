@@ -255,12 +255,18 @@ const About = () => {
           <div className="font-mono text-[10px] tracking-[0.3em] text-neon-green mb-6">// PARTNERS</div>
           <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-8">ПАРТНЁРЫ И СПОНСОРЫ</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {["Генеральные партнёры", "Технические партнёры", "Информационные партнёры", "При поддержке"].map((cat) => (
-              <div key={cat} className="bento-card hud-corner p-5 text-center group">
-                <div className="w-16 h-16 mx-auto mb-3 border border-border bg-muted flex items-center justify-center opacity-40 group-hover:opacity-70 transition-opacity">
-                  <span className="font-mono text-[9px] text-muted-foreground">LOGO</span>
+            {[
+              { logo: logoFpg, name: "Фонд Президентских грантов", role: "Генеральный партнёр" },
+              { logo: logoMvp, name: "MVP", role: "Технический партнёр" },
+              { logo: logoCyberx, name: "CyberX", role: "Технический партнёр, спонсор" },
+              { logo: logoFabrikant, name: "Фабрикантъ", role: "Коммерческий партнёр" },
+            ].map((partner) => (
+              <div key={partner.name} className="bento-card hud-corner p-5 text-center group flex flex-col items-center justify-center">
+                <div className="w-20 h-20 mx-auto mb-3 flex items-center justify-center">
+                  <img src={partner.logo} alt={partner.name} className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
                 </div>
-                <div className="font-mono text-[10px] text-muted-foreground">{cat}</div>
+                <div className="font-display text-xs font-bold group-hover:text-primary transition-colors">{partner.name}</div>
+                <div className="font-mono text-[9px] text-muted-foreground mt-1">{partner.role}</div>
               </div>
             ))}
           </div>
