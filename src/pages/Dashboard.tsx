@@ -237,8 +237,12 @@ function DashboardTab({ player, profile, winrate, xpLevel }: { player: PlayerDat
         <div className="flex flex-col items-center text-center">
           <div className="relative mb-4">
             <img src={gamifAvatarFrame} alt="" className="w-24 h-24 absolute -inset-2 object-contain pointer-events-none" style={{ width: "112px", height: "112px", top: "-8px", left: "-8px" }} />
-            <div className="w-24 h-24 rounded-full bg-muted/50 border border-border flex items-center justify-center">
-              <User className="w-10 h-10 text-muted-foreground" />
+            <div className="w-24 h-24 rounded-full bg-muted/50 border border-border flex items-center justify-center overflow-hidden">
+              {profile.avatar_url ? (
+                <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+              ) : (
+                <User className="w-10 h-10 text-muted-foreground" />
+              )}
             </div>
           </div>
           <div className="font-display text-lg font-bold text-foreground">{profile.display_name || profile.username}</div>
