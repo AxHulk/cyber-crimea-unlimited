@@ -66,10 +66,13 @@ const team = [
 ];
 
 const documents = [
-  { name: "Устав организации", format: "PDF" },
-  { name: "Свидетельство об аккредитации", format: "PDF" },
-  { name: "Политика обработки персональных данных", format: "PDF" },
-  { name: "Реквизиты для пожертвований и взносов", format: "PDF" },
+  { name: "Устав ФКС РК", format: "PDF", href: "/docs/ustav_fks_2026.pdf" },
+  { name: "Пользовательское соглашение", format: "PDF", href: "/docs/polzovatelskoe_soglashenie.pdf" },
+  { name: "Публичная оферта", format: "PDF", href: "/docs/publichnaya_oferta.pdf" },
+  { name: "Политика обработки персональных данных", format: "PDF", href: "/docs/politika_opd.pdf" },
+  { name: "Согласие на обработку персональных данных", format: "PDF", href: "/docs/soglasie_opd.pdf" },
+  { name: "Согласие на получение рассылки", format: "PDF", href: "/docs/soglasie_ptl.pdf" },
+  { name: "Положение о безопасности платежей и возвратах", format: "PDF", href: "/docs/polozhenie_bezopasnost_platezhey.pdf" },
 ];
 
 const ctaActions = [
@@ -264,8 +267,7 @@ const About = () => {
               <div key={partner.name} className="bento-card hud-corner p-5 text-center group flex flex-col items-center justify-center">
                 <div className="h-16 mx-auto mb-3 flex items-center justify-center">
                   <img src={partner.logo} alt={partner.name} className={`h-full w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity ${partner.imgClass}`} />
-                </div>
-                
+              </div>
                 <div className="font-mono text-[9px] text-muted-foreground mt-1">{partner.role}</div>
               </div>
             ))}
@@ -278,14 +280,14 @@ const About = () => {
           <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-8">ОФИЦИАЛЬНЫЕ ДОКУМЕНТЫ</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {documents.map((doc) => (
-              <div key={doc.name} className="bento-card group flex items-center gap-4 p-4 cursor-pointer">
+              <a key={doc.name} href={doc.href} target="_blank" rel="noopener noreferrer" className="bento-card group flex items-center gap-4 p-4 cursor-pointer">
                 <img src={iconDocument} alt="PDF" className="w-8 h-8 object-contain flex-shrink-0" />
                 <div className="flex-1">
                   <span className="font-display text-sm font-bold group-hover:text-primary transition-colors">{doc.name}</span>
                   <div className="font-mono text-[9px] text-muted-foreground mt-0.5">{doc.format}</div>
                 </div>
                 <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-              </div>
+              </a>
             ))}
           </div>
         </section>
