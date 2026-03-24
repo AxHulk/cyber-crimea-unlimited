@@ -66,10 +66,13 @@ const team = [
 ];
 
 const documents = [
-  { name: "Устав организации", format: "PDF" },
-  { name: "Свидетельство об аккредитации", format: "PDF" },
-  { name: "Политика обработки персональных данных", format: "PDF" },
-  { name: "Реквизиты для пожертвований и взносов", format: "PDF" },
+  { name: "Устав ФКС РК", format: "PDF", href: "/docs/ustav_fks_2026.pdf" },
+  { name: "Пользовательское соглашение", format: "PDF", href: "/docs/polzovatelskoe_soglashenie.pdf" },
+  { name: "Публичная оферта", format: "PDF", href: "/docs/publichnaya_oferta.pdf" },
+  { name: "Политика обработки персональных данных", format: "PDF", href: "/docs/politika_opd.pdf" },
+  { name: "Согласие на обработку персональных данных", format: "PDF", href: "/docs/soglasie_opd.pdf" },
+  { name: "Согласие на получение рассылки", format: "PDF", href: "/docs/soglasie_ptl.pdf" },
+  { name: "Положение о безопасности платежей и возвратах", format: "PDF", href: "/docs/polozhenie_bezopasnost_platezhey.pdf" },
 ];
 
 const ctaActions = [
