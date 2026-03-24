@@ -332,7 +332,7 @@ function DashboardTab({ player, profile, winrate, xpLevel }: { player: PlayerDat
 
 /* ===== PROFILE TAB ===== */
 function ProfileTab({
-  profile, setProfile, player, setPlayer, onSave, saving, message,
+  profile, setProfile, player, setPlayer, onSave, saving, message, session,
 }: {
   profile: ProfileData;
   setProfile: React.Dispatch<React.SetStateAction<ProfileData>>;
@@ -341,11 +341,75 @@ function ProfileTab({
   onSave: () => void;
   saving: boolean;
   message: string;
+  session: Session | null;
 }) {
   const inputCls = "w-full border border-border bg-muted/30 px-4 py-3 font-mono text-sm text-foreground outline-none focus:border-primary transition-colors";
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !session?.user) return;
+
+    const maxSize = 2 * 1024 * 1024; // 2MB
+    if (file.size > maxSize) {
+      alert("Файл слишком большой. Максимум 2 МБ.");
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+      const filePath = `${session.user.id}/avatar.${ext}`;
+
+      // Remove old avatar if exists
+      await supabase.storage.from("avatars").remove([filePath]);
+
+      const { error: uploadError } = await supabase.storage
+        .from("avatars")
+        .upload(filePath, file, { upsert: true, contentType: file.type });
+
+      if (uploadError) throw uploadError;
+
+      const { data: urlData } = supabase.storage.from("avatars").getPublicUrl(filePath);
+      const avatarUrl = `${urlData.publicUrl}?t=${Date.now()}`;
+
+      await supabase.from("profiles").update({ avatar_url: avatarUrl } as any).eq("id", session.user.id);
+      setProfile((p) => ({ ...p, avatar_url: avatarUrl }));
+    } catch (err) {
+      console.error("Avatar upload error:", err);
+      alert("Ошибка загрузки аватара");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   return (
     <motion.div className="grid grid-cols-12 gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      {/* Avatar upload */}
+      <div className="col-span-12 bento-card hud-corner p-6 flex flex-col items-center">
+        <div className="font-mono text-[10px] tracking-widest text-primary mb-5 w-full">// АВАТАР</div>
+        <div className="relative group cursor-pointer" onClick={() => fileInputRef.current?.click()}>
+          <img src={gamifAvatarFrame} alt="" className="absolute -inset-2 object-contain pointer-events-none" style={{ width: "128px", height: "128px", top: "-8px", left: "-8px" }} />
+          <div className="w-28 h-28 rounded-full bg-muted/50 border border-border flex items-center justify-center overflow-hidden">
+            {profile.avatar_url ? (
+              <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+            ) : (
+              <User className="w-12 h-12 text-muted-foreground" />
+            )}
+          </div>
+          <div className="absolute inset-0 rounded-full bg-background/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <Camera className="w-6 h-6 text-primary" />
+          </div>
+          {uploading && (
+            <div className="absolute inset-0 rounded-full bg-background/80 flex items-center justify-center">
+              <div className="font-mono text-[9px] text-primary animate-pulse">ЗАГРУЗКА...</div>
+            </div>
+          )}
+        </div>
+        <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />
+        <p className="font-mono text-[9px] text-muted-foreground mt-3">Нажмите для загрузки (макс. 2 МБ)</p>
+      </div>
       {/* Game profile */}
       <div className="col-span-12 lg:col-span-6 bento-card hud-corner p-6">
         <div className="font-mono text-[10px] tracking-widest text-primary mb-5">// ИГРОВОЙ_ПРОФИЛЬ</div>
