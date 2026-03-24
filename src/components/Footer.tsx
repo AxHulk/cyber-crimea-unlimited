@@ -76,9 +76,9 @@ export default function Footer() {
           <div className="col-span-12 md:col-span-3">
             <div className="font-mono text-[10px] tracking-wider text-neon-green mb-4">// CONTACT</div>
             <div className="space-y-2 font-mono text-xs text-muted-foreground">
-              <div>г. Симферополь</div>
-              <div>info@fks-rk.ru</div>
-              <div>+7 (978) XXX-XX-XX</div>
+              <div>295034, Респ. Крым, г. Симферополь, пр-кт Победы 42</div>
+              <div>hello@axhulk.ru</div>
+              <div>+7 978 738 23 99</div>
             </div>
           </div>
         </div>
