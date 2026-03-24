@@ -77,7 +77,7 @@ const documents = [
 
 const ctaActions = [
   { icon: iconJoinMember, label: "Стать членом Федерации", desc: "Получите официальный статус и начните путь в киберспорте", to: "/auth", color: "neon-cyan" },
-  { icon: iconBecomePartner, label: "Стать партнёром", desc: "Обсудите варианты сотрудничества и продвижения", to: "/about", color: "neon-green" },
+  { icon: iconBecomePartner, label: "Стать партнёром", desc: "Обсудите варианты сотрудничества и продвижения", to: "/b2b", color: "neon-green" },
   { icon: iconPlayTournament, label: "Участвовать в турнирах", desc: "Присоединяйтесь к соревнованиям в Арене", to: "/arena", color: "neon-purple" },
 ];
 
