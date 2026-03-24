@@ -25,7 +25,7 @@ export default function Footer() {
           <div className="col-span-12 md:col-span-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-8 h-8 rounded overflow-hidden neon-glow-purple">
-                <img src="/logo-fks.jpg" alt="ФКС РК" className="w-full h-full object-cover" />
+                <img src="/logo-fks.png" alt="ФКС РК" className="w-full h-full object-contain" />
               </div>
               <div>
                 <div className="font-display font-bold text-sm tracking-wider">ФКС РК</div>
