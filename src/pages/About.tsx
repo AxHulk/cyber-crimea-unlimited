@@ -300,7 +300,7 @@ const About = () => {
             <div className="space-y-3 font-mono text-xs text-muted-foreground">
               <div className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
-                <span>г. Симферополь, Республика Крым</span>
+                <span>295034, Респ. Крым, г. Симферополь, пр-кт Победы 42</span>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-primary flex-shrink-0" />
