@@ -215,6 +215,7 @@ export default function Dashboard() {
               onSave={handleSaveProfile}
               saving={saving}
               message={message}
+              session={session}
             />
           )}
           {tab === "career" && <CareerTab player={player} winrate={winrate} />}
