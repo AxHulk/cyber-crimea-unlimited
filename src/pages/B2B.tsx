@@ -524,14 +524,18 @@ export default function B2B() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="font-mono text-[10px] tracking-wider text-muted-foreground mb-1.5 block">ТЕЛЕФОН *</label>
-                    <input
-                      required
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-input border border-border px-3 py-2.5 text-sm text-foreground focus:border-amber-400 focus:outline-none transition-colors"
-                      placeholder="+7 (900) 000-00-00"
-                    />
+                    <div className="flex">
+                      <span className="flex items-center bg-input border border-r-0 border-border px-2.5 py-2.5 text-sm text-muted-foreground font-mono select-none">+7</span>
+                      <input
+                        required
+                        type="tel"
+                        value={formatPhone(formData.phone)}
+                        onChange={handlePhoneChange}
+                        onPaste={handlePhonePaste}
+                        className="w-full bg-input border border-border px-3 py-2.5 text-sm text-foreground focus:border-amber-400 focus:outline-none transition-colors"
+                        placeholder="(900) 000-00-00"
+                      />
+                    </div>
                   </div>
                   <div>
                     <label className="font-mono text-[10px] tracking-wider text-muted-foreground mb-1.5 block">E-MAIL *</label>
