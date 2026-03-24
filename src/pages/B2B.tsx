@@ -173,9 +173,45 @@ const whyStats = [
   { value: "₽45K", label: "Средний доход аудитории" },
 ];
 
+// Normalize any phone input to 10 digits (without country code)
+function normalizePhone(raw: string): string {
+  const digits = raw.replace(/\D/g, "");
+  // 89991234567 → 9991234567, 79991234567 → 9991234567, 9991234567 → as is
+  if (digits.length === 11 && (digits[0] === "7" || digits[0] === "8")) return digits.slice(1);
+  if (digits.length === 10) return digits;
+  // partial input
+  if (digits.length < 10) {
+    if (digits.length > 0 && (digits[0] === "7" || digits[0] === "8")) return digits.slice(1);
+    return digits;
+  }
+  // longer than 11 — take last 10
+  return digits.slice(-10);
+}
+
+function formatPhone(digits: string): string {
+  const d = digits;
+  if (d.length === 0) return "";
+  if (d.length <= 3) return `(${d}`;
+  if (d.length <= 6) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
+  if (d.length <= 8) return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
+  return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6, 8)}-${d.slice(8, 10)}`;
+}
+
 export default function B2B() {
   const [formData, setFormData] = useState({ name: "", company: "", phone: "", email: "", comment: "" });
   const [submitted, setSubmitted] = useState(false);
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const digits = normalizePhone(e.target.value);
+    setFormData({ ...formData, phone: digits });
+  };
+
+  const handlePhonePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text");
+    const digits = normalizePhone(pasted);
+    setFormData({ ...formData, phone: digits });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
