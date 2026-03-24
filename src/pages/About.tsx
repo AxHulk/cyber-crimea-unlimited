@@ -256,14 +256,14 @@ const About = () => {
           <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-8">ПАРТНЁРЫ И СПОНСОРЫ</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { logo: logoFpg, name: "Фонд Президентских грантов", role: "Генеральный партнёр" },
-              { logo: logoMvp, name: "MVP", role: "Технический партнёр" },
-              { logo: logoCyberx, name: "CyberX", role: "Технический партнёр, спонсор" },
-              { logo: logoFabrikant, name: "Фабрикантъ", role: "Коммерческий партнёр" },
+              { logo: logoFpg, name: "Фонд Президентских грантов", role: "Генеральный партнёр", invert: true },
+              { logo: logoMvp, name: "MVP", role: "Технический партнёр", invert: false },
+              { logo: logoCyberx, name: "CyberX", role: "Технический партнёр, спонсор", invert: false },
+              { logo: logoFabrikant, name: "Фабрикантъ", role: "Коммерческий партнёр", invert: true },
             ].map((partner) => (
               <div key={partner.name} className="bento-card hud-corner p-5 text-center group flex flex-col items-center justify-center">
                 <div className="w-20 h-20 mx-auto mb-3 flex items-center justify-center">
-                  <img src={partner.logo} alt={partner.name} className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
+                  <img src={partner.logo} alt={partner.name} className={`max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity ${partner.invert ? "invert brightness-200" : ""}`} />
                 </div>
                 <div className="font-display text-xs font-bold group-hover:text-primary transition-colors">{partner.name}</div>
                 <div className="font-mono text-[9px] text-muted-foreground mt-1">{partner.role}</div>
