@@ -65,16 +65,14 @@ const team = [
   { name: "Жинжак Максим Владимирович", role: "Генеральный секретарь", desc: "PR-направления и связи с общественностью" },
 ];
 
-const STORAGE_BASE = "https://qjebwrrpdfvedmmoksjc.supabase.co/storage/v1/object/public/documents";
-
 const documents = [
-  { name: "Устав ФКС РК", format: "PDF", href: `${STORAGE_BASE}/ustav_fks_2026.pdf` },
-  { name: "Пользовательское соглашение", format: "PDF", href: `${STORAGE_BASE}/polzovatelskoe_soglashenie.pdf` },
-  { name: "Публичная оферта", format: "PDF", href: `${STORAGE_BASE}/publichnaya_oferta.pdf` },
-  { name: "Политика обработки персональных данных", format: "PDF", href: `${STORAGE_BASE}/politika_opd.pdf` },
-  { name: "Согласие на обработку персональных данных", format: "PDF", href: `${STORAGE_BASE}/soglasie_opd.pdf` },
-  { name: "Согласие на получение рассылки", format: "PDF", href: `${STORAGE_BASE}/soglasie_ptl.pdf` },
-  { name: "Положение о безопасности платежей и возвратах", format: "PDF", href: `${STORAGE_BASE}/polozhenie_bezopasnost_platezhey.pdf` },
+  { name: "Устав ФКС РК", format: "PDF", href: "/docs/ustav_fks_2026.pdf" },
+  { name: "Пользовательское соглашение", format: "PDF", href: "/docs/polzovatelskoe_soglashenie.pdf" },
+  { name: "Публичная оферта", format: "PDF", href: "/docs/publichnaya_oferta.pdf" },
+  { name: "Политика обработки персональных данных", format: "PDF", href: "/docs/politika_opd.pdf" },
+  { name: "Согласие на обработку персональных данных", format: "PDF", href: "/docs/soglasie_opd.pdf" },
+  { name: "Согласие на получение рассылки", format: "PDF", href: "/docs/soglasie_ptl.pdf" },
+  { name: "Положение о безопасности платежей и возвратах", format: "PDF", href: "/docs/polozhenie_bezopasnost_platezhey.pdf" },
 ];
 
 const ctaActions = [
