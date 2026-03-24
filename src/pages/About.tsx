@@ -287,7 +287,7 @@ const About = () => {
                   <div className="font-mono text-[9px] text-muted-foreground mt-0.5">{doc.format}</div>
                 </div>
                 <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-              </div>
+              </a>
             ))}
           </div>
         </section>
