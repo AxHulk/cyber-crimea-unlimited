@@ -263,7 +263,7 @@ const About = () => {
             ].map((partner) => (
               <div key={partner.name} className="bento-card hud-corner p-5 text-center group flex flex-col items-center justify-center">
                 <div className="w-20 h-20 mx-auto mb-3 flex items-center justify-center">
-                  <img src={partner.logo} alt={partner.name} className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
+                  <img src={partner.logo} alt={partner.name} className={`max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity ${partner.invert ? "invert brightness-200" : ""}`} />
                 </div>
                 <div className="font-display text-xs font-bold group-hover:text-primary transition-colors">{partner.name}</div>
                 <div className="font-mono text-[9px] text-muted-foreground mt-1">{partner.role}</div>
