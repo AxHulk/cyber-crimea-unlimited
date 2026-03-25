@@ -303,6 +303,34 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 11,
+    name: "CyberX",
+    city: "Севастополь",
+    address: "ул. Генерала Хрюкина, 6",
+    rating: 5.0,
+    reviews: 91,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "console", "bar"],
+    halls: [
+      { name: "Standart", gpu: "RTX 3060", cpu: "i5-12400F", monitor: "144 Hz", priceDay: 130, priceNight: 150, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "VIP Zone", gpu: "RTX 4070 Super", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 170, priceNight: 190, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "Super VIP", gpu: "RTX 5060 Ti", cpu: "AMD Ryzen 5 7500F", monitor: "240 Hz", priceDay: 230, priceNight: 250, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "TRIO Zone", gpu: "RTX 4070 Super", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 250, priceNight: 270, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "DUO Zone", gpu: "RTX 4070 Super", cpu: "i5-13400F", monitor: "240 Hz", priceDay: 290, priceNight: 310, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "Solo Zone", gpu: "RTX 5080", cpu: "i5-14700F", monitor: "360 Hz", priceDay: 330, priceNight: 350, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "PS 5 Standart", priceDay: 350, priceNight: 400, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "PS 5 VIP", priceDay: 400, priceNight: 450, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/68287539046",
+      booking: "https://t.me/cyberx_sev",
+      vk: "https://vk.com/cyberx_sev",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -657,8 +685,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "10", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "40", color: "text-neon-green" },
+              { label: "ПЛОЩАДОК В КРЫМУ", value: "11", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "48", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.99 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
