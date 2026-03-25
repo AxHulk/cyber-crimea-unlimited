@@ -482,6 +482,30 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 18,
+    name: "Rampage Arena",
+    city: "Феодосия",
+    address: "бул. Старшинова, 12Р",
+    rating: 4.8,
+    reviews: 71,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "console"],
+    halls: [
+      { name: "Стандарт", gpu: "RTX 3060 Ti", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 100, priceNight: 120, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "VIP", gpu: "RTX 4070 Ti", cpu: "i7-12700KF", monitor: "280 Hz", priceDay: 150, priceNight: 170, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "DUO", gpu: "RTX 4070 Super", cpu: "i5-14600KF", monitor: "360 Hz", priceDay: 200, priceNight: 240, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "PS 5", priceDay: 300, priceNight: 300, timeDay: "Круглосуточно", timeNight: "" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/48824367382",
+      booking: "https://t.me/+79787191818",
+      vk: "https://vk.com/rampage_feo",
+    },
+    ratingDetails: { hardware: 4.8, atmosphere: 4.8, cleanliness: 4.8, staff: 4.8 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -836,9 +860,9 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-{ label: "ПЛОЩАДОК В КРЫМУ", value: "17", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "79", color: "text-neon-green" },
-              { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.98 ★", color: "text-neon-green" },
+{ label: "ПЛОЩАДОК В КРЫМУ", value: "18", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "83", color: "text-neon-green" },
+              { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.97 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
               <div key={s.label} className="bento-card hud-corner p-5 text-center">
