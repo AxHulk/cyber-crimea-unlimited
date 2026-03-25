@@ -27,7 +27,7 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-const cities = ["Все", "Симферополь", "Севастополь", "Ялта", "Керчь", "Евпатория", "Феодосия", "Первомайское", "Белогорск"];
+const cities = ["Все", "Симферополь", "Севастополь", "Ялта", "Керчь", "Евпатория", "Феодосия", "Первомайское", "Белогорск", "Джанкой"];
 
 interface Hall {
   name: string;
@@ -552,6 +552,29 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 4.6, atmosphere: 4.6, cleanliness: 4.6, staff: 4.6 },
   },
+  {
+    id: 21,
+    name: "True Gamers",
+    city: "Джанкой",
+    address: "ул. Толстого, 30Б",
+    rating: 5.0,
+    reviews: 58,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "bar", "console"],
+    halls: [
+      { name: "Normal", gpu: "RTX 3060 Ti", cpu: "i5-12400F", monitor: "144 Hz", priceDay: 130, priceNight: 140, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "Bootcamp", gpu: "RTX 4060 Ti", cpu: "i5-12600KF", monitor: "170 Hz", priceDay: 150, priceNight: 160, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "PS 5", priceDay: 300, priceNight: 350, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+    ],
+    links: {
+      yandex: "https://yandex.com/profile/25180462380",
+      booking: "https://t.me/truegamersdzhankoy",
+      vk: "https://vk.com/truegamers_djankoy",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -906,9 +929,9 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-{ label: "ПЛОЩАДОК В КРЫМУ", value: "20", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "89", color: "text-neon-green" },
-              { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.96 ★", color: "text-neon-green" },
+{ label: "ПЛОЩАДОК В КРЫМУ", value: "21", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "92", color: "text-neon-green" },
+              { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.97 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
               <div key={s.label} className="bento-card hud-corner p-5 text-center">
