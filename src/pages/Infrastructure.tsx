@@ -82,6 +82,32 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 4.9, staff: 5.0 },
   },
+  {
+    id: 2,
+    name: "CyberX Центральный",
+    city: "Симферополь",
+    address: "ул. Пушкина, 5, этаж цокольный",
+    rating: 5.0,
+    reviews: 573,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "09:00–00:00",
+    zones: ["bootcamp", "vip", "bar", "console"],
+    halls: [
+      { name: "Стандарт", gpu: "GTX 1660 TI", cpu: "i5-9400F", monitor: "144 Hz", priceDay: 120, priceNight: 130 },
+      { name: "Мидл", gpu: "RTX 2070 SUPER", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 150, priceNight: 170 },
+      { name: "Випка", gpu: "RTX 4070 TI", cpu: "i5-12600KF", monitor: "240 Hz", priceDay: 180, priceNight: 200 },
+      { name: "Имбудка", gpu: "RTX 5070 TI", cpu: "Ryzen 7 9800X3D", monitor: "400 Hz", priceDay: 290, priceNight: 330 },
+      { name: "ДУО", gpu: "RTX 5070 TI", cpu: "Ryzen 7 9800X3D", monitor: "400 Hz", priceDay: 320, priceNight: 360 },
+      { name: "PS5 Лаунж", priceDay: 400, priceNight: 400 },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/115521029721",
+      booking: "https://cyberx-center.ru",
+      vk: "https://vk.com/cyberx.simferopol",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -426,8 +452,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "1", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "4", color: "text-neon-green" },
+              { label: "ПЛОЩАДОК В КРЫМУ", value: "2", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "10", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "5.0 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
