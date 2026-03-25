@@ -27,7 +27,7 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-const cities = ["Все", "Симферополь", "Севастополь", "Ялта", "Керчь", "Евпатория", "Феодосия", "Первомайское"];
+const cities = ["Все", "Симферополь", "Севастополь", "Ялта", "Керчь", "Евпатория", "Феодосия", "Первомайское", "Белогорск"];
 
 interface Hall {
   name: string;
@@ -528,6 +528,29 @@ const clubs: Club[] = [
       vk: "https://vk.com/siriuscyberclub",
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
+  {
+    id: 20,
+    name: "Rampage Arena",
+    city: "Белогорск",
+    address: "ул. Луначарского, 38",
+    rating: 4.6,
+    reviews: 67,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "console"],
+    halls: [
+      { name: "Стандарт", gpu: "RTX 4060", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 100, priceNight: 100, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "VIP", gpu: "RTX 4070 Ti", cpu: "i7-12700KF", monitor: "240 Hz", priceDay: 150, priceNight: 150, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "PS 5", priceDay: 300, priceNight: 300, timeDay: "Круглосуточно", timeNight: "" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/32713143434",
+      booking: "https://t.me/rampagearena",
+      vk: "https://vk.com/rampage_bgk",
+    },
+    ratingDetails: { hardware: 4.6, atmosphere: 4.6, cleanliness: 4.6, staff: 4.6 },
   },
 ];
 
