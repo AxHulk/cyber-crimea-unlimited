@@ -204,6 +204,27 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 4.9, atmosphere: 4.9, cleanliness: 4.9, staff: 4.9 },
   },
+  {
+    id: 7,
+    name: "Мантикора Москольцо",
+    city: "Симферополь",
+    address: "Киевская улица, 100А, этаж 2",
+    rating: 5.0,
+    reviews: 205,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip"],
+    halls: [
+      { name: "Standart", gpu: "nVidia 3080 Super", cpu: "i5-10400F", monitor: "240 Hz", priceDay: 100, priceNight: 100, timeDay: "Круглосуточно", timeNight: "Круглосуточно" },
+    ],
+    links: {
+      yandex: "https://yandex.com/profile/156722418943",
+      booking: "https://t.me/manticore_Cyber",
+      vk: "https://vk.com/manticore_cyber",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -558,9 +579,9 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "6", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "21", color: "text-neon-green" },
-              { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.98 ★", color: "text-neon-green" },
+              { label: "ПЛОЩАДОК В КРЫМУ", value: "7", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "22", color: "text-neon-green" },
+              { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.99 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
               <div key={s.label} className="bento-card hud-corner p-5 text-center">
