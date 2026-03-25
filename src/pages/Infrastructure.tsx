@@ -277,6 +277,32 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 10,
+    name: "Полигон",
+    city: "Севастополь",
+    address: "просп. Юрия Гагарина, 8, этаж 3",
+    rating: 5.0,
+    reviews: 349,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["bootcamp", "vip", "bar", "console", "streamer"],
+    halls: [
+      { name: "Standart", gpu: "RTX 3060 Ti", cpu: "Ryzen 5 5600", monitor: "240 Hz", priceDay: 140, priceNight: 140, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "Twin", gpu: "RTX 3060 12 Gb", cpu: "Ryzen 5 5600X", monitor: "280 Hz", priceDay: 160, priceNight: 160, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "VIP", gpu: "RTX 3070 Ti", cpu: "Ryzen 7 5700X3D", monitor: "300 Hz", priceDay: 180, priceNight: 180, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "Premium", gpu: "RTX 3080 Ti", cpu: "i5-14600KF", monitor: "390 Hz", priceDay: 210, priceNight: 210, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "Stream", gpu: "RTX 4060 Ti", cpu: "i5-12490F", monitor: "280 Hz", priceDay: 250, priceNight: 250, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "PS 5 VIP", priceDay: 350, priceNight: 350, timeDay: "Круглосуточно", timeNight: "" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/162239332806",
+      booking: "https://poligonarena.ru/",
+      vk: "https://vk.com/arenapoligon",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -631,8 +657,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "9", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "34", color: "text-neon-green" },
+              { label: "ПЛОЩАДОК В КРЫМУ", value: "10", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "40", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.99 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
