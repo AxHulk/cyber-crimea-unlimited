@@ -254,6 +254,29 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 9,
+    name: "Кибер Медведь",
+    city: "Симферополь",
+    address: "Парковая улица, 1к2, Белоглинка, этаж 1",
+    rating: 5.0,
+    reviews: 113,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "console"],
+    halls: [
+      { name: "Standart", gpu: "RTX 4070", cpu: "i5-13400F", monitor: "180 Hz", priceDay: 130, priceNight: 130, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "VIP", gpu: "RTX 4070 Super", cpu: "i5-13500F", monitor: "240 Hz", priceDay: 150, priceNight: 150, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "PS 5", priceDay: 300, priceNight: 300, timeDay: "Круглосуточно", timeNight: "" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/135661946144",
+      booking: "tel:+79790073404",
+      vk: "https://vk.com/cyberbeargres_82",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -608,8 +631,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "8", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "31", color: "text-neon-green" },
+              { label: "ПЛОЩАДОК В КРЫМУ", value: "9", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "34", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.99 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
