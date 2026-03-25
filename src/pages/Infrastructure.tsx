@@ -35,6 +35,8 @@ interface Hall {
   monitor?: string;
   priceDay: number;
   priceNight: number;
+  timeDay?: string;
+  timeNight?: string;
 }
 
 interface Club {
@@ -70,10 +72,10 @@ const clubs: Club[] = [
     hours: "24/7",
     zones: ["bootcamp", "vip", "bar", "console"],
     halls: [
-      { name: "Prime", gpu: "GeForce 5060", cpu: "AMD Ryzen 5 8400F", monitor: "240 Hz", priceDay: 149, priceNight: 169 },
-      { name: "Squad", gpu: "GeForce 5070", cpu: "AMD Ryzen 5 7500F", monitor: "280 Hz", priceDay: 189, priceNight: 219 },
-      { name: "Bootcamp", gpu: "GeForce 4070 TI", cpu: "i5-13600KF", monitor: "270 Hz", priceDay: 239, priceNight: 269 },
-      { name: "PS5 Zone", priceDay: 449, priceNight: 499 },
+      { name: "Prime", gpu: "GeForce 5060", cpu: "AMD Ryzen 5 8400F", monitor: "240 Hz", priceDay: 149, priceNight: 169, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "Squad", gpu: "GeForce 5070", cpu: "AMD Ryzen 5 7500F", monitor: "280 Hz", priceDay: 189, priceNight: 219, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "Bootcamp", gpu: "GeForce 4070 TI", cpu: "i5-13600KF", monitor: "270 Hz", priceDay: 239, priceNight: 269, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "PS5 Zone", priceDay: 449, priceNight: 499, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
     ],
     links: {
       yandex: "https://yandex.ru/profile/86547315556",
@@ -94,12 +96,12 @@ const clubs: Club[] = [
     hours: "09:00–00:00",
     zones: ["bootcamp", "vip", "bar", "console"],
     halls: [
-      { name: "Стандарт", gpu: "GTX 1660 TI", cpu: "i5-9400F", monitor: "144 Hz", priceDay: 120, priceNight: 130 },
-      { name: "Мидл", gpu: "RTX 2070 SUPER", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 150, priceNight: 170 },
-      { name: "Випка", gpu: "RTX 4070 TI", cpu: "i5-12600KF", monitor: "240 Hz", priceDay: 180, priceNight: 200 },
-      { name: "Имбудка", gpu: "RTX 5070 TI", cpu: "Ryzen 7 9800X3D", monitor: "400 Hz", priceDay: 290, priceNight: 330 },
-      { name: "ДУО", gpu: "RTX 5070 TI", cpu: "Ryzen 7 9800X3D", monitor: "400 Hz", priceDay: 320, priceNight: 360 },
-      { name: "PS5 Лаунж", priceDay: 400, priceNight: 400 },
+      { name: "Стандарт", gpu: "GTX 1660 TI", cpu: "i5-9400F", monitor: "144 Hz", priceDay: 120, priceNight: 130, timeDay: "09:00–17:00", timeNight: "17:00–00:00" },
+      { name: "Мидл", gpu: "RTX 2070 SUPER", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 150, priceNight: 170, timeDay: "09:00–17:00", timeNight: "17:00–00:00" },
+      { name: "Випка", gpu: "RTX 4070 TI", cpu: "i5-12600KF", monitor: "240 Hz", priceDay: 180, priceNight: 200, timeDay: "09:00–17:00", timeNight: "17:00–00:00" },
+      { name: "Имбудка", gpu: "RTX 5070 TI", cpu: "Ryzen 7 9800X3D", monitor: "400 Hz", priceDay: 290, priceNight: 330, timeDay: "09:00–17:00", timeNight: "17:00–00:00" },
+      { name: "ДУО", gpu: "RTX 5070 TI", cpu: "Ryzen 7 9800X3D", monitor: "400 Hz", priceDay: 320, priceNight: 360, timeDay: "09:00–17:00", timeNight: "17:00–00:00" },
+      { name: "PS5 Лаунж", priceDay: 400, priceNight: 400, timeDay: "09:00–17:00", timeNight: "17:00–00:00" },
     ],
     links: {
       yandex: "https://yandex.ru/profile/115521029721",
@@ -392,12 +394,12 @@ export default function Infrastructure() {
                             <div className="font-display text-sm font-bold text-foreground">{hall.name}</div>
                             <div className="flex items-center gap-3">
                               <div className="text-right">
-                                <div className="font-mono text-[9px] text-muted-foreground">08:00–17:00</div>
+                                <div className="font-mono text-[9px] text-muted-foreground">{hall.timeDay || "08:00–17:00"}</div>
                                 <div className="font-display text-sm font-bold text-neon-green">{hall.priceDay} ₽/ч</div>
                               </div>
                               <div className="w-px h-8 bg-border" />
                               <div className="text-right">
-                                <div className="font-mono text-[9px] text-muted-foreground">17:00–08:00</div>
+                                <div className="font-mono text-[9px] text-muted-foreground">{hall.timeNight || "17:00–08:00"}</div>
                                 <div className="font-display text-sm font-bold text-neon-cyan">{hall.priceNight} ₽/ч</div>
                               </div>
                             </div>
