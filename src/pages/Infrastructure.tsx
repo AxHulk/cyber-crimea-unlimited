@@ -605,16 +605,85 @@ function getBestSpec(halls: Hall[]) {
   return { gpu: best.gpu!, cpu: best.cpu!, monitor: best.monitor! };
 }
 
+const GPU_RANKS: Record<string, number> = {
+  "RTX 5080": 100, "GeForce 5080": 100,
+  "RTX 5070 Ti": 95, "GeForce 5070 Ti": 95,
+  "RTX 5070": 90, "GeForce 5070": 90,
+  "RTX 5060": 85, "GeForce 5060": 85,
+  "RTX 4090": 80, "GeForce 4090": 80,
+  "RTX 4080": 78, "GeForce 4080": 78,
+  "RTX 4070 Ti Super": 76, "GeForce 4070 Ti Super": 76,
+  "RTX 4070 TI": 75, "GeForce 4070 TI": 75,
+  "RTX 4070 Ti": 75, "GeForce 4070 Ti": 75,
+  "RTX 4070 Super": 73, "GeForce 4070 Super": 73,
+  "RTX 4070": 70, "GeForce 4070": 70,
+  "RTX 4060 Ti": 65, "GeForce 4060 Ti": 65,
+  "RTX 4060": 60, "GeForce 4060": 60,
+  "RTX 3060 Ti": 50, "GeForce 3060 Ti": 50,
+  "RTX 3060": 45, "GeForce 3060": 45,
+  "RTX 2060 Super": 35, "GeForce 2060 Super": 35,
+  "RTX 2060": 30, "GeForce 2060": 30,
+  "GTX 1660 Super": 20, "GeForce 1660 Super": 20,
+};
+
+function getGpuRank(gpu: string): number {
+  if (GPU_RANKS[gpu] !== undefined) return GPU_RANKS[gpu];
+  for (const [key, val] of Object.entries(GPU_RANKS)) {
+    if (gpu.toLowerCase().includes(key.toLowerCase())) return val;
+  }
+  return 0;
+}
+
+function getBestGpuRank(halls: Hall[]): number {
+  return Math.max(0, ...halls.filter((h) => h.gpu).map((h) => getGpuRank(h.gpu!)));
+}
+
+function getMinPrice(halls: Hall[]): number {
+  const pcHalls = halls.filter((h) => h.gpu);
+  if (pcHalls.length === 0) return Infinity;
+  return Math.min(...pcHalls.map((h) => h.priceDay));
+}
+
+type SortOption = "rating" | "reviews" | "gpu" | "price";
+
+const SORT_OPTIONS: { key: SortOption; label: string }[] = [
+  { key: "rating", label: "ПО РЕЙТИНГУ" },
+  { key: "reviews", label: "ПО ОЦЕНКАМ" },
+  { key: "gpu", label: "ПО ВИДЕОКАРТЕ" },
+  { key: "price", label: "ПО ЦЕНЕ ↑" },
+];
+
+function sortClubs(list: Club[], sortBy: SortOption): Club[] {
+  return [...list].sort((a, b) => {
+    switch (sortBy) {
+      case "rating":
+        return b.rating - a.rating || b.reviews - a.reviews;
+      case "reviews":
+        return b.reviews - a.reviews;
+      case "gpu":
+        return getBestGpuRank(b.halls) - getBestGpuRank(a.halls);
+      case "price":
+        return getMinPrice(a.halls) - getMinPrice(b.halls);
+      default:
+        return 0;
+    }
+  });
+}
+
 export default function Infrastructure() {
   const [selectedCity, setSelectedCity] = useState("Все");
   const [openNow, setOpenNow] = useState(false);
   const [selectedClub, setSelectedClub] = useState<number | null>(null);
+  const [sortBy, setSortBy] = useState<SortOption>("rating");
 
-  const filtered = clubs.filter((c) => {
-    if (selectedCity !== "Все" && c.city !== selectedCity) return false;
-    if (openNow && c.status !== "open") return false;
-    return true;
-  });
+  const filtered = sortClubs(
+    clubs.filter((c) => {
+      if (selectedCity !== "Все" && c.city !== selectedCity) return false;
+      if (openNow && c.status !== "open") return false;
+      return true;
+    }),
+    sortBy
+  );
 
   const activeClub = selectedClub !== null ? clubs.find((c) => c.id === selectedClub) : null;
 
@@ -632,7 +701,9 @@ export default function Infrastructure() {
               ПЛОЩАДКИ <span className="text-neon-cyan">//</span> КРЫМ
             </h1>
             <p className="font-mono text-sm text-muted-foreground max-w-2xl mx-auto">
-              Каталог киберспортивных площадок Крыма. Оборудование, рейтинги — всё в одном месте.
+              Каталог киберспортивных площадок Крыма.
+              <br />
+              Оборудование, рейтинги — всё в одном месте.
             </p>
           </motion.div>
         </div>
@@ -669,6 +740,24 @@ export default function Infrastructure() {
             >
               {openNow ? "● " : "○ "}ОТКРЫТО СЕЙЧАС
             </button>
+          </motion.div>
+
+          {/* Sort row */}
+          <motion.div variants={fadeUp} className="mb-6 flex flex-wrap items-center gap-3">
+            <div className="font-mono text-[10px] tracking-widest text-neon-cyan mr-2">// СОРТИРОВКА</div>
+            {SORT_OPTIONS.map((opt) => (
+              <button
+                key={opt.key}
+                onClick={() => setSortBy(opt.key)}
+                className={`px-3 py-1.5 font-mono text-[10px] tracking-wider border transition-all
+                  ${sortBy === opt.key
+                    ? "border-neon-cyan text-neon-cyan bg-neon-cyan/10"
+                    : "border-border text-muted-foreground hover:border-neon-cyan/40 hover:text-foreground"
+                  }`}
+              >
+                {opt.label}
+              </button>
+            ))}
           </motion.div>
 
           {/* Main grid: club list + detail */}
