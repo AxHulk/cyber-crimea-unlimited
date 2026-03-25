@@ -182,6 +182,28 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 6,
+    name: "Rampage Arena Кечкеметская",
+    city: "Симферополь",
+    address: "Кечкеметская улица, 190А, этаж 2",
+    rating: 4.9,
+    reviews: 74,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip"],
+    halls: [
+      { name: "Стандарт", gpu: "RTX 3060 TI", cpu: "i5-11400F", monitor: "144 Hz", priceDay: 100, priceNight: 120, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "VIP", gpu: "RTX 4070", cpu: "i7-14700F", monitor: "144 Hz", priceDay: 150, priceNight: 170, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/88108575552",
+      booking: "https://t.me/+79786483830",
+      vk: "https://vk.com/rampage_borodina",
+    },
+    ratingDetails: { hardware: 4.9, atmosphere: 4.9, cleanliness: 4.9, staff: 4.9 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -536,9 +558,9 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "5", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "19", color: "text-neon-green" },
-              { label: "СРЕДНИЙ РЕЙТИНГ", value: "5.0 ★", color: "text-neon-green" },
+              { label: "ПЛОЩАДОК В КРЫМУ", value: "6", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "21", color: "text-neon-green" },
+              { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.98 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
               <div key={s.label} className="bento-card hud-corner p-5 text-center">
