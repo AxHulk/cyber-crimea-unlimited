@@ -331,6 +331,29 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 12,
+    name: "CyberX Очаковцев",
+    city: "Севастополь",
+    address: "ул. Очаковцев, 52",
+    status: "open" as const,
+    rating: 5.0,
+    reviewCount: 75,
+    zones: ["vip", "console"],
+    halls: [
+      { name: "Standart", gpu: "RTX 4060", cpu: "I5-12400F", monitor: "240 Hz", prices: [{ label: "Пн–Чт", value: "140 ₽/ч" }, { label: "Пт–Вс", value: "160 ₽/ч" }] },
+      { name: "VIP Zone", gpu: "RTX 5070 Super", cpu: "I5-14600KF", monitor: "240 Hz", prices: [{ label: "Пн–Чт", value: "170 ₽/ч" }, { label: "Пт–Вс", value: "190 ₽/ч" }] },
+      { name: "TRIO Zone", gpu: "RTX 5070", cpu: "I5-14600KF", monitor: "240 Hz", prices: [{ label: "Пн–Чт", value: "220 ₽/ч" }, { label: "Пт–Вс", value: "240 ₽/ч" }] },
+      { name: "DUO Zone", gpu: "RTX 5070", cpu: "I5-14600KF", monitor: "240 Hz", prices: [{ label: "Пн–Чт", value: "240 ₽/ч" }, { label: "Пт–Вс", value: "260 ₽/ч" }] },
+      { name: "TV Zone (PS 5)", prices: [{ label: "Круглосуточно", value: "300 ₽/ч" }] },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/36441415799",
+      booking: "https://t.me/cyberxsev",
+      vk: "https://vk.com/club233554288",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
