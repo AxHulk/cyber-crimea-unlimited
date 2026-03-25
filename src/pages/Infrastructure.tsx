@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { ExternalLink } from "lucide-react";
 import HudNavbar from "@/components/HudNavbar";
 import Footer from "@/components/Footer";
 
@@ -11,13 +12,9 @@ import iconConsole from "@/assets/infrastructure/icon_console.png";
 import iconBootcamp from "@/assets/infrastructure/icon_bootcamp.png";
 import iconBar from "@/assets/infrastructure/icon_bar.png";
 import iconVip from "@/assets/infrastructure/icon_vip.png";
-import iconStreaming from "@/assets/infrastructure/icon_streaming.png";
 import iconAtmosphere from "@/assets/infrastructure/icon_atmosphere.png";
 import iconCleanliness from "@/assets/infrastructure/icon_cleanliness.png";
 import iconStaff from "@/assets/infrastructure/icon_staff.png";
-import iconSeatFree from "@/assets/infrastructure/icon_seat_free.png";
-import iconSeatOccupied from "@/assets/infrastructure/icon_seat_occupied.png";
-import iconSeatReserved from "@/assets/infrastructure/icon_seat_reserved.png";
 
 const stagger = {
   hidden: {},
@@ -31,95 +28,67 @@ const fadeUp = {
 
 const cities = ["Все", "Симферополь", "Севастополь", "Ялта", "Керчь", "Евпатория"];
 
-const clubs = [
+interface Hall {
+  name: string;
+  gpu?: string;
+  cpu?: string;
+  monitor?: string;
+  priceDay: number;
+  priceNight: number;
+}
+
+interface Club {
+  id: number;
+  name: string;
+  city: string;
+  address: string;
+  rating: number;
+  reviews: number;
+  ratingSource: string;
+  status: string;
+  hours: string;
+  zones: string[];
+  halls: Hall[];
+  links: {
+    yandex?: string;
+    booking?: string;
+    vk?: string;
+  };
+  ratingDetails: { hardware: number; atmosphere: number; cleanliness: number; staff: number };
+}
+
+const clubs: Club[] = [
   {
     id: 1,
-    name: "CyberHub Crimea",
+    name: "Дофамин",
     city: "Симферополь",
-    address: "ул. Пушкина, 42",
-    rating: 4.9,
-    reviews: 127,
+    address: "Эстонская улица, 2, этаж 3",
+    rating: 5.0,
+    reviews: 349,
+    ratingSource: "Яндекс",
     status: "open",
-    hours: "до 06:00",
-    gpu: "RTX 4070 Ti",
-    monitors: "360Hz",
-    seats: { total: 60, free: 18, occupied: 35, reserved: 7 },
-    zones: ["bootcamp", "vip", "streaming", "bar"],
-    prices: { standard: 200, vip: 400, bootcamp: 1500 },
-    ratingDetails: { hardware: 4.9, atmosphere: 4.8, cleanliness: 4.7, staff: 4.9 },
-  },
-  {
-    id: 2,
-    name: "GG Arena",
-    city: "Севастополь",
-    address: "пр. Нахимова, 15",
-    rating: 4.7,
-    reviews: 89,
-    status: "open",
-    hours: "до 02:00",
-    gpu: "RTX 4060",
-    monitors: "240Hz",
-    seats: { total: 40, free: 12, occupied: 22, reserved: 6 },
-    zones: ["vip", "bar", "console"],
-    prices: { standard: 180, vip: 350 },
-    ratingDetails: { hardware: 4.6, atmosphere: 4.8, cleanliness: 4.5, staff: 4.7 },
-  },
-  {
-    id: 3,
-    name: "Pixel Zone",
-    city: "Ялта",
-    address: "ул. Игнатенко, 8",
-    rating: 4.5,
-    reviews: 56,
-    status: "open",
-    hours: "до 00:00",
-    gpu: "RTX 3060",
-    monitors: "144Hz",
-    seats: { total: 25, free: 8, occupied: 14, reserved: 3 },
-    zones: ["console"],
-    prices: { standard: 150 },
-    ratingDetails: { hardware: 4.3, atmosphere: 4.6, cleanliness: 4.5, staff: 4.4 },
-  },
-  {
-    id: 4,
-    name: "Frag Factory",
-    city: "Керчь",
-    address: "ул. Ленина, 72",
-    rating: 4.3,
-    reviews: 34,
-    status: "closed",
-    hours: "с 12:00",
-    gpu: "RTX 3060 Ti",
-    monitors: "165Hz",
-    seats: { total: 20, free: 0, occupied: 0, reserved: 0 },
-    zones: [],
-    prices: { standard: 130 },
-    ratingDetails: { hardware: 4.2, atmosphere: 4.4, cleanliness: 4.3, staff: 4.2 },
-  },
-  {
-    id: 5,
-    name: "NeonPlay",
-    city: "Евпатория",
-    address: "ул. Фрунзе, 31",
-    rating: 4.6,
-    reviews: 44,
-    status: "open",
-    hours: "до 04:00",
-    gpu: "RTX 4060 Ti",
-    monitors: "240Hz",
-    seats: { total: 30, free: 5, occupied: 20, reserved: 5 },
-    zones: ["bootcamp", "streaming"],
-    prices: { standard: 170, bootcamp: 1200 },
-    ratingDetails: { hardware: 4.5, atmosphere: 4.7, cleanliness: 4.6, staff: 4.5 },
+    hours: "24/7",
+    zones: ["bootcamp", "vip", "bar", "console"],
+    halls: [
+      { name: "Prime", gpu: "GeForce 5060", cpu: "AMD Ryzen 5 8400F", monitor: "240 Hz", priceDay: 149, priceNight: 169 },
+      { name: "Squad", gpu: "GeForce 5070", cpu: "AMD Ryzen 5 7500F", monitor: "280 Hz", priceDay: 189, priceNight: 219 },
+      { name: "Bootcamp", gpu: "GeForce 4070 TI", cpu: "i5-13600KF", monitor: "270 Hz", priceDay: 239, priceNight: 269 },
+      { name: "PS5 Zone", priceDay: 449, priceNight: 499 },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/86547315556",
+      booking: "https://taplink.cc/godpmn",
+      vk: "https://vk.com/godpmn",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 4.9, staff: 5.0 },
   },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
   bootcamp: { icon: iconBootcamp, label: "Буткемп" },
   vip: { icon: iconVip, label: "VIP" },
-  streaming: { icon: iconStreaming, label: "Стрим-зона" },
   bar: { icon: iconBar, label: "Бар" },
-  console: { icon: iconConsole, label: "Консоли" },
+  console: { icon: iconConsole, label: "Приставки" },
 };
 
 const ratingIcons = [
@@ -133,6 +102,13 @@ function StarRating({ value }: { value: number }) {
   return (
     <span className="font-mono text-xs text-neon-green">{value.toFixed(1)} ★</span>
   );
+}
+
+function getBestSpec(halls: Hall[]) {
+  const pcHalls = halls.filter((h) => h.gpu);
+  if (pcHalls.length === 0) return { gpu: "—", cpu: "—", monitor: "—" };
+  const best = pcHalls[pcHalls.length - 1];
+  return { gpu: best.gpu!, cpu: best.cpu!, monitor: best.monitor! };
 }
 
 export default function Infrastructure() {
@@ -159,10 +135,10 @@ export default function Infrastructure() {
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <div className="font-mono text-[10px] tracking-[0.4em] text-neon-cyan mb-3">// VENUES_&_CLUBS</div>
             <h1 className="font-display text-5xl md:text-7xl font-black tracking-tight text-foreground mb-4">
-              ИНФРАСТРУКТУРА <span className="text-neon-cyan">//</span> КРЫМ
+              ПЛОЩАДКИ <span className="text-neon-cyan">//</span> КРЫМ
             </h1>
             <p className="font-mono text-sm text-muted-foreground max-w-2xl mx-auto">
-              Каталог киберспортивных площадок Крыма. Оборудование, бронирование, рейтинги — всё в одном месте.
+              Каталог киберспортивных площадок Крыма. Оборудование, рейтинги — всё в одном месте.
             </p>
           </motion.div>
         </div>
@@ -211,64 +187,66 @@ export default function Infrastructure() {
                   <div className="font-mono text-sm text-muted-foreground">Нет площадок по фильтру</div>
                 </div>
               )}
-              {filtered.map((club) => (
-                <motion.div
-                  key={club.id}
-                  whileHover={{ scale: 1.01 }}
-                  onClick={() => setSelectedClub(club.id)}
-                  className={`bento-card hud-corner p-4 cursor-pointer transition-all ${
-                    selectedClub === club.id ? "border-neon-cyan neon-glow-cyan" : ""
-                  }`}
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <div className="font-display text-base font-bold text-foreground">{club.name}</div>
-                      <div className="font-mono text-[10px] text-muted-foreground">{club.city} · {club.address}</div>
+              {filtered.map((club) => {
+                const best = getBestSpec(club.halls);
+                return (
+                  <motion.div
+                    key={club.id}
+                    whileHover={{ scale: 1.01 }}
+                    onClick={() => setSelectedClub(club.id)}
+                    className={`bento-card hud-corner p-4 cursor-pointer transition-all ${
+                      selectedClub === club.id ? "border-neon-cyan neon-glow-cyan" : ""
+                    }`}
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <div className="font-display text-base font-bold text-foreground">{club.name}</div>
+                        <div className="font-mono text-[10px] text-muted-foreground">{club.city} · {club.address}</div>
+                      </div>
+                      <span className={`flex items-center gap-1.5 font-mono text-[10px] ${
+                        club.status === "open" ? "text-neon-green" : "text-destructive"
+                      }`}>
+                        <span className={`w-2 h-2 rounded-full ${club.status === "open" ? "bg-neon-green animate-pulse" : "bg-destructive"}`} />
+                        {club.status === "open" ? `Открыто ${club.hours}` : `Закрыто, откр. ${club.hours}`}
+                      </span>
                     </div>
-                    <span className={`flex items-center gap-1.5 font-mono text-[10px] ${
-                      club.status === "open" ? "text-neon-green" : "text-destructive"
-                    }`}>
-                      <span className={`w-2 h-2 rounded-full ${club.status === "open" ? "bg-neon-green animate-pulse" : "bg-destructive"}`} />
-                      {club.status === "open" ? `Открыто ${club.hours}` : `Закрыто, откр. ${club.hours}`}
-                    </span>
-                  </div>
 
-                  <div className="flex items-center gap-4 mb-3">
-                    <StarRating value={club.rating} />
-                    <span className="font-mono text-[9px] text-muted-foreground">{club.reviews} отзывов</span>
-                  </div>
+                    <div className="flex items-center gap-4 mb-3">
+                      <StarRating value={club.rating} />
+                      <span className="font-mono text-[9px] text-muted-foreground">{club.reviews} оценок · {club.ratingSource}</span>
+                    </div>
 
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <div className="flex items-center gap-1.5">
-                      <img src={iconGpu} alt="GPU" className="w-4 h-4" />
-                      <span className="font-mono text-[10px] text-neon-cyan">{club.gpu}</span>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <div className="flex items-center gap-1.5">
+                        <img src={iconGpu} alt="GPU" className="w-4 h-4" />
+                        <span className="font-mono text-[10px] text-neon-cyan">{best.gpu}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <img src={iconHardware} alt="CPU" className="w-4 h-4" />
+                        <span className="font-mono text-[10px] text-neon-cyan">{best.cpu}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <img src={iconMonitor} alt="Monitor" className="w-4 h-4" />
+                        <span className="font-mono text-[10px] text-neon-cyan">{best.monitor}</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <img src={iconMonitor} alt="Monitor" className="w-4 h-4" />
-                      <span className="font-mono text-[10px] text-neon-cyan">{club.monitors}</span>
-                    </div>
-                  </div>
 
-                  {/* Seat indicators */}
-                  <div className="flex items-center gap-4 mt-3 pt-3 border-t border-border">
-                    <div className="flex items-center gap-1">
-                      <img src={iconSeatFree} alt="Free" className="w-4 h-4" />
-                      <span className="font-mono text-[10px] text-neon-green">{club.seats.free}</span>
+                    {/* Zones preview */}
+                    <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border">
+                      {club.zones.map((z) => {
+                        const zone = zoneIcons[z];
+                        if (!zone) return null;
+                        return (
+                          <div key={z} className="flex items-center gap-1">
+                            <img src={zone.icon} alt={zone.label} className="w-4 h-4" />
+                            <span className="font-mono text-[9px] text-muted-foreground">{zone.label}</span>
+                          </div>
+                        );
+                      })}
                     </div>
-                    <div className="flex items-center gap-1">
-                      <img src={iconSeatOccupied} alt="Occupied" className="w-4 h-4" />
-                      <span className="font-mono text-[10px] text-destructive">{club.seats.occupied}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <img src={iconSeatReserved} alt="Reserved" className="w-4 h-4" />
-                      <span className="font-mono text-[10px] text-yellow-400">{club.seats.reserved}</span>
-                    </div>
-                    <span className="font-mono text-[9px] text-muted-foreground ml-auto">
-                      {club.seats.total} мест
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </motion.div>
 
             {/* Detail panel — right */}
@@ -293,51 +271,67 @@ export default function Infrastructure() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="font-display text-2xl font-black text-neon-green">{activeClub.rating}</div>
-                        <div className="font-mono text-[9px] text-muted-foreground">{activeClub.reviews} отзывов</div>
+                        <div className="font-display text-2xl font-black text-neon-green">{activeClub.rating.toFixed(1)}</div>
+                        <div className="font-mono text-[9px] text-muted-foreground">{activeClub.reviews} оценок · {activeClub.ratingSource}</div>
                       </div>
                     </div>
 
-                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 border font-mono text-[10px] tracking-wider ${
-                      activeClub.status === "open"
-                        ? "border-neon-green/40 text-neon-green bg-neon-green/5"
-                        : "border-destructive/40 text-destructive bg-destructive/5"
-                    }`}>
-                      <span className={`w-2 h-2 rounded-full ${
-                        activeClub.status === "open" ? "bg-neon-green animate-pulse" : "bg-destructive"
-                      }`} />
-                      {activeClub.status === "open" ? `ОТКРЫТО ${activeClub.hours}` : `ЗАКРЫТО · ОТКР. ${activeClub.hours}`}
+                    {/* External links */}
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {activeClub.links.yandex && (
+                        <a href={activeClub.links.yandex} target="_blank" rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border font-mono text-[10px] tracking-wider text-muted-foreground hover:border-neon-cyan/40 hover:text-neon-cyan transition-colors">
+                          <ExternalLink className="w-3 h-3" /> ЯНДЕКС
+                        </a>
+                      )}
+                      {activeClub.links.booking && (
+                        <a href={activeClub.links.booking} target="_blank" rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 border-2 border-neon-cyan bg-neon-cyan/10 font-mono text-[10px] tracking-wider text-neon-cyan hover:bg-neon-cyan/20 transition-colors neon-glow-cyan">
+                          <ExternalLink className="w-3 h-3" /> БРОНЬ
+                        </a>
+                      )}
+                      {activeClub.links.vk && (
+                        <a href={activeClub.links.vk} target="_blank" rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border font-mono text-[10px] tracking-wider text-muted-foreground hover:border-neon-purple/40 hover:text-neon-purple transition-colors">
+                          <ExternalLink className="w-3 h-3" /> VK
+                        </a>
+                      )}
                     </div>
                   </div>
 
                   {/* Equipment & Zones */}
                   <div className="grid grid-cols-2 gap-4">
-                    {/* Equipment */}
+                    {/* Equipment — best specs */}
                     <div className="bento-card hud-corner p-5">
                       <div className="font-mono text-[10px] tracking-widest text-neon-cyan mb-4">// ОБОРУДОВАНИЕ</div>
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-3 border border-border p-3 bg-muted/20">
-                          <img src={iconGpu} alt="GPU" className="w-8 h-8" />
-                          <div>
-                            <div className="font-mono text-[9px] text-muted-foreground">GPU</div>
-                            <div className="font-display text-sm font-bold text-foreground">{activeClub.gpu}</div>
+                      {(() => {
+                        const best = getBestSpec(activeClub.halls);
+                        return (
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-3 border border-border p-3 bg-muted/20">
+                              <img src={iconGpu} alt="GPU" className="w-8 h-8" />
+                              <div>
+                                <div className="font-mono text-[9px] text-muted-foreground">GPU</div>
+                                <div className="font-display text-sm font-bold text-foreground">{best.gpu}</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3 border border-border p-3 bg-muted/20">
+                              <img src={iconHardware} alt="CPU" className="w-8 h-8" />
+                              <div>
+                                <div className="font-mono text-[9px] text-muted-foreground">ПРОЦЕССОР</div>
+                                <div className="font-display text-sm font-bold text-foreground">{best.cpu}</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3 border border-border p-3 bg-muted/20">
+                              <img src={iconMonitor} alt="Monitor" className="w-8 h-8" />
+                              <div>
+                                <div className="font-mono text-[9px] text-muted-foreground">МОНИТОРЫ</div>
+                                <div className="font-display text-sm font-bold text-foreground">{best.monitor}</div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex items-center gap-3 border border-border p-3 bg-muted/20">
-                          <img src={iconMonitor} alt="Monitor" className="w-8 h-8" />
-                          <div>
-                            <div className="font-mono text-[9px] text-muted-foreground">МОНИТОРЫ</div>
-                            <div className="font-display text-sm font-bold text-foreground">{activeClub.monitors}</div>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3 border border-border p-3 bg-muted/20">
-                          <img src={iconHardware} alt="Hardware" className="w-8 h-8" />
-                          <div>
-                            <div className="font-mono text-[9px] text-muted-foreground">ПЕРИФЕРИЯ</div>
-                            <div className="font-display text-sm font-bold text-foreground">Pro Gaming</div>
-                          </div>
-                        </div>
-                      </div>
+                        );
+                      })()}
                     </div>
 
                     {/* Zones */}
@@ -349,6 +343,7 @@ export default function Infrastructure() {
                         <div className="grid grid-cols-2 gap-2">
                           {activeClub.zones.map((z) => {
                             const zone = zoneIcons[z];
+                            if (!zone) return null;
                             return (
                               <div key={z} className="flex items-center gap-2 border border-border p-3 bg-muted/20 hover:border-primary/40 transition-colors">
                                 <img src={zone.icon} alt={zone.label} className="w-7 h-7" />
@@ -361,70 +356,50 @@ export default function Infrastructure() {
                     </div>
                   </div>
 
-                  {/* Seat map + Pricing */}
-                  <div className="grid grid-cols-2 gap-4">
-                    {/* Seat availability */}
-                    <div className="bento-card hud-corner p-5">
-                      <div className="font-mono text-[10px] tracking-widest text-neon-green mb-4">// ЗАГРУЗКА ЗАЛА</div>
-
-                      {/* Visual seat grid */}
-                      <div className="grid grid-cols-10 gap-1 mb-4">
-                        {Array.from({ length: activeClub.seats.total }).map((_, i) => {
-                          let color = "bg-neon-green/60 border-neon-green/30";
-                          if (i < activeClub.seats.occupied) color = "bg-destructive/60 border-destructive/30";
-                          else if (i < activeClub.seats.occupied + activeClub.seats.reserved) color = "bg-yellow-400/60 border-yellow-400/30";
-                          return (
-                            <div key={i} className={`w-full aspect-square border ${color} rounded-[1px]`} />
-                          );
-                        })}
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-1">
-                            <img src={iconSeatFree} alt="Free" className="w-5 h-5" />
-                            <span className="font-mono text-[10px] text-neon-green">{activeClub.seats.free}</span>
+                  {/* Halls */}
+                  <div className="bento-card hud-corner p-5">
+                    <div className="font-mono text-[10px] tracking-widest text-neon-green mb-4">// ЗАЛЫ</div>
+                    <div className="space-y-3">
+                      {activeClub.halls.map((hall) => (
+                        <div key={hall.name} className="border border-border p-4 bg-muted/20 hover:border-neon-cyan/30 transition-colors">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="font-display text-sm font-bold text-foreground">{hall.name}</div>
+                            <div className="flex items-center gap-3">
+                              <div className="text-right">
+                                <div className="font-mono text-[9px] text-muted-foreground">08:00–17:00</div>
+                                <div className="font-display text-sm font-bold text-neon-green">{hall.priceDay} ₽/ч</div>
+                              </div>
+                              <div className="w-px h-8 bg-border" />
+                              <div className="text-right">
+                                <div className="font-mono text-[9px] text-muted-foreground">17:00–08:00</div>
+                                <div className="font-display text-sm font-bold text-neon-cyan">{hall.priceNight} ₽/ч</div>
+                              </div>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-1">
-                            <img src={iconSeatOccupied} alt="Occ" className="w-5 h-5" />
-                            <span className="font-mono text-[10px] text-destructive">{activeClub.seats.occupied}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <img src={iconSeatReserved} alt="Res" className="w-5 h-5" />
-                            <span className="font-mono text-[10px] text-yellow-400">{activeClub.seats.reserved}</span>
-                          </div>
+                          {hall.gpu && (
+                            <div className="flex items-center gap-4 flex-wrap">
+                              <div className="flex items-center gap-1.5">
+                                <img src={iconGpu} alt="GPU" className="w-4 h-4" />
+                                <span className="font-mono text-[10px] text-neon-cyan">{hall.gpu}</span>
+                              </div>
+                              <div className="flex items-center gap-1.5">
+                                <img src={iconHardware} alt="CPU" className="w-4 h-4" />
+                                <span className="font-mono text-[10px] text-neon-cyan">{hall.cpu}</span>
+                              </div>
+                              <div className="flex items-center gap-1.5">
+                                <img src={iconMonitor} alt="Monitor" className="w-4 h-4" />
+                                <span className="font-mono text-[10px] text-neon-cyan">{hall.monitor}</span>
+                              </div>
+                            </div>
+                          )}
+                          {!hall.gpu && (
+                            <div className="flex items-center gap-1.5">
+                              <img src={iconConsole} alt="Console" className="w-4 h-4" />
+                              <span className="font-mono text-[10px] text-neon-purple">PlayStation 5</span>
+                            </div>
+                          )}
                         </div>
-                        <span className="font-mono text-[9px] text-muted-foreground">{activeClub.seats.total} мест</span>
-                      </div>
-                    </div>
-
-                    {/* Pricing */}
-                    <div className="bento-card hud-corner p-5">
-                      <div className="font-mono text-[10px] tracking-widest text-neon-magenta mb-4">// ПРАЙС-ЛИСТ</div>
-                      <div className="space-y-2">
-                        {activeClub.prices.standard && (
-                          <div className="flex items-center justify-between border border-border p-3 bg-muted/20">
-                            <span className="font-mono text-[10px] text-foreground">Стандарт</span>
-                            <span className="font-display text-sm font-bold text-foreground">{activeClub.prices.standard} ₽/ч</span>
-                          </div>
-                        )}
-                        {activeClub.prices.vip && (
-                          <div className="flex items-center justify-between border border-border p-3 bg-muted/20">
-                            <span className="font-mono text-[10px] text-foreground">VIP-зал</span>
-                            <span className="font-display text-sm font-bold text-foreground">{activeClub.prices.vip} ₽/ч</span>
-                          </div>
-                        )}
-                        {activeClub.prices.bootcamp && (
-                          <div className="flex items-center justify-between border border-border p-3 bg-muted/20">
-                            <span className="font-mono text-[10px] text-foreground">Буткемп (5 мест)</span>
-                            <span className="font-display text-sm font-bold text-foreground">{activeClub.prices.bootcamp} ₽/ч</span>
-                          </div>
-                        )}
-                      </div>
-
-                      <button className="w-full mt-4 border-2 border-neon-cyan bg-neon-cyan/10 px-4 py-3 font-display text-sm tracking-wider text-neon-cyan hover:bg-neon-cyan/20 transition-colors neon-glow-cyan">
-                        ЗАБРОНИРОВАТЬ МЕСТО
-                      </button>
+                      ))}
                     </div>
                   </div>
 
@@ -451,10 +426,10 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "12", color: "text-neon-cyan" },
-              { label: "ИГРОВЫХ МЕСТ", value: "480+", color: "text-neon-green" },
-              { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.6 ★", color: "text-neon-green" },
-              { label: "БРОНИРОВАНИЙ / МЕС", value: "2,340", color: "text-neon-magenta" },
+              { label: "ПЛОЩАДОК В КРЫМУ", value: "1", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "4", color: "text-neon-green" },
+              { label: "СРЕДНИЙ РЕЙТИНГ", value: "5.0 ★", color: "text-neon-green" },
+              { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
               <div key={s.label} className="bento-card hud-corner p-5 text-center">
                 <div className={`font-display text-2xl font-black ${s.color}`}>{s.value}</div>
