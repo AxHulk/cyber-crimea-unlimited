@@ -182,6 +182,28 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 6,
+    name: "Rampage Arena Кечкеметская",
+    city: "Симферополь",
+    address: "Кечкеметская улица, 190А, этаж 2",
+    rating: 4.9,
+    reviews: 74,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip"],
+    halls: [
+      { name: "Стандарт", gpu: "RTX 3060 TI", cpu: "i5-11400F", monitor: "144 Hz", priceDay: 100, priceNight: 120, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "VIP", gpu: "RTX 4070", cpu: "i7-14700F", monitor: "144 Hz", priceDay: 150, priceNight: 170, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/88108575552",
+      booking: "https://t.me/+79786483830",
+      vk: "https://vk.com/rampage_borodina",
+    },
+    ratingDetails: { hardware: 4.9, atmosphere: 4.9, cleanliness: 4.9, staff: 4.9 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
