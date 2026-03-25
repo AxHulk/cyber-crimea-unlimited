@@ -136,6 +136,28 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 4,
+    name: "Cherema",
+    city: "Симферополь",
+    address: "Ростовская улица, 19Б",
+    rating: 5.0,
+    reviews: 196,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "console"],
+    halls: [
+      { name: "Стандарт (15 мест)", gpu: "RTX 4060", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 120, priceNight: 150, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "VIP (10 мест) / DUO VIP (2 места)", gpu: "RTX 4070", cpu: "i5-12400F", monitor: "300 Hz", priceDay: 150, priceNight: 180, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+    ],
+    links: {
+      yandex: "https://yandex.com/profile/164422127547",
+      booking: "https://vk.com/@cherema_cyber-bronirovanie",
+      vk: "https://vk.com/cherema_cyber",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -490,8 +512,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "3", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "13", color: "text-neon-green" },
+              { label: "ПЛОЩАДОК В КРЫМУ", value: "4", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "15", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "5.0 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
