@@ -27,7 +27,7 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-const cities = ["Все", "Симферополь", "Севастополь", "Ялта", "Керчь", "Евпатория", "Феодосия"];
+const cities = ["Все", "Симферополь", "Севастополь", "Ялта", "Керчь", "Евпатория", "Феодосия", "Первомайское"];
 
 interface Hall {
   name: string;
@@ -506,6 +506,29 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 4.8, atmosphere: 4.8, cleanliness: 4.8, staff: 4.8 },
   },
+  {
+    id: 19,
+    name: "Сириус",
+    city: "Первомайское",
+    address: "ул. Гагарина, 11",
+    rating: 5.0,
+    reviews: 32,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "console"],
+    halls: [
+      { name: "Standart", gpu: "RTX 2060 Super", cpu: "i5-13400F", monitor: "144 Hz", priceDay: 70, priceNight: 70, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "PlayStation 4", priceDay: 150, priceNight: 150, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "PlayStation 5", priceDay: 250, priceNight: 250, timeDay: "Круглосуточно", timeNight: "" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/194923375179",
+      booking: "https://t.me/siriuscyberclub",
+      vk: "https://vk.com/siriuscyberclub",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -860,8 +883,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-{ label: "ПЛОЩАДОК В КРЫМУ", value: "18", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "83", color: "text-neon-green" },
+{ label: "ПЛОЩАДОК В КРЫМУ", value: "19", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "86", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.97 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
