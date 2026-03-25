@@ -1,41 +1,35 @@
 
 
-## Plan: Redesign Infrastructure page with real club "Дофамин"
+## Plan: Hero text update + functional sorting/filters
 
-### Changes to `src/pages/Infrastructure.tsx`
+### 1. Hero block text (lines 631-635)
 
-**1. Remove booking button** — Delete the "ЗАБРОНИРОВАТЬ МЕСТО" button from the detail panel. Instead, add external links (Яндекс, Бронь, ВК) for each club.
+Split the subtitle into two lines:
+- Line 1: "Каталог киберспортивных площадок Крыма."
+- Line 2: "Оборудование, рейтинги — всё в одном месте."
 
-**2. Fix "Периферия" icon** — The third equipment row currently uses `iconHardware` with label "ПЕРИФЕРИЯ". Change it to use `iconHardware` (CPU icon) with label "ПРОЦЕССОР" and display the CPU value from club data.
+### 2. Functional sorting system
 
-**3. Remove "Загрузка зала" block** — Replace the seat availability grid with a **"ЗАЛЫ" (Halls/Rooms)** block that lists each room with its specs (GPU, CPU, monitor, pricing by time slot). This is more useful and matches the real data structure.
+Replace the current static list with a sortable list. Add a `sortBy` state variable with options:
 
-**4. Remove seat indicators from club list cards** — Remove the free/occupied/reserved seat row from the left-panel club cards.
+- **По рейтингу** (default) -- sort by `rating` desc, then `reviews` desc
+- **По оценкам** -- sort by `reviews` desc (more reviews = higher)
+- **По видеокарте** -- sort by GPU tier (assign numeric rank to each GPU model: RTX 5080 > 5070 Ti > 5070 > 4090 > 4070 Ti > 4070 Super > 4060 Ti > 4060 > 3060 Ti > 3060 > 2060 Super, etc.) using best hall GPU
+- **По цене ↓** -- sort by cheapest `priceDay` among PC halls (standard tier), ascending (cheapest first)
 
-**5. Replace test clubs with real data** — Remove the 5 fake clubs. Add "Дофамин" as the first (and only real) club:
+### Technical approach
 
-- **Name**: Дофамин
-- **City**: Симферополь
-- **Address**: Эстонская улица, 2, этаж 3
-- **Rating**: 5.0 (349 оценок) — source: Яндекс
-- **Zones**: bootcamp, vip, bar, console (Приставки)
-- **Links**: Яндекс profile, Taplink (бронь), VK
-- **Halls**:
-  - Prime — 149/169 ₽/ч, GeForce 5060, AMD Ryzen 5 8400F, 240Hz
-  - Squad — 189/219 ₽/ч, GeForce 5070, AMD Ryzen 5 7500F, 280Hz
-  - Bootcamp — 239/269 ₽/ч, GeForce 4070 TI, i5-13600KF, 270Hz
-  - PS5 Zone — 449/499 ₽/ч (console zone, no PC specs)
+**GPU ranking function**: Create a helper `getGpuRank(gpu: string): number` that maps GPU names to numeric tiers. Use the best (highest-ranked) GPU from each club's halls for comparison.
 
-**6. Restructure club data model** — Add `halls` array (name, gpu, cpu, monitor, price day/night), `links` object (yandex, booking, vk), remove `seats`, `prices`, and single `gpu`/`monitors` fields.
+**Min standard price**: `getMinPrice(halls)` returns the lowest `priceDay` among PC halls (halls with `gpu` defined).
 
-**7. Detail panel redesign:**
-- **Club header** — keep as-is but add external link buttons (Яндекс, Бронь, ВК)
-- **Equipment block** — show the best/flagship specs from halls
-- **Zones block** — keep as-is
-- **NEW: Halls block** (replaces seat grid) — table/cards showing each hall with name, GPU, CPU, monitor, day/night pricing
-- **Pricing block** — remove (prices now shown per-hall)
-- **Ratings block** — keep as-is
+**UI**: Add sort buttons in the filters row, styled consistently with the existing city filter buttons. Use a row of small buttons below the city filter or inline with it, labeled with sort criteria.
+
+**Flow**:
+1. Filter by city and open status (existing)
+2. Sort filtered results by selected criterion
+3. Render sorted list
 
 ### Files modified
-- `src/pages/Infrastructure.tsx` — full rework of data and detail panel
+- `src/pages/Infrastructure.tsx` -- hero text edit, add sort state + logic + UI buttons
 
