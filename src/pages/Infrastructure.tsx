@@ -331,6 +331,31 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 12,
+    name: "CyberX Очаковцев",
+    city: "Севастополь",
+    address: "ул. Очаковцев, 52",
+    rating: 5.0,
+    reviews: 75,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "console"],
+    halls: [
+      { name: "Standart", gpu: "RTX 4060", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 140, priceNight: 160, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "VIP Zone", gpu: "RTX 5070 Super", cpu: "i5-14600KF", monitor: "240 Hz", priceDay: 170, priceNight: 190, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "TRIO Zone", gpu: "RTX 5070", cpu: "i5-14600KF", monitor: "240 Hz", priceDay: 220, priceNight: 240, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "DUO Zone", gpu: "RTX 5070", cpu: "i5-14600KF", monitor: "240 Hz", priceDay: 240, priceNight: 260, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "TV Zone (PS 5)", priceDay: 300, priceNight: 300, timeDay: "Круглосуточно", timeNight: "" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/36441415799",
+      booking: "https://t.me/cyberxsev",
+      vk: "https://vk.com/club233554288",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -685,8 +710,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "11", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "48", color: "text-neon-green" },
+{ label: "ПЛОЩАДОК В КРЫМУ", value: "12", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "53", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.99 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
