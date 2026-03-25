@@ -35,8 +35,10 @@ interface Hall {
   monitor?: string;
   priceDay: number;
   priceNight: number;
+  priceLate?: number;
   timeDay?: string;
   timeNight?: string;
+  timeLate?: string;
 }
 
 interface Club {
@@ -93,14 +95,14 @@ const clubs: Club[] = [
     reviews: 573,
     ratingSource: "Яндекс",
     status: "open",
-    hours: "09:00–00:00",
+    hours: "24/7",
     zones: ["bootcamp", "vip", "bar", "console"],
     halls: [
-      { name: "Стандарт", gpu: "GTX 1660 TI", cpu: "i5-9400F", monitor: "144 Hz", priceDay: 120, priceNight: 130, timeDay: "09:00–17:00", timeNight: "17:00–00:00" },
-      { name: "Мидл", gpu: "RTX 2070 SUPER", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 150, priceNight: 170, timeDay: "09:00–17:00", timeNight: "17:00–00:00" },
-      { name: "Випка", gpu: "RTX 4070 TI", cpu: "i5-12600KF", monitor: "240 Hz", priceDay: 180, priceNight: 200, timeDay: "09:00–17:00", timeNight: "17:00–00:00" },
-      { name: "Имбудка", gpu: "RTX 5070 TI", cpu: "Ryzen 7 9800X3D", monitor: "400 Hz", priceDay: 290, priceNight: 330, timeDay: "09:00–17:00", timeNight: "17:00–00:00" },
-      { name: "ДУО", gpu: "RTX 5070 TI", cpu: "Ryzen 7 9800X3D", monitor: "400 Hz", priceDay: 320, priceNight: 360, timeDay: "09:00–17:00", timeNight: "17:00–00:00" },
+      { name: "Стандарт", gpu: "GTX 1660 TI", cpu: "i5-9400F", monitor: "144 Hz", priceDay: 120, priceNight: 130, priceLate: 160, timeDay: "09:00–17:00", timeNight: "17:00–00:00", timeLate: "00:00–09:00" },
+      { name: "Мидл", gpu: "RTX 2070 SUPER", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 150, priceNight: 170, priceLate: 200, timeDay: "09:00–17:00", timeNight: "17:00–00:00", timeLate: "00:00–09:00" },
+      { name: "Випка", gpu: "RTX 4070 TI", cpu: "i5-12600KF", monitor: "240 Hz", priceDay: 180, priceNight: 200, priceLate: 270, timeDay: "09:00–17:00", timeNight: "17:00–00:00", timeLate: "00:00–09:00" },
+      { name: "Имбудка", gpu: "RTX 5070 TI", cpu: "Ryzen 7 9800X3D", monitor: "400 Hz", priceDay: 290, priceNight: 330, priceLate: 400, timeDay: "09:00–17:00", timeNight: "17:00–00:00", timeLate: "00:00–09:00" },
+      { name: "ДУО", gpu: "RTX 5070 TI", cpu: "Ryzen 7 9800X3D", monitor: "400 Hz", priceDay: 320, priceNight: 360, priceLate: 430, timeDay: "09:00–17:00", timeNight: "17:00–00:00", timeLate: "00:00–09:00" },
       { name: "PS5 Лаунж", priceDay: 400, priceNight: 400, timeDay: "09:00–17:00", timeNight: "17:00–00:00" },
     ],
     links: {
@@ -392,7 +394,7 @@ export default function Infrastructure() {
                         <div key={hall.name} className="border border-border p-4 bg-muted/20 hover:border-neon-cyan/30 transition-colors">
                           <div className="flex items-center justify-between mb-3">
                             <div className="font-display text-sm font-bold text-foreground">{hall.name}</div>
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-3 flex-wrap">
                               <div className="text-right">
                                 <div className="font-mono text-[9px] text-muted-foreground">{hall.timeDay || "08:00–17:00"}</div>
                                 <div className="font-display text-sm font-bold text-neon-green">{hall.priceDay} ₽/ч</div>
@@ -402,6 +404,15 @@ export default function Infrastructure() {
                                 <div className="font-mono text-[9px] text-muted-foreground">{hall.timeNight || "17:00–08:00"}</div>
                                 <div className="font-display text-sm font-bold text-neon-cyan">{hall.priceNight} ₽/ч</div>
                               </div>
+                              {hall.priceLate && (
+                                <>
+                                  <div className="w-px h-8 bg-border" />
+                                  <div className="text-right">
+                                    <div className="font-mono text-[9px] text-muted-foreground">{hall.timeLate}</div>
+                                    <div className="font-display text-sm font-bold text-neon-purple">{hall.priceLate} ₽/ч</div>
+                                  </div>
+                                </>
+                              )}
                             </div>
                           </div>
                           {hall.gpu && (
