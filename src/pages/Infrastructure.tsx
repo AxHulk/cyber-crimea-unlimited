@@ -505,7 +505,7 @@ export default function Infrastructure() {
                           {!hall.gpu && (
                             <div className="flex items-center gap-1.5">
                               <img src={iconConsole} alt="Console" className="w-4 h-4" />
-                              <span className="font-mono text-[10px] text-neon-purple">PlayStation 5</span>
+                              <span className="font-mono text-[10px] text-neon-purple">{hall.name}</span>
                             </div>
                           )}
                         </div>
