@@ -12,6 +12,7 @@ import iconConsole from "@/assets/infrastructure/icon_console.png";
 import iconBootcamp from "@/assets/infrastructure/icon_bootcamp.png";
 import iconBar from "@/assets/infrastructure/icon_bar.png";
 import iconVip from "@/assets/infrastructure/icon_vip.png";
+import iconStreaming from "@/assets/infrastructure/icon_streaming.png";
 import iconAtmosphere from "@/assets/infrastructure/icon_atmosphere.png";
 import iconCleanliness from "@/assets/infrastructure/icon_cleanliness.png";
 import iconStaff from "@/assets/infrastructure/icon_staff.png";
@@ -142,7 +143,7 @@ const zoneIcons: Record<string, { icon: string; label: string }> = {
   vip: { icon: iconVip, label: "VIP" },
   bar: { icon: iconBar, label: "Бар" },
   console: { icon: iconConsole, label: "Приставки" },
-  streamer: { icon: iconVip, label: "Стримерская" },
+  streamer: { icon: iconStreaming, label: "Стримерская" },
 };
 
 const ratingIcons = [
