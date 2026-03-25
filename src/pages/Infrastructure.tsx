@@ -631,8 +631,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "9", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "34", color: "text-neon-green" },
+              { label: "ПЛОЩАДОК В КРЫМУ", value: "10", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "40", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.99 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
