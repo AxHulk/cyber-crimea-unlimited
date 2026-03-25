@@ -143,7 +143,7 @@ const zoneIcons: Record<string, { icon: string; label: string }> = {
   vip: { icon: iconVip, label: "VIP" },
   bar: { icon: iconBar, label: "Бар" },
   console: { icon: iconConsole, label: "Приставки" },
-  streamer: { icon: iconVip, label: "Стримерская" },
+  streamer: { icon: iconStreaming, label: "Стримерская" },
 };
 
 const ratingIcons = [
