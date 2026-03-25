@@ -112,6 +112,29 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 3,
+    name: "Rampage Arena",
+    city: "Симферополь",
+    address: "проспект Кирова, 19, этаж цокольный",
+    rating: 5.0,
+    reviews: 157,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["bootcamp", "vip", "streamer", "console"],
+    halls: [
+      { name: "Стандарт", gpu: "RTX 4070 TI", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 100, priceNight: 120, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "VIP", gpu: "RTX 4070 TI Super", cpu: "i7-14700KF", monitor: "280 Hz", priceDay: 150, priceNight: 170, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "PS5", priceDay: 300, priceNight: 300, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+    ],
+    links: {
+      yandex: "https://yandex.com/profile/12212603817",
+      booking: "https://t.me/+79786758201",
+      vk: "https://vk.com/rampagearena82",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -119,6 +142,7 @@ const zoneIcons: Record<string, { icon: string; label: string }> = {
   vip: { icon: iconVip, label: "VIP" },
   bar: { icon: iconBar, label: "Бар" },
   console: { icon: iconConsole, label: "Приставки" },
+  streamer: { icon: iconVip, label: "Стримерская" },
 };
 
 const ratingIcons = [
@@ -465,8 +489,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "2", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "10", color: "text-neon-green" },
+              { label: "ПЛОЩАДОК В КРЫМУ", value: "3", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "13", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "5.0 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
