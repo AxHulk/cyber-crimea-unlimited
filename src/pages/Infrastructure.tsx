@@ -35,6 +35,8 @@ interface Hall {
   monitor?: string;
   priceDay: number;
   priceNight: number;
+  timeDay?: string;
+  timeNight?: string;
 }
 
 interface Club {
