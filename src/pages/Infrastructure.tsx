@@ -158,6 +158,30 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 5,
+    name: "Rampage Arena 60 лет",
+    city: "Симферополь",
+    address: "улица 60 лет Октября 22, этаж 2",
+    rating: 5.0,
+    reviews: 106,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "console"],
+    halls: [
+      { name: "Стандарт", gpu: "RTX 2060", cpu: "i5-9400F", monitor: "144 Hz", priceDay: 100, priceNight: 120, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "VIP", gpu: "RTX 3060 TI", cpu: "i5-11400F", monitor: "144 Hz", priceDay: 150, priceNight: 170, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "PS4", priceDay: 200, priceNight: 200, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "PS5", priceDay: 300, priceNight: 300, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/182651780159",
+      booking: "https://wa.me/79782580848",
+      vk: "https://vk.com/rampage60let",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -512,8 +536,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "4", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "15", color: "text-neon-green" },
+              { label: "ПЛОЩАДОК В КРЫМУ", value: "5", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "19", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "5.0 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
