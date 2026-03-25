@@ -404,6 +404,31 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 4.8, atmosphere: 4.8, cleanliness: 4.8, staff: 4.8 },
   },
+  {
+    id: 15,
+    name: "Offline",
+    city: "Керчь",
+    address: "Вокзальное ш., 44А",
+    rating: 5.0,
+    reviews: 86,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "console", "streamer"],
+    halls: [
+      { name: "Standart", gpu: "RTX 2060 Super", cpu: "i5-9400F", monitor: "144 Hz", priceDay: 140, priceNight: 140, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "Bootcamp", gpu: "RTX 2060 Super", cpu: "i5-9400F", monitor: "144 Hz", priceDay: 160, priceNight: 160, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "VIP X1", gpu: "RTX 2060 Super", cpu: "i5-9400F", monitor: "144 Hz", priceDay: 200, priceNight: 200, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "Stream", gpu: "RTX 2060 Super", cpu: "i5-9400F", monitor: "144 Hz", priceDay: 250, priceNight: 250, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "Зона ТВ (PS 5)", priceDay: 300, priceNight: 300, timeDay: "Круглосуточно", timeNight: "" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/145295732718",
+      booking: "https://kompjuternyj-klub-offline.clients.site/",
+      vk: "https://vk.com/cyberoffline",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -758,8 +783,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-{ label: "ПЛОЩАДОК В КРЫМУ", value: "14", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "61", color: "text-neon-green" },
+{ label: "ПЛОЩАДОК В КРЫМУ", value: "15", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "66", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.98 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
