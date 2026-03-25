@@ -229,6 +229,31 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 8,
+    name: "Мантикора Беспалова",
+    city: "Симферополь",
+    address: "ул. Беспалова, 110Н, этаж 1",
+    rating: 5.0,
+    reviews: 100,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "console"],
+    halls: [
+      { name: "Standart", gpu: "nVidia 3080 Super", cpu: "i5-10400F", monitor: "240 Hz", priceDay: 100, priceNight: 100, timeDay: "Круглосуточно", timeNight: "Круглосуточно" },
+      { name: "PRO", gpu: "nVidia 4070", cpu: "i5-12400F", monitor: "240 Hz", priceDay: 125, priceNight: 125, timeDay: "Круглосуточно", timeNight: "Круглосуточно" },
+      { name: "VIP", gpu: "nVidia 4070", cpu: "i5-12600KF", monitor: "240 Hz", priceDay: 150, priceNight: 150, timeDay: "Круглосуточно", timeNight: "Круглосуточно" },
+      { name: "PS Standart", priceDay: 250, priceNight: 250, timeDay: "Круглосуточно", timeNight: "Круглосуточно" },
+      { name: "PS PRO", priceDay: 400, priceNight: 400, timeDay: "Круглосуточно", timeNight: "Круглосуточно" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/93325863259",
+      booking: "https://t.me/manticore_Cyber",
+      vk: "https://vk.com/manticore_cyber",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -583,8 +608,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-              { label: "ПЛОЩАДОК В КРЫМУ", value: "7", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "26", color: "text-neon-green" },
+              { label: "ПЛОЩАДОК В КРЫМУ", value: "8", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "31", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.99 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
