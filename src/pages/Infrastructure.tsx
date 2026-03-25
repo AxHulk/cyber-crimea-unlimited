@@ -27,7 +27,7 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-const cities = ["Все", "Симферополь", "Севастополь", "Ялта", "Керчь", "Евпатория"];
+const cities = ["Все", "Симферополь", "Севастополь", "Ялта", "Керчь", "Евпатория", "Феодосия"];
 
 interface Hall {
   name: string;
@@ -456,6 +456,32 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 17,
+    name: "Colizeum",
+    city: "Феодосия",
+    address: "Боевая ул., 14А",
+    rating: 5.0,
+    reviews: 74,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "bar", "console"],
+    halls: [
+      { name: "Стандарт", gpu: "RTX 3060", cpu: "i5-10400F", monitor: "165 Hz", priceDay: 105, priceNight: 125, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "Стандарт-PRO", gpu: "RTX 4060 TI", cpu: "i5-13400F", monitor: "280 Hz", priceDay: 125, priceNight: 125, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "Буткемп-VIP", gpu: "RTX 5070 TI", cpu: "i7-14700F", monitor: "280 Hz", priceDay: 140, priceNight: 160, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "Буткемп-PRO", gpu: "RTX 4070 TI", cpu: "i5-13400F", monitor: "280 Hz", priceDay: 160, priceNight: 180, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "Буткемп-Premium", gpu: "RTX 4090", cpu: "i9-13900F", monitor: "360 Hz", priceDay: 270, priceNight: 290, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+      { name: "TV Zone (PS 5) 65″", priceDay: 200, priceNight: 280, timeDay: "08:00–17:00", timeNight: "17:00–08:00" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/143430377605",
+      booking: "https://coliseum-kafa.clients.site/",
+      vk: "https://vk.com/coliseumfeo",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -810,8 +836,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-{ label: "ПЛОЩАДОК В КРЫМУ", value: "16", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "73", color: "text-neon-green" },
+{ label: "ПЛОЩАДОК В КРЫМУ", value: "17", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "79", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.98 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
