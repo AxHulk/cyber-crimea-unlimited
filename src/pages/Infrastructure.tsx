@@ -584,7 +584,7 @@ export default function Infrastructure() {
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
               { label: "ПЛОЩАДОК В КРЫМУ", value: "7", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "22", color: "text-neon-green" },
+              { label: "ЗАЛОВ", value: "26", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.99 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
