@@ -283,7 +283,7 @@ const clubs: Club[] = [
     city: "Севастополь",
     address: "просп. Юрия Гагарина, 8, этаж 3",
     rating: 5.0,
-    reviews: 349,
+    reviews: 310,
     ratingSource: "Яндекс",
     status: "open",
     hours: "24/7",
