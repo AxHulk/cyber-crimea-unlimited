@@ -378,6 +378,32 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 14,
+    name: "CyberX",
+    city: "Ялта",
+    address: "ул. Гоголя, 20",
+    rating: 4.8,
+    reviews: 153,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip", "console"],
+    halls: [
+      { name: "Standart", gpu: "RTX 2060", cpu: "i5-10400F", monitor: "144 Hz", priceDay: 150, priceNight: 175, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "Комфорт", gpu: "RTX 3060", cpu: "i5-11400F", monitor: "240 Hz", priceDay: 175, priceNight: 225, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "VIP Zone", gpu: "RTX 5070 Ti", cpu: "Ryzen 7 7700", monitor: "240 Hz", priceDay: 300, priceNight: 300, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "TV Zone (PS 5) 55″", priceDay: 350, priceNight: 350, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "TV Zone (PS 5) 75″", priceDay: 400, priceNight: 400, timeDay: "Круглосуточно", timeNight: "" },
+      { name: "TV Zone (PS 5) 85″", priceDay: 500, priceNight: 500, timeDay: "Круглосуточно", timeNight: "" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/101184159887",
+      booking: "https://kiberklub-cyber-x.clients.site/",
+      vk: "https://vk.com/cyberx_yalta",
+    },
+    ratingDetails: { hardware: 4.8, atmosphere: 4.8, cleanliness: 4.8, staff: 4.8 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -732,9 +758,9 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-{ label: "ПЛОЩАДОК В КРЫМУ", value: "13", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "55", color: "text-neon-green" },
-              { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.99 ★", color: "text-neon-green" },
+{ label: "ПЛОЩАДОК В КРЫМУ", value: "14", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "61", color: "text-neon-green" },
+              { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.98 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
               <div key={s.label} className="bento-card hud-corner p-5 text-center">
