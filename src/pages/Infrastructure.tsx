@@ -356,6 +356,28 @@ const clubs: Club[] = [
     },
     ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
   },
+  {
+    id: 13,
+    name: "Coliseum",
+    city: "Ялта",
+    address: "Московская ул., 21",
+    rating: 5.0,
+    reviews: 262,
+    ratingSource: "Яндекс",
+    status: "open",
+    hours: "24/7",
+    zones: ["vip"],
+    halls: [
+      { name: "Standart", gpu: "RTX 4060 Ti", cpu: "i5-13400F", monitor: "280 Hz", priceDay: 160, priceNight: 185, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+      { name: "Standart-VIP", gpu: "RTX 4060 Ti", cpu: "i5-13400F", monitor: "240 Hz", priceDay: 180, priceNight: 205, timeDay: "Пн–Чт", timeNight: "Пт–Вс" },
+    ],
+    links: {
+      yandex: "https://yandex.ru/profile/141034667611",
+      booking: "https://colizeumarena.com/blog/club/coliseum-yalta/",
+      vk: "https://vk.com/coliseum_yalta",
+    },
+    ratingDetails: { hardware: 5.0, atmosphere: 5.0, cleanliness: 5.0, staff: 5.0 },
+  },
 ];
 
 const zoneIcons: Record<string, { icon: string; label: string }> = {
@@ -710,8 +732,8 @@ export default function Infrastructure() {
           {/* Bottom stats row */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {[
-{ label: "ПЛОЩАДОК В КРЫМУ", value: "12", color: "text-neon-cyan" },
-              { label: "ЗАЛОВ", value: "53", color: "text-neon-green" },
+{ label: "ПЛОЩАДОК В КРЫМУ", value: "13", color: "text-neon-cyan" },
+              { label: "ЗАЛОВ", value: "55", color: "text-neon-green" },
               { label: "СРЕДНИЙ РЕЙТИНГ", value: "4.99 ★", color: "text-neon-green" },
               { label: "ДИСЦИПЛИН", value: "PC + PS5", color: "text-neon-magenta" },
             ].map((s) => (
