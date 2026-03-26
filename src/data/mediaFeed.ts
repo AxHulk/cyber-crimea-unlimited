@@ -113,4 +113,16 @@ export const feed: FeedItem[] = [
     accent: "text-primary",
     date: "16 декабря 2024",
   },
+  {
+    id: "n8",
+    title: "Итоговые интервью финалистов Киберлиги Первых по CS 2",
+    excerpt: "Вот и они! Итоговые интервью финалистов Киберлиги Первых по CS 2! Искренние и самоуверенные, приятно смотреть на талантливых молодых киберспортсменов!",
+    category: "interview",
+    type: "Интервью",
+    stat: "1 декабря 2023",
+    accent: "text-neon-purple",
+    date: "1 декабря 2023",
+    videoUrl: "https://vkvideo.ru/video-126368111_456239320",
+    embedUrl: "https://vk.com/video_ext.php?oid=-126368111&id=456239320&hd=2",
+  },
 ];
