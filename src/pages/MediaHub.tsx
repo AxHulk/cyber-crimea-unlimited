@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import HudNavbar from "@/components/HudNavbar";
 import Footer from "@/components/Footer";
 
@@ -51,8 +51,27 @@ const getItemLink = (item: { id: string }) => {
   return `/media-hub/${item.id}`;
 };
 
+const getActiveCategory = (searchParams: URLSearchParams): CategoryKey => {
+  const category = searchParams.get("category");
+  if (category && categories.some((item) => item.key === category)) {
+    return category as CategoryKey;
+  }
+  return "all";
+};
+
 export default function MediaHub() {
-  const [active, setActive] = useState<CategoryKey>("all");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const active = getActiveCategory(searchParams);
+
+  const setActiveCategory = (next: CategoryKey) => {
+    const params = new URLSearchParams(searchParams);
+    if (next === "all") {
+      params.delete("category");
+    } else {
+      params.set("category", next);
+    }
+    setSearchParams(params, { replace: false });
+  };
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -91,7 +110,7 @@ export default function MediaHub() {
             {categories.map((c) => (
               <button
                 key={c.key}
-                onClick={() => setActive(c.key)}
+                onClick={() => setActiveCategory(c.key)}
                 className={`border p-2 flex items-center gap-2 transition-colors ${active === c.key ? "border-primary bg-primary/10" : "border-border bg-muted/20 hover:border-primary/50"} ${categoryCounts[c.key] === 0 ? "opacity-40" : ""}`}
               >
                 <img src={c.icon} alt={c.label} className="w-8 h-8 object-contain" loading="lazy" />
