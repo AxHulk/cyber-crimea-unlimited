@@ -120,7 +120,7 @@ export default function MediaHub() {
           </div>
         </div>
 
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="grid grid-cols-12 gap-4">
+        <motion.div key={active} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="grid grid-cols-12 gap-4">
           {filtered.length === 0 ? (
             <div className="col-span-12 bento-card hud-corner p-12 text-center">
               <p className="font-mono text-sm text-muted-foreground">Публикации в этом разделе скоро появятся.</p>
