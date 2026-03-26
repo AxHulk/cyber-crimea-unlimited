@@ -137,4 +137,16 @@ export const feed: FeedItem[] = [
     videoUrl: "https://vkvideo.ru/video-126368111_456239317",
     embedUrl: "https://vk.com/video_ext.php?oid=-126368111&id=456239317&hd=2",
   },
+  {
+    id: "n10",
+    title: "Интервью с крымским комментатором Игорем Big Crimean Boss Лавренюком",
+    excerpt: "Интервью с крымским комментатором — Игорем Big Crimean Boss Лавренюком.",
+    category: "interview",
+    type: "Интервью",
+    stat: "17 ноября 2021",
+    accent: "text-neon-purple",
+    date: "17 ноября 2021",
+    videoUrl: "https://vkvideo.ru/video-126368111_456239219",
+    embedUrl: "https://vk.com/video_ext.php?oid=-126368111&id=456239219&hd=2",
+  },
 ];
