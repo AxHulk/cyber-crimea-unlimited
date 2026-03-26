@@ -14,6 +14,7 @@ import Infrastructure from "./pages/Infrastructure.tsx";
 import Auth from "./pages/Auth.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import B2B from "./pages/B2B.tsx";
+import Article from "./pages/Article.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
