@@ -30,7 +30,7 @@ import dota2Final10 from "@/assets/gallery/dota2-final-10.jpg";
 import dota2Final11 from "@/assets/gallery/dota2-final-11.jpg";
 import dota2Final12 from "@/assets/gallery/dota2-final-12.jpg";
 import dota2Final13 from "@/assets/gallery/dota2-final-13.jpg";
-import dota2Final14 from "@/assets/gallery/dota2-final-14.jpg";
+
 import dota2Final15 from "@/assets/gallery/dota2-final-15.jpg";
 import dota2Final16 from "@/assets/gallery/dota2-final-16.jpg";
 
@@ -89,7 +89,7 @@ export const galleries: GalleryItem[] = [
       { src: dota2Final11, alt: "Трофей Киберлиги Крыма крупным планом" },
       { src: dota2Final12, alt: "Игрок в наушниках на фоне зрительного зала" },
       { src: dota2Final13, alt: "Командный момент у одного монитора" },
-      { src: dota2Final14, alt: "Подготовка участников на сцене перед матчем" },
+      
       { src: dota2Final15, alt: "Игрок в форме YIKC за компьютером" },
       { src: dota2Final16, alt: "Игрок в форме YIKC делает жест рукой во время матча" },
     ],
