@@ -12,6 +12,11 @@ import cs2Final11 from "@/assets/gallery/cs2-final-11.jpg";
 import cs2Final12 from "@/assets/gallery/cs2-final-12.jpg";
 import cs2Final13 from "@/assets/gallery/cs2-final-13.jpg";
 import cs2Final14 from "@/assets/gallery/cs2-final-14.jpg";
+import cs2Final15 from "@/assets/gallery/cs2-final-15.jpg";
+import cs2Final16 from "@/assets/gallery/cs2-final-16.jpg";
+import cs2Final17 from "@/assets/gallery/cs2-final-17.jpg";
+import cs2Final18 from "@/assets/gallery/cs2-final-18.jpg";
+import cs2Final19 from "@/assets/gallery/cs2-final-19.jpg";
 
 export type GalleryItem = {
   id: string;
@@ -42,6 +47,11 @@ export const galleries: GalleryItem[] = [
       { src: cs2Final12, alt: "Игрок YIKC за монитором" },
       { src: cs2Final13, alt: "Крупный план формы MALOV TEAM" },
       { src: cs2Final14, alt: "Сцена турнира — вид из зала с мониторами команд" },
+      { src: cs2Final15, alt: "Игрок команды в форме YIKC за компьютером" },
+      { src: cs2Final16, alt: "Игрок BOSS оборачивается к камере во время матча" },
+      { src: cs2Final17, alt: "Обсуждение игроков во время матча на сцене" },
+      { src: cs2Final18, alt: "Эмоциональный момент — объятия после игры" },
+      { src: cs2Final19, alt: "Игрок Breakout Team крупным планом за компьютером" },
     ],
   },
 ];
