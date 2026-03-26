@@ -61,4 +61,19 @@ export const galleries: GalleryItem[] = [
       { src: cs2Final19, alt: "Игрок Breakout Team крупным планом за компьютером" },
     ],
   },
+  {
+    id: "dota2-cyberleague-2024",
+    title: "Киберлига Крыма 2024 — Финал по Dota2",
+    description: "Подборка лучших фото с офлайн-финала Киберлиги Крыма 2024 по Dota2. Первая часть фотоархива.",
+    date: "16 декабря 2024",
+    photos: [
+      { src: dota2Final01, alt: "Игроки за компьютерами на офлайн-финале Dota2" },
+      { src: dota2Final02, alt: "Главная сцена Киберлиги Крыма 2024" },
+      { src: dota2Final03, alt: "Подготовка команды Rampage Arena перед матчем" },
+      { src: dota2Final04, alt: "Состав команды за игровыми местами" },
+      { src: dota2Final05, alt: "Игрок на сцене во время матча" },
+      { src: dota2Final06, alt: "Участники у компьютеров перед стартом" },
+      { src: dota2Final07, alt: "Крупный план игрока на офлайн-турнире" },
+    ],
+  },
 ];
