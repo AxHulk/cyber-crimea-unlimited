@@ -45,6 +45,13 @@ const badgeItems = [
 
 const box = { hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0, transition: { duration: 0.38 } } };
 
+  const getItemLink = (item: typeof feed[0]) => {
+    if (item.id.startsWith("gallery-")) {
+      return `/media-hub/gallery/${item.id.replace("gallery-", "")}`;
+    }
+    return `/media-hub/${item.id}`;
+  };
+
 export default function MediaHub() {
   const [active, setActive] = useState<CategoryKey>("all");
 
