@@ -24,6 +24,13 @@ import dota2Final04 from "@/assets/gallery/dota2-final-04.jpg";
 import dota2Final05 from "@/assets/gallery/dota2-final-05.jpg";
 import dota2Final06 from "@/assets/gallery/dota2-final-06.jpg";
 import dota2Final07 from "@/assets/gallery/dota2-final-07.jpg";
+import dota2Final08 from "@/assets/gallery/dota2-final-08.jpg";
+import dota2Final09 from "@/assets/gallery/dota2-final-09.jpg";
+import dota2Final10 from "@/assets/gallery/dota2-final-10.jpg";
+import dota2Final11 from "@/assets/gallery/dota2-final-11.jpg";
+import dota2Final12 from "@/assets/gallery/dota2-final-12.jpg";
+import dota2Final13 from "@/assets/gallery/dota2-final-13.jpg";
+import dota2Final14 from "@/assets/gallery/dota2-final-14.jpg";
 
 export type GalleryItem = {
   id: string;
@@ -74,6 +81,13 @@ export const galleries: GalleryItem[] = [
       { src: dota2Final05, alt: "Игрок на сцене во время матча" },
       { src: dota2Final06, alt: "Участники у компьютеров перед стартом" },
       { src: dota2Final07, alt: "Крупный план игрока на офлайн-турнире" },
+      { src: dota2Final08, alt: "Игрок в красной худи за компьютером" },
+      { src: dota2Final09, alt: "Ряд игроков Dota2 во время матча" },
+      { src: dota2Final10, alt: "Игровая сцена с брендингом Киберлиги Крыма" },
+      { src: dota2Final11, alt: "Трофей Киберлиги Крыма крупным планом" },
+      { src: dota2Final12, alt: "Игрок в наушниках на фоне зрительного зала" },
+      { src: dota2Final13, alt: "Командный момент у одного монитора" },
+      { src: dota2Final14, alt: "Подготовка участников на сцене перед матчем" },
     ],
   },
 ];
