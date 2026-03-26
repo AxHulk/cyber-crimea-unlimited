@@ -54,6 +54,14 @@ const getItemLink = (item: { id: string }) => {
 export default function MediaHub() {
   const [active, setActive] = useState<CategoryKey>("all");
 
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const c of categories) {
+      counts[c.key] = c.key === "all" ? feed.length : feed.filter((i) => i.category === c.key).length;
+    }
+    return counts;
+  }, []);
+
   const filtered = useMemo(() => {
     if (active === "all") return feed;
     return feed.filter((item) => item.category === active);
