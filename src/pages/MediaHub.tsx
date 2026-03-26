@@ -36,15 +36,37 @@ const categories: Array<{ key: CategoryKey; label: string; icon: string }> = [
   { key: "gallery", label: "Галереи", icon: catGallery },
 ];
 
-const feed = [
+type FeedItem = {
+  id: string;
+  title: string;
+  excerpt: string;
+  category: CategoryKey;
+  type: string;
+  stat: string;
+  accent: string;
+  date?: string;
+  videoUrl?: string;
+  details?: string[];
+};
+
+const feed: FeedItem[] = [
   {
     id: "n1",
-    title: "LAN-финал в Симферополе: Perekop Team забирают кубок CS2",
-    excerpt: "Разбор карты, лучшие моменты и цитаты капитана после гранд-финала.",
+    title: "Киберлига Крыма 2024 по Dota 2: Rampage Arena — чемпионы!",
+    excerpt: "Rampage Arena одержали уверенную победу со счётом 2-0 в гранд-финале, обойдя 36 участников турнира. Серебро у ZVери (1-1), бронза — Telko и Karen team.",
     category: "results" as CategoryKey,
-    type: "Репортаж",
-    stat: "12.4K просмотров",
+    type: "Итоги турнира",
+    stat: "16 декабря 2024",
     accent: "text-primary",
+    date: "16 декабря 2024",
+    videoUrl: "https://vkvideo.ru/video-126368111_456239394",
+    details: [
+      "🏆 1 место — Rampage Arena (2-0): not a human, Varashkin, Seyeze, Rain, Воровская Лапа",
+      "🥈 2 место — ZVери (1-1)",
+      "🥉 3 место — Telko (0-1), Karen team (0-1)",
+      "👥 36 участников · Формат: групповой этап → Single Elimination",
+      "📅 Старт турнира: 28 ноября 2024",
+    ],
   },
   {
     id: "n2",
