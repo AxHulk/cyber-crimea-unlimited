@@ -94,12 +94,13 @@ export const feed: FeedItem[] = [
     accent: "text-neon-cyan",
   },
   {
-    id: "n6",
-    title: "Фотоархив LAN: лучшие кадры сцены и фан-зоны",
-    excerpt: "Masonry-подборка с ключевыми моментами офлайн-турнира.",
+    id: "gallery-cs2-cyberleague-2024",
+    title: "Фотоархив: Киберлига Крыма 2024 — Финал по CS2",
+    excerpt: "Подборка лучших фото с офлайн-финала Киберлиги Крыма 2024 по CS2. Атмосфера турнира, игроки и церемония награждения.",
     category: "gallery",
     type: "Галерея",
     stat: "1.8K просмотров",
     accent: "text-primary",
+    date: "16 декабря 2024",
   },
 ];

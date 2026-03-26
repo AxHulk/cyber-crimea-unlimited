@@ -45,6 +45,13 @@ const badgeItems = [
 
 const box = { hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0, transition: { duration: 0.38 } } };
 
+const getItemLink = (item: { id: string }) => {
+  if (item.id.startsWith("gallery-")) {
+    return `/media-hub/gallery/${item.id.replace("gallery-", "")}`;
+  }
+  return `/media-hub/${item.id}`;
+};
+
 export default function MediaHub() {
   const [active, setActive] = useState<CategoryKey>("all");
 
@@ -89,7 +96,7 @@ export default function MediaHub() {
 
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="grid grid-cols-12 gap-4">
           {featured && (
-            <Link to={`/media-hub/${featured.id}`} className="col-span-12 lg:col-span-8">
+            <Link to={getItemLink(featured)} className="col-span-12 lg:col-span-8">
               <motion.article variants={box} className="bento-card hud-corner p-6 h-full group">
                 <div className="flex items-center gap-3 mb-4">
                   <img src={typeReport} alt="Тип контента" className="w-12 h-12 object-contain" loading="lazy" />
@@ -144,7 +151,7 @@ export default function MediaHub() {
           </motion.div>
 
           {rest.map((item) => (
-            <Link key={item.id} to={`/media-hub/${item.id}`} className="col-span-12 md:col-span-6 lg:col-span-4">
+            <Link key={item.id} to={getItemLink(item)} className="col-span-12 md:col-span-6 lg:col-span-4">
               <motion.article variants={box} className="bento-card hud-corner p-5 h-full group">
                 <div className={`font-mono text-[10px] tracking-widest mb-2 ${item.accent}`}>// {item.type.toUpperCase()}</div>
                 <h3 className="font-display text-xl font-black text-foreground leading-tight group-hover:text-primary transition-colors">{item.title}</h3>

@@ -16,6 +16,7 @@ import Dashboard from "./pages/Dashboard.tsx";
 import B2B from "./pages/B2B.tsx";
 import Article from "./pages/Article.tsx";
 import VodArchive from "./pages/VodArchive.tsx";
+import Gallery from "./pages/Gallery.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/ratings" element={<Ratings />} />
           <Route path="/media-hub" element={<MediaHub />} />
           <Route path="/media-hub/vod" element={<VodArchive />} />
+          <Route path="/media-hub/gallery/:galleryId" element={<Gallery />} />
           <Route path="/media-hub/:id" element={<Article />} />
           <Route path="/infrastructure" element={<Infrastructure />} />
           <Route path="/auth" element={<Auth />} />
