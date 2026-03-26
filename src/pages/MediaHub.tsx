@@ -108,7 +108,7 @@ export default function MediaHub() {
             </div>
           ) : (<>
           {featured && (
-            <Link to={getItemLink(featured)} className="col-span-12 lg:col-span-8">
+            <Link to={getItemLink(featured)} className={`col-span-12 ${active === "all" ? "lg:col-span-8" : ""}`}>
               <motion.article variants={box} className="bento-card hud-corner p-6 h-full group">
                 <div className="flex items-center gap-3 mb-4">
                   <img src={typeReport} alt="Тип контента" className="w-12 h-12 object-contain" loading="lazy" />
@@ -138,6 +138,7 @@ export default function MediaHub() {
             </Link>
           )}
 
+          {active === "all" && (
           <motion.div variants={box} className="col-span-12 lg:col-span-4 bento-card hud-corner p-6">
             <div className="font-mono text-[10px] tracking-widest text-primary mb-4">// MEDIA_TYPES</div>
             <div className="space-y-3">
@@ -161,6 +162,7 @@ export default function MediaHub() {
               })}
             </div>
           </motion.div>
+          )}
 
           {rest.map((item) => (
             <Link key={item.id} to={getItemLink(item)} className="col-span-12 md:col-span-6 lg:col-span-4">
