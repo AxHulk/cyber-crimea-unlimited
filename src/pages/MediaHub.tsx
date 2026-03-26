@@ -24,7 +24,7 @@ import badgeCaptain from "@/assets/badges/badge_captain.png";
 import badgeProphet from "@/assets/badges/badge_prophet.png";
 import badgeVeteran from "@/assets/badges/badge_veteran.png";
 
-type CategoryKey = "all" | "news" | "results" | "updates" | "interview" | "guides" | "gallery";
+import { feed, type CategoryKey } from "@/data/mediaFeed";
 
 const categories: Array<{ key: CategoryKey; label: string; icon: string }> = [
   { key: "all", label: "ВСЁ", icon: catNews },
@@ -34,85 +34,6 @@ const categories: Array<{ key: CategoryKey; label: string; icon: string }> = [
   { key: "interview", label: "Интервью", icon: catInterview },
   { key: "guides", label: "Гайды", icon: catGuides },
   { key: "gallery", label: "Галереи", icon: catGallery },
-];
-
-type FeedItem = {
-  id: string;
-  title: string;
-  excerpt: string;
-  category: CategoryKey;
-  type: string;
-  stat: string;
-  accent: string;
-  date?: string;
-  videoUrl?: string;
-  details?: string[];
-};
-
-const feed: FeedItem[] = [
-  {
-    id: "n1",
-    title: "Киберлига Крыма 2024 по Dota 2: Rampage Arena — чемпионы!",
-    excerpt: "Rampage Arena одержали уверенную победу со счётом 2-0 в гранд-финале, обойдя 36 участников турнира. Серебро у ZVери (1-1), бронза — Telko и Karen team.",
-    category: "results" as CategoryKey,
-    type: "Итоги турнира",
-    stat: "16 декабря 2024",
-    accent: "text-primary",
-    date: "16 декабря 2024",
-    videoUrl: "https://vkvideo.ru/video-126368111_456239394",
-    details: [
-      "🏆 1 место — Rampage Arena (2-0): not a human, Varashkin, Seyeze, Rain, Воровская Лапа",
-      "🥈 2 место — ZVери (1-1)",
-      "🥉 3 место — Telko (0-1), Karen team (0-1)",
-      "👥 36 участников · Формат: групповой этап → Single Elimination",
-      "📅 Старт турнира: 28 ноября 2024",
-    ],
-  },
-  {
-    id: "n2",
-    title: "Новости ФКС: утверждён календарь летнего сезона",
-    excerpt: "Новые даты региональных квалификаций и формат очного финала.",
-    category: "news" as CategoryKey,
-    type: "Новости",
-    stat: "3.1K просмотров",
-    accent: "text-neon-cyan",
-  },
-  {
-    id: "n3",
-    title: "Патч Valorant 9.2: что меняется в мете Крыма",
-    excerpt: "Ключевые изменения агентов и оружия в соревновательных матчах.",
-    category: "updates" as CategoryKey,
-    type: "Обновления",
-    stat: "2.6K просмотров",
-    accent: "text-neon-green",
-  },
-  {
-    id: "n4",
-    title: "Интервью: капитан Crimea Wolves о подготовке к финалу",
-    excerpt: "Режим тренировок, работа с аналитиком и психологией команды.",
-    category: "interview" as CategoryKey,
-    type: "Интервью",
-    stat: "4.7K просмотров",
-    accent: "text-neon-purple",
-  },
-  {
-    id: "n5",
-    title: "Гайд: как закрывать Mirage за CT в региональной мете",
-    excerpt: "Пошаговый тактический разбор от локальных аналитиков.",
-    category: "guides" as CategoryKey,
-    type: "Гайд",
-    stat: "5.9K просмотров",
-    accent: "text-neon-cyan",
-  },
-  {
-    id: "n6",
-    title: "Фотоархив LAN: лучшие кадры сцены и фан-зоны",
-    excerpt: "Masonry-подборка с ключевыми моментами офлайн-турнира.",
-    category: "gallery" as CategoryKey,
-    type: "Галерея",
-    stat: "1.8K просмотров",
-    accent: "text-primary",
-  },
 ];
 
 const badgeItems = [
@@ -168,50 +89,34 @@ export default function MediaHub() {
 
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="grid grid-cols-12 gap-4">
           {featured && (
-            <motion.article variants={box} className="col-span-12 lg:col-span-8 bento-card hud-corner p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <img src={typeReport} alt="Тип контента: репортаж" className="w-12 h-12 object-contain" loading="lazy" />
-                <div>
-                  <div className="font-mono text-[10px] tracking-widest text-primary">// FEATURED_MATERIAL</div>
-                  <div className={`font-display text-lg md:text-2xl font-black ${featured.accent}`}>{featured.type}</div>
+            <Link to={`/media-hub/${featured.id}`} className="col-span-12 lg:col-span-8">
+              <motion.article variants={box} className="bento-card hud-corner p-6 h-full group">
+                <div className="flex items-center gap-3 mb-4">
+                  <img src={typeReport} alt="Тип контента" className="w-12 h-12 object-contain" loading="lazy" />
+                  <div>
+                    <div className="font-mono text-[10px] tracking-widest text-primary">// FEATURED_MATERIAL</div>
+                    <div className={`font-display text-lg md:text-2xl font-black ${featured.accent}`}>{featured.type}</div>
+                  </div>
                 </div>
-              </div>
-              <h2 className="font-display text-2xl md:text-3xl font-black text-foreground mb-3">{featured.title}</h2>
-              <p className="font-mono text-xs text-muted-foreground max-w-3xl">{featured.excerpt}</p>
+                <h2 className="font-display text-2xl md:text-3xl font-black text-foreground mb-3 group-hover:text-primary transition-colors">{featured.title}</h2>
+                <p className="font-mono text-xs text-muted-foreground max-w-3xl">{featured.excerpt}</p>
 
-              {featured.details && (
-                <div className="mt-4 space-y-1.5">
-                  {featured.details.map((d, i) => (
-                    <div key={i} className="font-mono text-[11px] text-muted-foreground leading-relaxed">{d}</div>
-                  ))}
+                {featured.details && (
+                  <div className="mt-4 space-y-1.5">
+                    {featured.details.slice(0, 3).map((d, i) => (
+                      <div key={i} className="font-mono text-[11px] text-muted-foreground leading-relaxed">{d}</div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="mt-5 flex items-center justify-between gap-3">
+                  <span className="font-mono text-[10px] text-muted-foreground">{featured.date || featured.stat}</span>
+                  <span className="border border-primary bg-primary/10 px-4 py-2 font-mono text-[10px] tracking-wider text-primary group-hover:bg-primary/20 transition-colors">
+                    ПОДРОБНЕЕ
+                  </span>
                 </div>
-              )}
-
-              {featured.videoUrl && (
-                <div className="mt-4">
-                  <a
-                    href={featured.videoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 border border-primary/40 bg-primary/5 px-4 py-2 font-mono text-[10px] tracking-wider text-primary hover:bg-primary/15 transition-colors"
-                  >
-                    ▶ СМОТРЕТЬ ВИДЕО
-                  </a>
-                </div>
-              )}
-
-              <div className="mt-5 flex items-center justify-between gap-3">
-                <span className="font-mono text-[10px] text-muted-foreground">{featured.date || featured.stat}</span>
-                <a
-                  href="https://challonge.com/ru/h31zui3f"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border border-primary bg-primary/10 px-4 py-2 font-mono text-[10px] tracking-wider text-primary hover:bg-primary/20 transition-colors"
-                >
-                  СЕТКА НА CHALLONGE
-                </a>
-              </div>
-            </motion.article>
+              </motion.article>
+            </Link>
           )}
 
           <motion.div variants={box} className="col-span-12 lg:col-span-4 bento-card hud-corner p-6">
@@ -228,15 +133,17 @@ export default function MediaHub() {
           </motion.div>
 
           {rest.map((item) => (
-            <motion.article key={item.id} variants={box} className="col-span-12 md:col-span-6 lg:col-span-4 bento-card hud-corner p-5">
-              <div className={`font-mono text-[10px] tracking-widest mb-2 ${item.accent}`}>// {item.type.toUpperCase()}</div>
-              <h3 className="font-display text-xl font-black text-foreground leading-tight">{item.title}</h3>
-              <p className="font-mono text-[10px] text-muted-foreground mt-2">{item.excerpt}</p>
-              <div className="mt-4 flex items-center justify-between">
-                <span className="font-mono text-[10px] text-muted-foreground">{item.stat}</span>
-                <button className="border border-border bg-muted/20 px-3 py-1.5 font-mono text-[10px] text-foreground hover:border-primary/50">Читать</button>
-              </div>
-            </motion.article>
+            <Link key={item.id} to={`/media-hub/${item.id}`} className="col-span-12 md:col-span-6 lg:col-span-4">
+              <motion.article variants={box} className="bento-card hud-corner p-5 h-full group">
+                <div className={`font-mono text-[10px] tracking-widest mb-2 ${item.accent}`}>// {item.type.toUpperCase()}</div>
+                <h3 className="font-display text-xl font-black text-foreground leading-tight group-hover:text-primary transition-colors">{item.title}</h3>
+                <p className="font-mono text-[10px] text-muted-foreground mt-2">{item.excerpt}</p>
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="font-mono text-[10px] text-muted-foreground">{item.date || item.stat}</span>
+                  <span className="border border-border bg-muted/20 px-3 py-1.5 font-mono text-[10px] text-foreground group-hover:border-primary/50 transition-colors">Читать</span>
+                </div>
+              </motion.article>
+            </Link>
           ))}
 
           <motion.div variants={box} className="col-span-12 lg:col-span-5 bento-card hud-corner p-6">
