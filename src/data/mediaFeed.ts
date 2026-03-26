@@ -149,4 +149,16 @@ export const feed: FeedItem[] = [
     videoUrl: "https://vkvideo.ru/video-126368111_456239219",
     embedUrl: "https://vk.com/video_ext.php?oid=-126368111&id=456239219&hd=2",
   },
+  {
+    id: "n11",
+    title: "Алексей Klerax, капитан команды «Korean Team» о проекте буткемпа",
+    excerpt: "Алексей Klerax, капитан команды «Korean Team» о проекте буткемпа.",
+    category: "interview",
+    type: "Интервью",
+    stat: "3 декабря 2021",
+    accent: "text-neon-purple",
+    date: "3 декабря 2021",
+    videoUrl: "https://vkvideo.ru/video-126368111_456239227",
+    embedUrl: "https://vk.com/video_ext.php?oid=-126368111&id=456239227&hd=2",
+  },
 ];
