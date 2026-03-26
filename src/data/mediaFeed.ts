@@ -103,4 +103,14 @@ export const feed: FeedItem[] = [
     accent: "text-primary",
     date: "16 декабря 2024",
   },
+  {
+    id: "gallery-dota2-cyberleague-2024",
+    title: "Фотоархив: Киберлига Крыма 2024 — Финал по Dota2",
+    excerpt: "Подборка лучших фото с офлайн-финала Киберлиги Крыма 2024 по Dota2. Первая часть архива уже в галерее.",
+    category: "gallery",
+    type: "Галерея",
+    stat: "Новая галерея",
+    accent: "text-primary",
+    date: "16 декабря 2024",
+  },
 ];

@@ -17,6 +17,13 @@ import cs2Final16 from "@/assets/gallery/cs2-final-16.jpg";
 import cs2Final17 from "@/assets/gallery/cs2-final-17.jpg";
 import cs2Final18 from "@/assets/gallery/cs2-final-18.jpg";
 import cs2Final19 from "@/assets/gallery/cs2-final-19.jpg";
+import dota2Final01 from "@/assets/gallery/dota2-final-01.jpg";
+import dota2Final02 from "@/assets/gallery/dota2-final-02.jpg";
+import dota2Final03 from "@/assets/gallery/dota2-final-03.jpg";
+import dota2Final04 from "@/assets/gallery/dota2-final-04.jpg";
+import dota2Final05 from "@/assets/gallery/dota2-final-05.jpg";
+import dota2Final06 from "@/assets/gallery/dota2-final-06.jpg";
+import dota2Final07 from "@/assets/gallery/dota2-final-07.jpg";
 
 export type GalleryItem = {
   id: string;
@@ -52,6 +59,21 @@ export const galleries: GalleryItem[] = [
       { src: cs2Final17, alt: "Обсуждение игроков во время матча на сцене" },
       { src: cs2Final18, alt: "Эмоциональный момент — объятия после игры" },
       { src: cs2Final19, alt: "Игрок Breakout Team крупным планом за компьютером" },
+    ],
+  },
+  {
+    id: "dota2-cyberleague-2024",
+    title: "Киберлига Крыма 2024 — Финал по Dota2",
+    description: "Подборка лучших фото с офлайн-финала Киберлиги Крыма 2024 по Dota2. Первая часть фотоархива.",
+    date: "16 декабря 2024",
+    photos: [
+      { src: dota2Final01, alt: "Игроки за компьютерами на офлайн-финале Dota2" },
+      { src: dota2Final02, alt: "Главная сцена Киберлиги Крыма 2024" },
+      { src: dota2Final03, alt: "Подготовка команды Rampage Arena перед матчем" },
+      { src: dota2Final04, alt: "Состав команды за игровыми местами" },
+      { src: dota2Final05, alt: "Игрок на сцене во время матча" },
+      { src: dota2Final06, alt: "Участники у компьютеров перед стартом" },
+      { src: dota2Final07, alt: "Крупный план игрока на офлайн-турнире" },
     ],
   },
 ];
