@@ -27,12 +27,11 @@ import badgeVeteran from "@/assets/badges/badge_veteran.png";
 import { feed, type CategoryKey } from "@/data/mediaFeed";
 
 const categories: Array<{ key: CategoryKey; label: string; icon: string }> = [
-  { key: "all", label: "ВСЁ", icon: catNews },
+  { key: "all", label: "ВСЁ", icon: catUpdates },
   { key: "news", label: "Новости ФКС", icon: catNews },
   { key: "results", label: "Итоги турниров", icon: catResults },
-  { key: "updates", label: "Обновления игр", icon: catUpdates },
   { key: "interview", label: "Интервью", icon: catInterview },
-  { key: "guides", label: "Гайды", icon: catGuides },
+  { key: "guides", label: "Анонсы", icon: catGuides },
   { key: "gallery", label: "Галереи", icon: catGallery },
 ];
 
