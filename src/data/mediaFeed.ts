@@ -57,7 +57,8 @@ export const feed: FeedItem[] = [
     ],
     externalLink: { label: "СЕТКА НА CHALLONGE", url: "https://challonge.com/ru/srb79kwv" },
   },
-
+  {
+    id: "n2",
     title: "Новости ФКС: утверждён календарь летнего сезона",
     excerpt: "Новые даты региональных квалификаций и формат очного финала.",
     category: "news",
