@@ -178,6 +178,7 @@ export default function MediaHub() {
             </Link>
           ))}
 
+          {active === "all" && (<>
           <motion.div variants={box} className="col-span-12 lg:col-span-5 bento-card hud-corner p-6">
             <div className="font-mono text-[10px] tracking-widest text-primary mb-4">// COMMUNITY_ACTIONS</div>
             <div className="grid grid-cols-2 gap-3">
@@ -208,6 +209,7 @@ export default function MediaHub() {
               ))}
             </div>
           </motion.div>
+          </>)}
           </>)}
         </motion.div>
       </section>
