@@ -54,6 +54,14 @@ const getItemLink = (item: { id: string }) => {
 export default function MediaHub() {
   const [active, setActive] = useState<CategoryKey>("all");
 
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const c of categories) {
+      counts[c.key] = c.key === "all" ? feed.length : feed.filter((i) => i.category === c.key).length;
+    }
+    return counts;
+  }, []);
+
   const filtered = useMemo(() => {
     if (active === "all") return feed;
     return feed.filter((item) => item.category === active);
@@ -84,7 +92,7 @@ export default function MediaHub() {
               <button
                 key={c.key}
                 onClick={() => setActive(c.key)}
-                className={`border p-2 flex items-center gap-2 transition-colors ${active === c.key ? "border-primary bg-primary/10" : "border-border bg-muted/20 hover:border-primary/50"}`}
+                className={`border p-2 flex items-center gap-2 transition-colors ${active === c.key ? "border-primary bg-primary/10" : "border-border bg-muted/20 hover:border-primary/50"} ${categoryCounts[c.key] === 0 ? "opacity-40" : ""}`}
               >
                 <img src={c.icon} alt={c.label} className="w-8 h-8 object-contain" loading="lazy" />
                 <span className="font-mono text-[10px] uppercase tracking-wider text-foreground">{c.label}</span>
@@ -94,6 +102,11 @@ export default function MediaHub() {
         </div>
 
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="grid grid-cols-12 gap-4">
+          {filtered.length === 0 ? (
+            <div className="col-span-12 bento-card hud-corner p-12 text-center">
+              <p className="font-mono text-sm text-muted-foreground">Публикации в этом разделе скоро появятся.</p>
+            </div>
+          ) : (<>
           {featured && (
             <Link to={getItemLink(featured)} className="col-span-12 lg:col-span-8">
               <motion.article variants={box} className="bento-card hud-corner p-6 h-full group">
@@ -193,6 +206,7 @@ export default function MediaHub() {
               ))}
             </div>
           </motion.div>
+          </>)}
         </motion.div>
       </section>
 
