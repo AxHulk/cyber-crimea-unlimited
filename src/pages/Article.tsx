@@ -80,7 +80,22 @@ export default function Article() {
                 </div>
               )}
 
-              {article.videoUrl && (
+              {article.embedUrl && (
+                <div className="mt-6 border-t border-border pt-6">
+                  <div className="font-mono text-[10px] tracking-widest text-primary mb-3">// ВИДЕО</div>
+                  <div className="relative w-full aspect-video border border-border bg-black/50">
+                    <iframe
+                      src={article.embedUrl}
+                      className="absolute inset-0 w-full h-full"
+                      allowFullScreen
+                      allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                      frameBorder="0"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {!article.embedUrl && article.videoUrl && (
                 <div className="mt-6 border-t border-border pt-6">
                   <div className="font-mono text-[10px] tracking-widest text-primary mb-3">// ВИДЕО</div>
                   <a

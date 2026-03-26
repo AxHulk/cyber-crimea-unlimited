@@ -10,6 +10,8 @@ export type FeedItem = {
   accent: string;
   date?: string;
   videoUrl?: string;
+  /** iframe-ready embed URL (VK/YouTube/Twitch) */
+  embedUrl?: string;
   details?: string[];
   externalLink?: { label: string; url: string };
 };
@@ -25,6 +27,7 @@ export const feed: FeedItem[] = [
     accent: "text-primary",
     date: "16 декабря 2024",
     videoUrl: "https://vkvideo.ru/video-126368111_456239394",
+    embedUrl: "https://vk.com/video_ext.php?oid=-126368111&id=456239394&hd=2",
     details: [
       "🏆 1 место — Rampage Arena (2-0): not a human, Varashkin, Seyeze, Rain, Воровская Лапа",
       "🥈 2 место — ZVери (1-1)",
