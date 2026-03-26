@@ -6,6 +6,12 @@ import cs2Final05 from "@/assets/gallery/cs2-final-05.jpg";
 import cs2Final06 from "@/assets/gallery/cs2-final-06.jpg";
 import cs2Final07 from "@/assets/gallery/cs2-final-07.jpg";
 import cs2Final08 from "@/assets/gallery/cs2-final-08.jpg";
+import cs2Final09 from "@/assets/gallery/cs2-final-09.jpg";
+import cs2Final10 from "@/assets/gallery/cs2-final-10.jpg";
+import cs2Final11 from "@/assets/gallery/cs2-final-11.jpg";
+import cs2Final12 from "@/assets/gallery/cs2-final-12.jpg";
+import cs2Final13 from "@/assets/gallery/cs2-final-13.jpg";
+import cs2Final14 from "@/assets/gallery/cs2-final-14.jpg";
 
 export type GalleryItem = {
   id: string;
@@ -30,6 +36,12 @@ export const galleries: GalleryItem[] = [
       { src: cs2Final06, alt: "Команда играет на турнире — вид сбоку" },
       { src: cs2Final07, alt: "Игрок с гарнитурой — сосредоточение" },
       { src: cs2Final08, alt: "Болельщица Киберлиги Крыма" },
+      { src: cs2Final09, alt: "Команда Coldhands в зрительном зале" },
+      { src: cs2Final10, alt: "Молодой игрок за компьютером" },
+      { src: cs2Final11, alt: "Игрок Perekop Team в наушниках HyperX" },
+      { src: cs2Final12, alt: "Игрок YIKC за монитором" },
+      { src: cs2Final13, alt: "Крупный план формы MALOV TEAM" },
+      { src: cs2Final14, alt: "Сцена турнира — вид из зала с мониторами команд" },
     ],
   },
 ];
