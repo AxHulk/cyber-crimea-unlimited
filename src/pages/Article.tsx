@@ -135,7 +135,7 @@ export default function Article() {
                   .map((item) => (
                     <Link
                       key={item.id}
-                      to={`/media-hub/${item.id}`}
+                      to={item.id.startsWith("gallery-") ? `/media-hub/gallery/${item.id.replace("gallery-", "")}` : `/media-hub/${item.id}`}
                       className="block border border-border bg-muted/20 p-3 hover:border-primary/50 transition-colors"
                     >
                       <div className={`font-mono text-[9px] tracking-widest mb-1 ${item.accent}`}>
