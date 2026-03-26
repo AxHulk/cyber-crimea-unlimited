@@ -178,11 +178,38 @@ export default function MediaHub() {
               </div>
               <h2 className="font-display text-2xl md:text-3xl font-black text-foreground mb-3">{featured.title}</h2>
               <p className="font-mono text-xs text-muted-foreground max-w-3xl">{featured.excerpt}</p>
+
+              {featured.details && (
+                <div className="mt-4 space-y-1.5">
+                  {featured.details.map((d, i) => (
+                    <div key={i} className="font-mono text-[11px] text-muted-foreground leading-relaxed">{d}</div>
+                  ))}
+                </div>
+              )}
+
+              {featured.videoUrl && (
+                <div className="mt-4">
+                  <a
+                    href={featured.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 border border-primary/40 bg-primary/5 px-4 py-2 font-mono text-[10px] tracking-wider text-primary hover:bg-primary/15 transition-colors"
+                  >
+                    ▶ СМОТРЕТЬ ВИДЕО
+                  </a>
+                </div>
+              )}
+
               <div className="mt-5 flex items-center justify-between gap-3">
-                <span className="font-mono text-[10px] text-muted-foreground">{featured.stat}</span>
-                <Link to="/news" className="border border-primary bg-primary/10 px-4 py-2 font-mono text-[10px] tracking-wider text-primary hover:bg-primary/20 transition-colors">
-                  ОТКРЫТЬ МАТЕРИАЛ
-                </Link>
+                <span className="font-mono text-[10px] text-muted-foreground">{featured.date || featured.stat}</span>
+                <a
+                  href="https://challonge.com/ru/h31zui3f"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-primary bg-primary/10 px-4 py-2 font-mono text-[10px] tracking-wider text-primary hover:bg-primary/20 transition-colors"
+                >
+                  СЕТКА НА CHALLONGE
+                </a>
               </div>
             </motion.article>
           )}
