@@ -122,13 +122,24 @@ export default function MediaHub() {
           <motion.div variants={box} className="col-span-12 lg:col-span-4 bento-card hud-corner p-6">
             <div className="font-mono text-[10px] tracking-widest text-primary mb-4">// MEDIA_TYPES</div>
             <div className="space-y-3">
-              {[{ icon: typeReport, name: "MATCH REPORT", desc: "Репортажи и аналитика" }, { icon: typeVod, name: "VOD ARCHIVE", desc: "Архив матчей и трансляций" }].map((t) => (
-                <div key={t.name} className="border border-border bg-muted/20 p-3 hover-scale">
-                  <img src={t.icon} alt={t.name} className="w-14 h-14 object-contain" loading="lazy" />
-                  <div className="font-display text-sm font-bold text-foreground mt-2">{t.name}</div>
-                  <div className="font-mono text-[10px] text-muted-foreground">{t.desc}</div>
-                </div>
-              ))}
+              {[{ icon: typeReport, name: "MATCH REPORT", desc: "Репортажи и аналитика", to: "" }, { icon: typeVod, name: "VOD ARCHIVE", desc: "Архив матчей и трансляций", to: "/media-hub/vod" }].map((t) => {
+                const inner = (
+                  <>
+                    <img src={t.icon} alt={t.name} className="w-14 h-14 object-contain" loading="lazy" />
+                    <div className="font-display text-sm font-bold text-foreground mt-2">{t.name}</div>
+                    <div className="font-mono text-[10px] text-muted-foreground">{t.desc}</div>
+                  </>
+                );
+                return t.to ? (
+                  <Link key={t.name} to={t.to} className="border border-border bg-muted/20 p-3 hover-scale block hover:border-primary/50 transition-colors">
+                    {inner}
+                  </Link>
+                ) : (
+                  <div key={t.name} className="border border-border bg-muted/20 p-3 hover-scale">
+                    {inner}
+                  </div>
+                );
+              })}
             </div>
           </motion.div>
 
