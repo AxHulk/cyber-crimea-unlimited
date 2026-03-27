@@ -138,9 +138,53 @@ export default function PlayerProfile() {
               <div className="font-mono text-[10px] text-muted-foreground mt-1">KDA</div>
             </motion.div>
 
-            {/* External Stats */}
+            {/* External Stats - Synced Data */}
+            {player.stats_synced_at && (
+              <motion.div variants={item} className="col-span-12 bento-card hud-corner p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="font-mono text-[10px] tracking-widest text-primary">// ВНЕШНЯЯ СТАТИСТИКА ({player.discipline === "CS2" ? "FACEIT" : "OPENDOTA"})</div>
+                  <div className="font-mono text-[10px] text-muted-foreground">
+                    Обновлено: {new Date(player.stats_synced_at).toLocaleString("ru")}
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                  {player.external_elo != null && (
+                    <div className="border border-border bg-muted/20 p-3 text-center">
+                      <div className="font-display text-xl font-black text-neon-cyan">{player.external_elo}</div>
+                      <div className="font-mono text-[10px] text-muted-foreground mt-1">{player.discipline === "CS2" ? "FACEIT ELO" : "MMR"}</div>
+                    </div>
+                  )}
+                  {player.external_level != null && player.external_level > 0 && (
+                    <div className="border border-border bg-muted/20 p-3 text-center">
+                      <div className="font-display text-xl font-black text-neon-purple">LVL {player.external_level}</div>
+                      <div className="font-mono text-[10px] text-muted-foreground mt-1">УРОВЕНЬ</div>
+                    </div>
+                  )}
+                  {player.external_kda != null && (
+                    <div className="border border-border bg-muted/20 p-3 text-center">
+                      <div className="font-display text-xl font-black text-foreground">{Number(player.external_kda).toFixed(2)}</div>
+                      <div className="font-mono text-[10px] text-muted-foreground mt-1">K/D</div>
+                    </div>
+                  )}
+                  {player.external_winrate != null && (
+                    <div className="border border-border bg-muted/20 p-3 text-center">
+                      <div className="font-display text-xl font-black text-neon-green">{player.external_winrate}%</div>
+                      <div className="font-mono text-[10px] text-muted-foreground mt-1">ВИНРЕЙТ</div>
+                    </div>
+                  )}
+                  {player.external_matches != null && (
+                    <div className="border border-border bg-muted/20 p-3 text-center">
+                      <div className="font-display text-xl font-black text-foreground">{player.external_matches}</div>
+                      <div className="font-mono text-[10px] text-muted-foreground mt-1">МАТЧЕЙ</div>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Accounts */}
             <motion.div variants={item} className="col-span-12 lg:col-span-6 bento-card hud-corner p-6">
-              <div className="font-mono text-[10px] tracking-widest text-primary mb-4">// ВНЕШНЯЯ СТАТИСТИКА</div>
+              <div className="font-mono text-[10px] tracking-widest text-primary mb-4">// ПРИВЯЗАННЫЕ АККАУНТЫ</div>
               <div className="space-y-3">
                 {player.steam_id ? (
                   <div className="border border-border bg-muted/20 p-3 flex items-center justify-between">

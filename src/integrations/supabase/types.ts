@@ -88,6 +88,12 @@ export type Database = {
           created_at: string
           discipline: string
           elo: number
+          external_data: Json | null
+          external_elo: number | null
+          external_kda: number | null
+          external_level: number | null
+          external_matches: number | null
+          external_winrate: number | null
           faceit_nickname: string | null
           faceit_verified: boolean
           id: string
@@ -95,9 +101,11 @@ export type Database = {
           losses: number
           nickname: string
           profile_id: string
+          stats_synced_at: string | null
           steam_id: string | null
           steam_verified: boolean
           updated_at: string
+          verification_code: string | null
           wins: number
         }
         Insert: {
@@ -105,6 +113,12 @@ export type Database = {
           created_at?: string
           discipline: string
           elo?: number
+          external_data?: Json | null
+          external_elo?: number | null
+          external_kda?: number | null
+          external_level?: number | null
+          external_matches?: number | null
+          external_winrate?: number | null
           faceit_nickname?: string | null
           faceit_verified?: boolean
           id?: string
@@ -112,9 +126,11 @@ export type Database = {
           losses?: number
           nickname: string
           profile_id: string
+          stats_synced_at?: string | null
           steam_id?: string | null
           steam_verified?: boolean
           updated_at?: string
+          verification_code?: string | null
           wins?: number
         }
         Update: {
@@ -122,6 +138,12 @@ export type Database = {
           created_at?: string
           discipline?: string
           elo?: number
+          external_data?: Json | null
+          external_elo?: number | null
+          external_kda?: number | null
+          external_level?: number | null
+          external_matches?: number | null
+          external_winrate?: number | null
           faceit_nickname?: string | null
           faceit_verified?: boolean
           id?: string
@@ -129,9 +151,11 @@ export type Database = {
           losses?: number
           nickname?: string
           profile_id?: string
+          stats_synced_at?: string | null
           steam_id?: string | null
           steam_verified?: boolean
           updated_at?: string
+          verification_code?: string | null
           wins?: number
         }
         Relationships: [
