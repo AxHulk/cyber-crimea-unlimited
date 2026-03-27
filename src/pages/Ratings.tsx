@@ -191,12 +191,21 @@ export default function Ratings() {
                 </tr>
               </thead>
               <tbody>
-                {rows.map((r) => (
-                  <tr key={r.name} className="border-b border-border/70 hover:bg-muted/20 transition-colors">
+                {rows.map((r: any) => (
+                  <tr key={r.name} className="border-b border-border/70 hover:bg-muted/20 transition-colors cursor-pointer">
                     <td className="py-3 font-display text-sm text-foreground">{String(r.pos).padStart(2, "0")}</td>
                     <td className="py-3">
-                      <div className="font-display text-sm font-bold text-foreground">{r.name}</div>
-                      <div className="font-mono text-[10px] text-muted-foreground">{r.game}</div>
+                      {r.linkTo ? (
+                        <Link to={r.linkTo} className="hover:text-primary transition-colors">
+                          <div className="font-display text-sm font-bold">{r.name}</div>
+                          <div className="font-mono text-[10px] text-muted-foreground">{r.game}</div>
+                        </Link>
+                      ) : (
+                        <>
+                          <div className="font-display text-sm font-bold text-foreground">{r.name}</div>
+                          <div className="font-mono text-[10px] text-muted-foreground">{r.game}</div>
+                        </>
+                      )}
                     </td>
                     <td className="py-3">
                       <div className="flex items-center gap-2">
