@@ -78,14 +78,12 @@ export default function Ratings() {
   const rows = useMemo(() => {
     if (mode === "teams" && dbTeams) {
       const sorted = [...dbTeams];
-      if (discipline === "cs2") {
-        sorted.sort((a, b) => {
-          const wrA = a.wins + a.losses > 0 ? a.wins / (a.wins + a.losses) : 0;
-          const wrB = b.wins + b.losses > 0 ? b.wins / (b.wins + b.losses) : 0;
-          if (wrB !== wrA) return wrB - wrA;
-          return b.rating - a.rating;
-        });
-      }
+      sorted.sort((a, b) => {
+        const wrA = a.wins + a.losses > 0 ? a.wins / (a.wins + a.losses) : 0;
+        const wrB = b.wins + b.losses > 0 ? b.wins / (b.wins + b.losses) : 0;
+        if (wrB !== wrA) return wrB - wrA;
+        return b.rating - a.rating;
+      });
       return sorted.map((t, i) => ({
         pos: i + 1,
         id: t.id,
@@ -101,14 +99,12 @@ export default function Ratings() {
     }
     if (mode === "players" && dbPlayers) {
       const sorted = [...dbPlayers];
-      if (discipline === "cs2") {
-        sorted.sort((a, b) => {
-          const wrA = a.wins + a.losses > 0 ? a.wins / (a.wins + a.losses) : 0;
-          const wrB = b.wins + b.losses > 0 ? b.wins / (b.wins + b.losses) : 0;
-          if (wrB !== wrA) return wrB - wrA;
-          return b.elo - a.elo;
-        });
-      }
+      sorted.sort((a, b) => {
+        const wrA = a.wins + a.losses > 0 ? a.wins / (a.wins + a.losses) : 0;
+        const wrB = b.wins + b.losses > 0 ? b.wins / (b.wins + b.losses) : 0;
+        if (wrB !== wrA) return wrB - wrA;
+        return b.elo - a.elo;
+      });
       return sorted.map((p: any, i) => {
         // Calculate player prize from team membership
         let playerPrize = 0;
