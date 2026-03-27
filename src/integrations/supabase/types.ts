@@ -84,38 +84,53 @@ export type Database = {
       }
       players: {
         Row: {
+          admin_verified: boolean
           created_at: string
           discipline: string
           elo: number
+          faceit_nickname: string | null
+          faceit_verified: boolean
           id: string
           kda: number
           losses: number
           nickname: string
           profile_id: string
+          steam_id: string | null
+          steam_verified: boolean
           updated_at: string
           wins: number
         }
         Insert: {
+          admin_verified?: boolean
           created_at?: string
           discipline: string
           elo?: number
+          faceit_nickname?: string | null
+          faceit_verified?: boolean
           id?: string
           kda?: number
           losses?: number
           nickname: string
           profile_id: string
+          steam_id?: string | null
+          steam_verified?: boolean
           updated_at?: string
           wins?: number
         }
         Update: {
+          admin_verified?: boolean
           created_at?: string
           discipline?: string
           elo?: number
+          faceit_nickname?: string | null
+          faceit_verified?: boolean
           id?: string
           kda?: number
           losses?: number
           nickname?: string
           profile_id?: string
+          steam_id?: string | null
+          steam_verified?: boolean
           updated_at?: string
           wins?: number
         }
@@ -164,6 +179,107 @@ export type Database = {
           username?: string | null
         }
         Relationships: []
+      }
+      team_members: {
+        Row: {
+          created_at: string
+          id: string
+          joined_at: string
+          left_at: string | null
+          player_id: string
+          role: string
+          team_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          joined_at?: string
+          left_at?: string | null
+          player_id: string
+          role?: string
+          team_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          joined_at?: string
+          left_at?: string | null
+          player_id?: string
+          role?: string
+          team_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "team_members_player_id_fkey"
+            columns: ["player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "team_members_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      teams: {
+        Row: {
+          captain_id: string | null
+          created_at: string
+          discipline: string
+          draws: number
+          id: string
+          logo_url: string | null
+          losses: number
+          name: string
+          prize_total: number
+          rating: number
+          tag: string
+          updated_at: string
+          wins: number
+        }
+        Insert: {
+          captain_id?: string | null
+          created_at?: string
+          discipline: string
+          draws?: number
+          id?: string
+          logo_url?: string | null
+          losses?: number
+          name: string
+          prize_total?: number
+          rating?: number
+          tag: string
+          updated_at?: string
+          wins?: number
+        }
+        Update: {
+          captain_id?: string | null
+          created_at?: string
+          discipline?: string
+          draws?: number
+          id?: string
+          logo_url?: string | null
+          losses?: number
+          name?: string
+          prize_total?: number
+          rating?: number
+          tag?: string
+          updated_at?: string
+          wins?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "teams_captain_id_fkey"
+            columns: ["captain_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       tournaments: {
         Row: {
