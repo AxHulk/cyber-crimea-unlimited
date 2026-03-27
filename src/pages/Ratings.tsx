@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import HudNavbar from "@/components/HudNavbar";
 import Footer from "@/components/Footer";
+import TierBadge from "@/components/TierBadge";
 
 import arrowUp from "@/assets/ratings/arrow_up.png";
 import arrowDown from "@/assets/ratings/arrow_down.png";
@@ -127,6 +128,7 @@ export default function Ratings() {
           name: p.nickname,
           game: p.discipline,
           elo: p.elo,
+          tier: p.tier,
           wl: `${p.wins}/${p.losses}`,
           winrate: p.wins + p.losses > 0 ? `${Math.round((p.wins / (p.wins + p.losses)) * 100)}%` : "0%",
           prize: playerPrize > 0 ? `₽${playerPrize.toLocaleString("ru")}` : "—",
