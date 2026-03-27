@@ -132,7 +132,7 @@ Deno.serve(async (req) => {
     const { data: players, error } = await supabase
       .from("players")
       .select("id, discipline, steam_id, faceit_nickname, steam_verified, faceit_verified")
-      .or("steam_id.neq.,faceit_nickname.neq.");
+      .or("steam_id.not.is.null,faceit_nickname.not.is.null");
 
     if (error) throw error;
     if (!players || players.length === 0) {
