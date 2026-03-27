@@ -164,15 +164,19 @@ export default function Ratings() {
           <motion.div variants={item} className="col-span-12 lg:col-span-4 bento-card hud-corner p-6">
             <div className="font-mono text-[10px] tracking-widest text-primary mb-4">// TOP_3</div>
             <div className="space-y-3">
-              {podium.map((p, i) => (
-                <div key={p.name} className="border border-border bg-muted/20 p-3 flex items-center gap-3 hover-scale">
-                  <img src={medals[i]} alt={`Медаль ${i + 1} места`} className="w-10 h-10 object-contain" loading="lazy" />
-                  <div className="flex-1">
-                    <div className="font-display text-sm font-bold text-foreground">{p.name}</div>
-                    <div className="font-mono text-[10px] text-muted-foreground">{p.game} • ELO {p.elo}</div>
-                  </div>
-                </div>
-              ))}
+              {podium.map((p: any, i) => {
+                const Wrapper = p.linkTo ? Link : "div";
+                const wrapperProps = p.linkTo ? { to: p.linkTo } : {};
+                return (
+                  <Wrapper key={p.name} {...wrapperProps as any} className="border border-border bg-muted/20 p-3 flex items-center gap-3 hover-scale hover:border-primary/50 transition-colors block">
+                    <img src={medals[i]} alt={`Медаль ${i + 1} места`} className="w-10 h-10 object-contain" loading="lazy" />
+                    <div className="flex-1">
+                      <div className="font-display text-sm font-bold text-foreground group-hover:text-primary">{p.name}</div>
+                      <div className="font-mono text-[10px] text-muted-foreground">{p.game} • ELO {p.elo}</div>
+                    </div>
+                  </Wrapper>
+                );
+              })}
             </div>
           </motion.div>
 
