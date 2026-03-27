@@ -59,13 +59,13 @@ export default function Ratings() {
     },
   });
 
-  // Fetch players filtered by discipline
+  // Fetch players filtered by discipline, with their team membership for prizes
   const { data: dbPlayers } = useQuery({
     queryKey: ["ratings-players", dbFilter],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("players")
-        .select("*")
+        .select("*, team_members(team_id, teams(prize_total, name))")
         .eq("discipline", dbFilter)
         .order("elo", { ascending: false })
         .limit(100);
@@ -76,7 +76,16 @@ export default function Ratings() {
 
   const rows = useMemo(() => {
     if (mode === "teams" && dbTeams) {
-      return dbTeams.map((t, i) => ({
+      const sorted = [...dbTeams];
+      if (discipline === "cs2") {
+        sorted.sort((a, b) => {
+          const wrA = a.wins + a.losses > 0 ? a.wins / (a.wins + a.losses) : 0;
+          const wrB = b.wins + b.losses > 0 ? b.wins / (b.wins + b.losses) : 0;
+          if (wrB !== wrA) return wrB - wrA;
+          return b.rating - a.rating;
+        });
+      }
+      return sorted.map((t, i) => ({
         pos: i + 1,
         id: t.id,
         name: t.name,
@@ -90,18 +99,41 @@ export default function Ratings() {
       }));
     }
     if (mode === "players" && dbPlayers) {
-      return dbPlayers.map((p, i) => ({
-        pos: i + 1,
-        id: p.id,
-        name: p.nickname,
-        game: p.discipline,
-        elo: p.elo,
-        wl: `${p.wins}/${p.losses}`,
-        winrate: p.wins + p.losses > 0 ? `${Math.round((p.wins / (p.wins + p.losses)) * 100)}%` : "0%",
-        prize: "—",
-        delta: 0,
-        linkTo: `/ratings/player/${p.id}`,
-      }));
+      const sorted = [...dbPlayers];
+      if (discipline === "cs2") {
+        sorted.sort((a, b) => {
+          const wrA = a.wins + a.losses > 0 ? a.wins / (a.wins + a.losses) : 0;
+          const wrB = b.wins + b.losses > 0 ? b.wins / (b.wins + b.losses) : 0;
+          if (wrB !== wrA) return wrB - wrA;
+          return b.elo - a.elo;
+        });
+      }
+      return sorted.map((p: any, i) => {
+        // Calculate player prize from team membership
+        let playerPrize = 0;
+        if (p.team_members && p.team_members.length > 0) {
+          for (const tm of p.team_members) {
+            if (tm.teams && tm.teams.prize_total > 0) {
+              // Count members in same team to split evenly
+              const teamPrize = Number(tm.teams.prize_total);
+              // We'll estimate 5 members per team for equal split
+              playerPrize += Math.round(teamPrize / 5);
+            }
+          }
+        }
+        return {
+          pos: i + 1,
+          id: p.id,
+          name: p.nickname,
+          game: p.discipline,
+          elo: p.elo,
+          wl: `${p.wins}/${p.losses}`,
+          winrate: p.wins + p.losses > 0 ? `${Math.round((p.wins / (p.wins + p.losses)) * 100)}%` : "0%",
+          prize: playerPrize > 0 ? `₽${playerPrize.toLocaleString("ru")}` : "—",
+          delta: 0,
+          linkTo: `/ratings/player/${p.id}`,
+        };
+      });
     }
     return [];
   }, [mode, discipline, dbTeams, dbPlayers]);
