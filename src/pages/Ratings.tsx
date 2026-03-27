@@ -65,8 +65,8 @@ export default function Ratings() {
       const { data, error } = await supabase
         .from("teams")
         .select("*")
-        .order("rating", { ascending: false })
-        .limit(20);
+      .order("rating", { ascending: false })
+        .limit(100);
       if (error) throw error;
       return data;
     },
@@ -79,8 +79,8 @@ export default function Ratings() {
       const { data, error } = await supabase
         .from("players")
         .select("*")
-        .order("elo", { ascending: false })
-        .limit(20);
+      .order("elo", { ascending: false })
+        .limit(100);
       if (error) throw error;
       return data;
     },
