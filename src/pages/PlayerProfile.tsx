@@ -122,9 +122,9 @@ export default function PlayerProfile() {
 
             {/* ELO Card */}
             <motion.div variants={item} className="col-span-12 lg:col-span-4 bento-card hud-corner p-6 flex flex-col items-center justify-center">
-              <div className="font-mono text-[10px] tracking-widest text-primary mb-3">// INTERNAL_ELO</div>
+              <div className="font-mono text-[10px] tracking-widest text-primary mb-3">// ELO</div>
               <div className="font-display text-6xl font-black text-primary">{player.elo}</div>
-              <div className="font-mono text-[10px] text-muted-foreground mt-2">РЕЙТИНГ НА САЙТЕ</div>
+              <div className="font-mono text-[10px] text-muted-foreground mt-2">РЕЙТИНГ</div>
             </motion.div>
 
             {/* Stats Row */}
