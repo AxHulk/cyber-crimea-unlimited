@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ArrowLeft, Trophy, Swords, Users, TrendingUp, TrendingDown } from "lucide-react";
+import TierBadge from "@/components/TierBadge";
 import HudNavbar from "@/components/HudNavbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -152,11 +153,12 @@ export default function TeamProfile() {
                         {m.players?.nickname?.[0] || "?"}
                       </div>
                       <div className="flex-1">
-                        <div className="font-display text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                        <div className="font-display text-sm font-bold text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
                           {m.players?.nickname || "Unknown"}
+                          <TierBadge tier={(m.players as any)?.tier} size="sm" />
                         </div>
                         <div className="font-mono text-[10px] text-muted-foreground">
-                          {m.role === "captain" ? "КАПИТАН" : "ИГРОК"} • ELO {m.players?.elo || 1000}
+                          {m.role === "captain" ? "КАПИТАН" : "ИГРОК"} • {team.discipline === "Dota 2" ? "MMR" : "ELO"} {m.players?.elo || 1000}
                         </div>
                       </div>
                       <div className="font-mono text-[10px] text-muted-foreground">

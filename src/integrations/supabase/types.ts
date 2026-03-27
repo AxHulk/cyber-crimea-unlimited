@@ -104,6 +104,7 @@ export type Database = {
           stats_synced_at: string | null
           steam_id: string | null
           steam_verified: boolean
+          tier: string | null
           updated_at: string
           verification_code: string | null
           wins: number
@@ -129,6 +130,7 @@ export type Database = {
           stats_synced_at?: string | null
           steam_id?: string | null
           steam_verified?: boolean
+          tier?: string | null
           updated_at?: string
           verification_code?: string | null
           wins?: number
@@ -154,6 +156,7 @@ export type Database = {
           stats_synced_at?: string | null
           steam_id?: string | null
           steam_verified?: boolean
+          tier?: string | null
           updated_at?: string
           verification_code?: string | null
           wins?: number

@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ArrowLeft, Trophy, Swords, TrendingUp, Users, Shield, ExternalLink } from "lucide-react";
+import TierBadge from "@/components/TierBadge";
 import HudNavbar from "@/components/HudNavbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -90,13 +91,14 @@ export default function PlayerProfile() {
               )}
 
               <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center h-full">
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-3 mb-3 flex-wrap">
                   <span className="font-mono text-[10px] px-2 py-0.5 border border-primary/30 bg-primary/10 text-primary">{player.discipline}</span>
                   {player.admin_verified && (
                     <span className="font-mono text-[10px] px-2 py-0.5 border border-neon-green/30 bg-neon-green/10 text-neon-green flex items-center gap-1">
                       <Shield className="w-3 h-3" /> VERIFIED
                     </span>
                   )}
+                  <TierBadge tier={(player as any).tier} />
                 </div>
                 <h1 className="font-display text-4xl md:text-6xl font-black text-foreground mb-2 drop-shadow-lg">{player.nickname}</h1>
                 {player.profiles?.full_name && (

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import HudNavbar from "@/components/HudNavbar";
 import Footer from "@/components/Footer";
+import TierBadge from "@/components/TierBadge";
 
 import arrowUp from "@/assets/ratings/arrow_up.png";
 import arrowDown from "@/assets/ratings/arrow_down.png";
@@ -127,6 +128,7 @@ export default function Ratings() {
           name: p.nickname,
           game: p.discipline,
           elo: p.elo,
+          tier: p.tier,
           wl: `${p.wins}/${p.losses}`,
           winrate: p.wins + p.losses > 0 ? `${Math.round((p.wins / (p.wins + p.losses)) * 100)}%` : "0%",
           prize: playerPrize > 0 ? `₽${playerPrize.toLocaleString("ru")}` : "—",
@@ -223,12 +225,12 @@ export default function Ratings() {
                     <td className="py-3">
                       {r.linkTo ? (
                         <Link to={r.linkTo} className="hover:text-primary transition-colors">
-                          <div className="font-display text-sm font-bold">{r.name}</div>
+                          <div className="font-display text-sm font-bold flex items-center gap-2">{r.name} {r.tier && <TierBadge tier={r.tier} size="sm" />}</div>
                           <div className="font-mono text-[10px] text-muted-foreground">{r.game}</div>
                         </Link>
                       ) : (
                         <>
-                          <div className="font-display text-sm font-bold text-foreground">{r.name}</div>
+                          <div className="font-display text-sm font-bold text-foreground flex items-center gap-2">{r.name} {r.tier && <TierBadge tier={r.tier} size="sm" />}</div>
                           <div className="font-mono text-[10px] text-muted-foreground">{r.game}</div>
                         </>
                       )}
