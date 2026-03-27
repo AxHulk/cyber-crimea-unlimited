@@ -9,6 +9,8 @@ import News from "./pages/News.tsx";
 import About from "./pages/About.tsx";
 import Arena from "./pages/Arena.tsx";
 import Ratings from "./pages/Ratings.tsx";
+import TeamProfile from "./pages/TeamProfile.tsx";
+import PlayerProfile from "./pages/PlayerProfile.tsx";
 import MediaHub from "./pages/MediaHub.tsx";
 import Infrastructure from "./pages/Infrastructure.tsx";
 import Auth from "./pages/Auth.tsx";
@@ -34,6 +36,8 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/arena" element={<Arena />} />
           <Route path="/ratings" element={<Ratings />} />
+          <Route path="/ratings/team/:teamId" element={<TeamProfile />} />
+          <Route path="/ratings/player/:playerId" element={<PlayerProfile />} />
           <Route path="/media-hub" element={<MediaHub />} />
           <Route path="/media-hub/vod" element={<VodArchive />} />
           <Route path="/media-hub/gallery/:galleryId" element={<Gallery />} />

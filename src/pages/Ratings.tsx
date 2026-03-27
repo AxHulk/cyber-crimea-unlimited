@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import HudNavbar from "@/components/HudNavbar";
 import Footer from "@/components/Footer";
 
@@ -56,12 +58,71 @@ export default function Ratings() {
   const [mode, setMode] = useState<Mode>("teams");
   const [discipline, setDiscipline] = useState<Disc>("all");
 
+  // Fetch real teams from DB
+  const { data: dbTeams } = useQuery({
+    queryKey: ["ratings-teams"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("teams")
+        .select("*")
+        .order("rating", { ascending: false })
+        .limit(20);
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  // Fetch real players from DB
+  const { data: dbPlayers } = useQuery({
+    queryKey: ["ratings-players"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("players")
+        .select("*")
+        .order("elo", { ascending: false })
+        .limit(20);
+      if (error) throw error;
+      return data;
+    },
+  });
+
   const rows = useMemo(() => {
-    const data = ladderData[mode];
+    // Use DB data if available, otherwise fall back to mock
+    let data: any[];
+    if (mode === "teams" && dbTeams && dbTeams.length > 0) {
+      data = dbTeams.map((t, i) => ({
+        pos: i + 1,
+        id: t.id,
+        name: t.name,
+        game: t.discipline,
+        elo: t.rating,
+        wl: `${t.wins}/${t.losses}`,
+        winrate: t.wins + t.losses > 0 ? `${Math.round((t.wins / (t.wins + t.losses)) * 100)}%` : "0%",
+        prize: `₽${Number(t.prize_total).toLocaleString("ru")}`,
+        delta: 0,
+        linkTo: `/ratings/team/${t.id}`,
+      }));
+    } else if (mode === "players" && dbPlayers && dbPlayers.length > 0) {
+      data = dbPlayers.map((p, i) => ({
+        pos: i + 1,
+        id: p.id,
+        name: p.nickname,
+        game: p.discipline,
+        elo: p.elo,
+        wl: `${p.wins}/${p.losses}`,
+        winrate: p.wins + p.losses > 0 ? `${Math.round((p.wins / (p.wins + p.losses)) * 100)}%` : "0%",
+        prize: "—",
+        delta: 0,
+        linkTo: `/ratings/player/${p.id}`,
+      }));
+    } else {
+      data = ladderData[mode];
+    }
+
     if (discipline === "all") return data;
     const filterMap: Record<Exclude<Disc, "all">, string> = { cs2: "CS2", dota2: "Dota 2" };
     return data.filter((r) => r.game === filterMap[discipline]);
-  }, [mode, discipline]);
+  }, [mode, discipline, dbTeams, dbPlayers]);
 
   const podium = rows.slice(0, 3);
 
@@ -103,15 +164,19 @@ export default function Ratings() {
           <motion.div variants={item} className="col-span-12 lg:col-span-4 bento-card hud-corner p-6">
             <div className="font-mono text-[10px] tracking-widest text-primary mb-4">// TOP_3</div>
             <div className="space-y-3">
-              {podium.map((p, i) => (
-                <div key={p.name} className="border border-border bg-muted/20 p-3 flex items-center gap-3 hover-scale">
-                  <img src={medals[i]} alt={`Медаль ${i + 1} места`} className="w-10 h-10 object-contain" loading="lazy" />
-                  <div className="flex-1">
-                    <div className="font-display text-sm font-bold text-foreground">{p.name}</div>
-                    <div className="font-mono text-[10px] text-muted-foreground">{p.game} • ELO {p.elo}</div>
-                  </div>
-                </div>
-              ))}
+              {podium.map((p: any, i) => {
+                const Wrapper = p.linkTo ? Link : "div";
+                const wrapperProps = p.linkTo ? { to: p.linkTo } : {};
+                return (
+                  <Wrapper key={p.name} {...wrapperProps as any} className="border border-border bg-muted/20 p-3 flex items-center gap-3 hover-scale hover:border-primary/50 transition-colors block">
+                    <img src={medals[i]} alt={`Медаль ${i + 1} места`} className="w-10 h-10 object-contain" loading="lazy" />
+                    <div className="flex-1">
+                      <div className="font-display text-sm font-bold text-foreground group-hover:text-primary">{p.name}</div>
+                      <div className="font-mono text-[10px] text-muted-foreground">{p.game} • ELO {p.elo}</div>
+                    </div>
+                  </Wrapper>
+                );
+              })}
             </div>
           </motion.div>
 
@@ -126,12 +191,21 @@ export default function Ratings() {
                 </tr>
               </thead>
               <tbody>
-                {rows.map((r) => (
-                  <tr key={r.name} className="border-b border-border/70 hover:bg-muted/20 transition-colors">
+                {rows.map((r: any) => (
+                  <tr key={r.name} className="border-b border-border/70 hover:bg-muted/20 transition-colors cursor-pointer">
                     <td className="py-3 font-display text-sm text-foreground">{String(r.pos).padStart(2, "0")}</td>
                     <td className="py-3">
-                      <div className="font-display text-sm font-bold text-foreground">{r.name}</div>
-                      <div className="font-mono text-[10px] text-muted-foreground">{r.game}</div>
+                      {r.linkTo ? (
+                        <Link to={r.linkTo} className="hover:text-primary transition-colors">
+                          <div className="font-display text-sm font-bold">{r.name}</div>
+                          <div className="font-mono text-[10px] text-muted-foreground">{r.game}</div>
+                        </Link>
+                      ) : (
+                        <>
+                          <div className="font-display text-sm font-bold text-foreground">{r.name}</div>
+                          <div className="font-mono text-[10px] text-muted-foreground">{r.game}</div>
+                        </>
+                      )}
                     </td>
                     <td className="py-3">
                       <div className="flex items-center gap-2">
