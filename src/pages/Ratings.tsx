@@ -8,7 +8,6 @@ import arrowUp from "@/assets/ratings/arrow_up.png";
 import arrowDown from "@/assets/ratings/arrow_down.png";
 import discCs2 from "@/assets/ratings/disc_cs2.png";
 import discDota2 from "@/assets/ratings/disc_dota2.png";
-import discValorant from "@/assets/ratings/disc_valorant.png";
 import medalGold from "@/assets/ratings/medal_gold.png";
 import medalSilver from "@/assets/ratings/medal_silver.png";
 import medalBronze from "@/assets/ratings/medal_bronze.png";
@@ -23,22 +22,22 @@ import tierC from "@/assets/ratings/tier_c.png";
 import trophyHallOfFame from "@/assets/ratings/trophy_hall_of_fame.png";
 
 type Mode = "teams" | "players";
-type Disc = "all" | "cs2" | "dota2" | "valorant";
+type Disc = "all" | "cs2" | "dota2";
 
 const ladderData = {
   teams: [
     { pos: 1, name: "Crimea Wolves", game: "CS2", elo: 2548, wl: "34/9", winrate: "79%", prize: "₽780K", delta: 5 },
-    { pos: 2, name: "Yalta Nexus", game: "Valorant", elo: 2480, wl: "31/11", winrate: "74%", prize: "₽620K", delta: 2 },
-    { pos: 3, name: "Sevastopol Prime", game: "Dota 2", elo: 2412, wl: "29/13", winrate: "69%", prize: "₽540K", delta: -1 },
-    { pos: 4, name: "Kerch Squad", game: "CS2", elo: 2336, wl: "26/15", winrate: "63%", prize: "₽390K", delta: 3 },
-    { pos: 5, name: "Tavrida Five", game: "Valorant", elo: 2289, wl: "25/16", winrate: "61%", prize: "₽330K", delta: -2 },
+    { pos: 2, name: "Sevastopol Prime", game: "Dota 2", elo: 2480, wl: "31/11", winrate: "74%", prize: "₽620K", delta: 2 },
+    { pos: 3, name: "Kerch Squad", game: "CS2", elo: 2412, wl: "29/13", winrate: "69%", prize: "₽540K", delta: -1 },
+    { pos: 4, name: "Tavrida Five", game: "Dota 2", elo: 2336, wl: "26/15", winrate: "63%", prize: "₽390K", delta: 3 },
+    { pos: 5, name: "Yalta Nexus", game: "CS2", elo: 2289, wl: "25/16", winrate: "61%", prize: "₽330K", delta: -2 },
   ],
   players: [
     { pos: 1, name: "NEXA", game: "CS2", elo: 2618, wl: "52/18", winrate: "74%", prize: "₽420K", delta: 5 },
     { pos: 2, name: "RIFT", game: "Dota 2", elo: 2582, wl: "49/20", winrate: "71%", prize: "₽360K", delta: 3 },
-    { pos: 3, name: "VIXEN", game: "Valorant", elo: 2527, wl: "46/19", winrate: "70%", prize: "₽340K", delta: -1 },
-    { pos: 4, name: "CR0WN", game: "CS2", elo: 2451, wl: "43/21", winrate: "67%", prize: "₽290K", delta: 2 },
-    { pos: 5, name: "ORBIT", game: "Dota 2", elo: 2397, wl: "39/24", winrate: "62%", prize: "₽250K", delta: -2 },
+    { pos: 3, name: "VIXEN", game: "CS2", elo: 2527, wl: "46/19", winrate: "70%", prize: "₽340K", delta: -1 },
+    { pos: 4, name: "CR0WN", game: "Dota 2", elo: 2451, wl: "43/21", winrate: "67%", prize: "₽290K", delta: 2 },
+    { pos: 5, name: "ORBIT", game: "CS2", elo: 2397, wl: "39/24", winrate: "62%", prize: "₽250K", delta: -2 },
   ],
 };
 
@@ -46,7 +45,6 @@ const discIcons = {
   all: statElo,
   cs2: discCs2,
   dota2: discDota2,
-  valorant: discValorant,
 };
 
 const medals = [medalGold, medalSilver, medalBronze];
@@ -61,7 +59,7 @@ export default function Ratings() {
   const rows = useMemo(() => {
     const data = ladderData[mode];
     if (discipline === "all") return data;
-    const filterMap: Record<Exclude<Disc, "all">, string> = { cs2: "CS2", dota2: "Dota 2", valorant: "Valorant" };
+    const filterMap: Record<Exclude<Disc, "all">, string> = { cs2: "CS2", dota2: "Dota 2" };
     return data.filter((r) => r.game === filterMap[discipline]);
   }, [mode, discipline]);
 
@@ -92,7 +90,7 @@ export default function Ratings() {
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
-                {(["all", "cs2", "dota2", "valorant"] as Disc[]).map((d) => (
+                {(["all", "cs2", "dota2"] as Disc[]).map((d) => (
                   <button key={d} onClick={() => setDiscipline(d)} className={`border px-3 py-2 flex items-center gap-2 transition-colors ${discipline === d ? "border-primary bg-primary/10" : "border-border bg-muted/20 hover:border-primary/50"}`}>
                     <img src={discIcons[d]} alt={d} className="w-5 h-5 object-contain" loading="lazy" />
                     <span className="font-mono text-[10px] uppercase tracking-wider text-foreground">{d}</span>
