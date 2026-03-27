@@ -221,12 +221,12 @@ export default function Ratings() {
                     <td className="py-3">
                       {r.linkTo ? (
                         <Link to={r.linkTo} className="hover:text-primary transition-colors">
-                          <div className="font-display text-sm font-bold flex items-center gap-2">{r.name} {r.tier && <TierBadge tier={r.tier} size="sm" />}</div>
+                          <div className="font-display text-sm font-bold">{r.name}</div>
                           <div className="font-mono text-[10px] text-muted-foreground">{r.game}</div>
                         </Link>
                       ) : (
                         <>
-                          <div className="font-display text-sm font-bold text-foreground flex items-center gap-2">{r.name} {r.tier && <TierBadge tier={r.tier} size="sm" />}</div>
+                          <div className="font-display text-sm font-bold text-foreground">{r.name}</div>
                           <div className="font-mono text-[10px] text-muted-foreground">{r.game}</div>
                         </>
                       )}
