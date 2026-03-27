@@ -72,38 +72,52 @@ export default function PlayerProfile() {
           <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="grid grid-cols-12 gap-4">
 
             {/* Player Header */}
-            <motion.div variants={item} className="col-span-12 lg:col-span-8 bento-card hud-corner p-6 md:p-8">
-              <div className="flex flex-col md:flex-row items-start gap-6">
-                <div className="w-28 h-28 border border-border bg-muted/30 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                  {player.profiles?.avatar_url ? (
-                    <img src={player.profiles.avatar_url} alt={player.nickname} className="w-full h-full object-cover" />
-                  ) : (
-                    <span className="font-display text-4xl font-black text-primary/40">{player.nickname[0]}</span>
+            <motion.div variants={item} className="col-span-12 lg:col-span-8 bento-card hud-corner p-0 relative overflow-hidden min-h-[220px] md:min-h-[260px]">
+              {/* Background gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/60 z-10" />
+              
+              {/* Player photo - positioned right, cropped stylishly */}
+              {player.profiles?.avatar_url && (
+                <div className="absolute right-0 bottom-0 top-0 w-[45%] md:w-[40%] z-0">
+                  <img 
+                    src={player.profiles.avatar_url} 
+                    alt={player.nickname} 
+                    className="w-full h-full object-cover object-top opacity-80"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+                </div>
+              )}
+
+              <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center h-full">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="font-mono text-[10px] px-2 py-0.5 border border-primary/30 bg-primary/10 text-primary">{player.discipline}</span>
+                  {player.admin_verified && (
+                    <span className="font-mono text-[10px] px-2 py-0.5 border border-neon-green/30 bg-neon-green/10 text-neon-green flex items-center gap-1">
+                      <Shield className="w-3 h-3" /> VERIFIED
+                    </span>
                   )}
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="font-mono text-[10px] px-2 py-0.5 border border-primary/30 bg-primary/10 text-primary">{player.discipline}</span>
-                    {player.admin_verified && (
-                      <span className="font-mono text-[10px] px-2 py-0.5 border border-neon-green/30 bg-neon-green/10 text-neon-green flex items-center gap-1">
-                        <Shield className="w-3 h-3" /> VERIFIED
-                      </span>
-                    )}
-                  </div>
-                  <h1 className="font-display text-3xl md:text-5xl font-black text-foreground mb-2">{player.nickname}</h1>
-                  {player.profiles?.full_name && (
-                    <div className="font-mono text-xs text-muted-foreground mb-1">{player.profiles.full_name}</div>
-                  )}
-                  {player.profiles?.bio && (
-                    <p className="font-mono text-xs text-muted-foreground/80 mt-2 max-w-xl leading-relaxed">{player.profiles.bio}</p>
-                  )}
-                  {activeTeam && (
-                    <Link to={`/ratings/team/${activeTeam.teams?.id}`} className="inline-flex items-center gap-2 mt-3 font-mono text-[10px] text-primary hover:underline">
-                      <Users className="w-3 h-3" /> [{activeTeam.teams?.tag}] {activeTeam.teams?.name}
-                    </Link>
-                  )}
-                </div>
+                <h1 className="font-display text-4xl md:text-6xl font-black text-foreground mb-2 drop-shadow-lg">{player.nickname}</h1>
+                {player.profiles?.full_name && (
+                  <div className="font-mono text-sm text-muted-foreground mb-1">{player.profiles.full_name}</div>
+                )}
+                {player.profiles?.bio && (
+                  <p className="font-mono text-xs text-muted-foreground/80 mt-2 max-w-md leading-relaxed">{player.profiles.bio}</p>
+                )}
+                {activeTeam && (
+                  <Link to={`/ratings/team/${activeTeam.teams?.id}`} className="inline-flex items-center gap-2 mt-3 font-mono text-[10px] text-primary hover:underline">
+                    <Users className="w-3 h-3" /> [{activeTeam.teams?.tag}] {activeTeam.teams?.name}
+                  </Link>
+                )}
               </div>
+
+              {/* No photo fallback */}
+              {!player.profiles?.avatar_url && (
+                <div className="absolute right-8 top-1/2 -translate-y-1/2 z-0 opacity-10">
+                  <span className="font-display text-[120px] font-black text-primary">{player.nickname[0]}</span>
+                </div>
+              )}
             </motion.div>
 
             {/* ELO Card */}
