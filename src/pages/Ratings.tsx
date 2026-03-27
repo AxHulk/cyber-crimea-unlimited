@@ -41,7 +41,8 @@ export default function Ratings() {
   const [discipline, setDiscipline] = useState<Disc>("cs2");
 
   const dbFilter = discMeta[discipline].dbValue;
-  const ratingLabel = discMeta[discipline].ratingName;
+  // Dota 2 teams use ELO on platform, Dota 2 players use MMR; CS2 always ELO
+  const ratingLabel = discipline === "dota2" && mode === "players" ? "MMR" : "ELO";
 
   // Fetch teams filtered by discipline
   const { data: dbTeams } = useQuery({
