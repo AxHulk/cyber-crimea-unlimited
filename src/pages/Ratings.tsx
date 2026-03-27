@@ -58,12 +58,71 @@ export default function Ratings() {
   const [mode, setMode] = useState<Mode>("teams");
   const [discipline, setDiscipline] = useState<Disc>("all");
 
+  // Fetch real teams from DB
+  const { data: dbTeams } = useQuery({
+    queryKey: ["ratings-teams"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("teams")
+        .select("*")
+        .order("rating", { ascending: false })
+        .limit(20);
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  // Fetch real players from DB
+  const { data: dbPlayers } = useQuery({
+    queryKey: ["ratings-players"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("players")
+        .select("*")
+        .order("elo", { ascending: false })
+        .limit(20);
+      if (error) throw error;
+      return data;
+    },
+  });
+
   const rows = useMemo(() => {
-    const data = ladderData[mode];
+    // Use DB data if available, otherwise fall back to mock
+    let data: any[];
+    if (mode === "teams" && dbTeams && dbTeams.length > 0) {
+      data = dbTeams.map((t, i) => ({
+        pos: i + 1,
+        id: t.id,
+        name: t.name,
+        game: t.discipline,
+        elo: t.rating,
+        wl: `${t.wins}/${t.losses}`,
+        winrate: t.wins + t.losses > 0 ? `${Math.round((t.wins / (t.wins + t.losses)) * 100)}%` : "0%",
+        prize: `₽${Number(t.prize_total).toLocaleString("ru")}`,
+        delta: 0,
+        linkTo: `/ratings/team/${t.id}`,
+      }));
+    } else if (mode === "players" && dbPlayers && dbPlayers.length > 0) {
+      data = dbPlayers.map((p, i) => ({
+        pos: i + 1,
+        id: p.id,
+        name: p.nickname,
+        game: p.discipline,
+        elo: p.elo,
+        wl: `${p.wins}/${p.losses}`,
+        winrate: p.wins + p.losses > 0 ? `${Math.round((p.wins / (p.wins + p.losses)) * 100)}%` : "0%",
+        prize: "—",
+        delta: 0,
+        linkTo: `/ratings/player/${p.id}`,
+      }));
+    } else {
+      data = ladderData[mode];
+    }
+
     if (discipline === "all") return data;
     const filterMap: Record<Exclude<Disc, "all">, string> = { cs2: "CS2", dota2: "Dota 2" };
     return data.filter((r) => r.game === filterMap[discipline]);
-  }, [mode, discipline]);
+  }, [mode, discipline, dbTeams, dbPlayers]);
 
   const podium = rows.slice(0, 3);
 
