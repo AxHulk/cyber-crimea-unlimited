@@ -36,6 +36,8 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/arena" element={<Arena />} />
           <Route path="/ratings" element={<Ratings />} />
+          <Route path="/ratings/team/:teamId" element={<TeamProfile />} />
+          <Route path="/ratings/player/:playerId" element={<PlayerProfile />} />
           <Route path="/media-hub" element={<MediaHub />} />
           <Route path="/media-hub/vod" element={<VodArchive />} />
           <Route path="/media-hub/gallery/:galleryId" element={<Gallery />} />
