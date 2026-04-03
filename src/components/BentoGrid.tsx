@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Trophy, Users, Gamepad2, TrendingUp, Target, Swords, Clock, Calendar } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import iconCs2 from "@/assets/icon_cs2.png";
+import iconDota2 from "@/assets/icon_dota2.png";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
