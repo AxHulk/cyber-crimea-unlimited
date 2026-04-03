@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Trophy, Users, Gamepad2, TrendingUp, Target, Swords, Clock, Calendar } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import iconCs2 from "@/assets/icon_cs2.png";
+import iconDota2 from "@/assets/icon_dota2.png";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -286,15 +288,15 @@ export default function BentoGrid() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { name: "CS2", href: "/ratings?tab=cs2", icon: "🎯" },
-                { name: "Dota 2", href: "/ratings?tab=dota2", icon: "⚔️" },
+                { name: "CS2", href: "/ratings?tab=cs2", img: iconCs2 },
+                { name: "Dota 2", href: "/ratings?tab=dota2", img: iconDota2 },
               ].map((d) => (
                 <Link
                   key={d.name}
                   to={d.href}
                   className="p-4 border border-border hover:border-neon-green/50 transition-all text-center group/d"
                 >
-                  <div className="text-2xl mb-2">{d.icon}</div>
+                  <img src={d.img} alt={d.name} className="w-12 h-12 mx-auto mb-2 object-contain" />
                   <div className="font-display text-sm font-bold group-hover/d:text-neon-green transition-colors">{d.name}</div>
                   <div className="font-mono text-[9px] text-muted-foreground mt-1">РЕЙТИНГ →</div>
                 </Link>
