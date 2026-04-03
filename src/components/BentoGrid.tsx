@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
-import { Clock, Trophy, Users, Gamepad2, TrendingUp, Calendar, Swords, Target } from "lucide-react";
+import { Trophy, Users, Gamepad2, TrendingUp, Target, Swords, Clock, Calendar } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-// Countdown timer component
 function Countdown({ targetDate }: { targetDate: Date }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
 
@@ -35,9 +37,7 @@ function Countdown({ targetDate }: { targetDate: Date }) {
 
 const containerVariants = {
   hidden: {},
-  show: {
-    transition: { staggerChildren: 0.1 },
-  },
+  show: { transition: { staggerChildren: 0.1 } },
 };
 
 const itemVariants = {
@@ -46,13 +46,68 @@ const itemVariants = {
 };
 
 export default function BentoGrid() {
-  const nextTournament = new Date();
-  nextTournament.setDate(nextTournament.getDate() + 14);
+  // Real stats from DB
+  const { data: playerCount } = useQuery({
+    queryKey: ["home-player-count"],
+    queryFn: async () => {
+      const { count } = await supabase.from("players").select("*", { count: "exact", head: true });
+      return count ?? 0;
+    },
+  });
+
+  const { data: teamCount } = useQuery({
+    queryKey: ["home-team-count"],
+    queryFn: async () => {
+      const { count } = await supabase.from("teams").select("*", { count: "exact", head: true });
+      return count ?? 0;
+    },
+  });
+
+  const { data: topTeams } = useQuery({
+    queryKey: ["home-top-teams"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("teams")
+        .select("id, name, tag, logo_url, wins, losses, rating, discipline")
+        .order("rating", { ascending: false })
+        .limit(5);
+      return data ?? [];
+    },
+  });
+
+  const { data: liveMatches } = useQuery({
+    queryKey: ["home-live-matches"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("arena_matches")
+        .select(`id, discipline, format, status, score, map, stream_url,
+          team1:team1_id(id, name, tag, logo_url),
+          team2:team2_id(id, name, tag, logo_url)`)
+        .in("status", ["live", "waiting", "ready"])
+        .order("created_at", { ascending: false })
+        .limit(3);
+      return data ?? [];
+    },
+  });
+
+  const { data: nextTournament } = useQuery({
+    queryKey: ["home-next-tournament"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("tournaments")
+        .select("*")
+        .gte("start_at", new Date().toISOString())
+        .order("start_at", { ascending: true })
+        .limit(1);
+      return data?.[0] ?? null;
+    },
+  });
+
+  const tournamentDate = nextTournament?.start_at ? new Date(nextTournament.start_at) : null;
 
   return (
     <section className="py-20 px-4">
       <div className="container mx-auto">
-        {/* Section header */}
         <div className="flex items-center gap-4 mb-12">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
           <div className="text-center">
@@ -62,7 +117,6 @@ export default function BentoGrid() {
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
         </div>
 
-        {/* Bento Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -70,162 +124,180 @@ export default function BentoGrid() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-12 gap-3 md:gap-4"
         >
-          {/* Large card: Next Tournament */}
-          <motion.div
-            variants={itemVariants}
-            className="col-span-12 md:col-span-6 row-span-2 bento-card hud-corner group"
-          >
+          {/* Next Tournament or fallback */}
+          <motion.div variants={itemVariants} className="col-span-12 md:col-span-6 row-span-2 bento-card hud-corner group">
             <div className="flex items-center gap-2 mb-4">
               <Trophy className="w-4 h-4 text-neon-green" />
               <span className="font-mono text-[10px] tracking-wider text-neon-green">NEXT_EVENT</span>
-              <span className="ml-auto font-mono text-[9px] text-muted-foreground animate-pulse">● LIVE</span>
             </div>
-            <h3 className="font-display text-xl md:text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
-              Crimea Cyber Cup 2026
-            </h3>
-            <p className="font-mono text-xs text-muted-foreground mb-1">
-              LAN-ФИНАЛ // СИМФЕРОПОЛЬ
-            </p>
-            <div className="flex items-center gap-2 mb-6">
-              <Calendar className="w-3 h-3 text-muted-foreground" />
-              <span className="font-mono text-xs text-muted-foreground">
-                {nextTournament.toLocaleDateString('ru-RU')}
-              </span>
-            </div>
-            <Countdown targetDate={nextTournament} />
-            <div className="mt-6 grid grid-cols-3 gap-2">
-              {["CS2", "Dota 2", "Valorant"].map((game) => (
-                <div key={game} className="text-center py-2 border border-border bg-muted/30 font-mono text-[10px] tracking-wider text-muted-foreground hover:border-primary hover:text-primary transition-all cursor-default">
-                  {game}
+            {nextTournament ? (
+              <>
+                <h3 className="font-display text-xl md:text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
+                  {nextTournament.name}
+                </h3>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="font-mono text-[10px] px-2 py-0.5 bg-primary/20 text-primary border border-primary/30">
+                    {nextTournament.discipline}
+                  </span>
+                  <span className="font-mono text-[10px] text-muted-foreground">{nextTournament.tier}</span>
                 </div>
-              ))}
-            </div>
+                {nextTournament.prize_pool > 0 && (
+                  <p className="font-mono text-xs text-muted-foreground mb-1">
+                    ПРИЗОВОЙ ФОНД: {Number(nextTournament.prize_pool).toLocaleString("ru-RU")} ₽
+                  </p>
+                )}
+                {tournamentDate && (
+                  <>
+                    <div className="flex items-center gap-2 mb-6">
+                      <Calendar className="w-3 h-3 text-muted-foreground" />
+                      <span className="font-mono text-xs text-muted-foreground">
+                        {tournamentDate.toLocaleDateString("ru-RU")}
+                      </span>
+                    </div>
+                    <Countdown targetDate={tournamentDate} />
+                  </>
+                )}
+              </>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-8">
+                <div className="font-mono text-sm text-muted-foreground">ТУРНИРЫ СКОРО</div>
+                <div className="font-mono text-[10px] text-muted-foreground/60 mt-2">Следите за обновлениями</div>
+              </div>
+            )}
           </motion.div>
 
-          {/* Medium: Bracket preview */}
-          <motion.div
-            variants={itemVariants}
-            className="col-span-12 sm:col-span-6 md:col-span-3 row-span-2 bento-card group"
-          >
+          {/* Live/Active Matches */}
+          <motion.div variants={itemVariants} className="col-span-12 sm:col-span-6 md:col-span-3 row-span-2 bento-card group">
             <div className="flex items-center gap-2 mb-4">
               <Swords className="w-4 h-4 text-neon-purple" />
-              <span className="font-mono text-[10px] tracking-wider text-neon-purple">BRACKET</span>
+              <span className="font-mono text-[10px] tracking-wider text-neon-purple">ARENA</span>
+              {liveMatches && liveMatches.some((m: any) => m.status === "live") && (
+                <span className="ml-auto font-mono text-[9px] text-neon-green animate-pulse">● LIVE</span>
+              )}
             </div>
-            <div className="space-y-2">
-              {[
-                { t1: "CrimeaStorm", t2: "BlackSeaGG", s1: 2, s2: 1, live: true },
-                { t1: "YaltaRise", t2: "SevaStar", s1: 0, s2: 0, live: false },
-                { t1: "KerchForce", t2: "SimfPower", s1: 1, s2: 2, live: false },
-              ].map((match, i) => (
-                <div key={i} className={`p-2 border transition-all ${match.live ? 'border-neon-green/30 bg-neon-green/5' : 'border-border'}`}>
-                  <div className="flex justify-between items-center font-mono text-[10px]">
-                    <span className={match.s1 > match.s2 ? 'text-foreground' : 'text-muted-foreground'}>{match.t1}</span>
-                    <span className="text-primary font-bold">{match.s1}</span>
-                  </div>
-                  <div className="flex justify-between items-center font-mono text-[10px]">
-                    <span className={match.s2 > match.s1 ? 'text-foreground' : 'text-muted-foreground'}>{match.t2}</span>
-                    <span className="text-primary font-bold">{match.s2}</span>
-                  </div>
-                  {match.live && (
-                    <div className="mt-1 font-mono text-[8px] text-neon-green tracking-wider">● LIVE NOW</div>
-                  )}
-                </div>
-              ))}
-            </div>
+            {liveMatches && liveMatches.length > 0 ? (
+              <div className="space-y-2">
+                {liveMatches.map((match: any) => {
+                  const t1 = match.team1 as any;
+                  const t2 = match.team2 as any;
+                  return (
+                    <div key={match.id} className={`p-2 border transition-all ${match.status === "live" ? "border-neon-green/30 bg-neon-green/5" : "border-border"}`}>
+                      <div className="flex justify-between items-center font-mono text-[10px]">
+                        <span className="text-foreground">{t1?.tag ?? "TBD"}</span>
+                        <span className="text-primary font-bold">{match.score?.split(":")?.[0] ?? "0"}</span>
+                      </div>
+                      <div className="flex justify-between items-center font-mono text-[10px]">
+                        <span className="text-foreground">{t2?.tag ?? "TBD"}</span>
+                        <span className="text-primary font-bold">{match.score?.split(":")?.[1] ?? "0"}</span>
+                      </div>
+                      <div className="flex items-center justify-between mt-1">
+                        <span className="font-mono text-[8px] text-muted-foreground">{match.discipline} · {match.format}</span>
+                        {match.status === "live" && (
+                          <span className="font-mono text-[8px] text-neon-green tracking-wider">● LIVE</span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-6">
+                <div className="font-mono text-xs text-muted-foreground">НЕТ АКТИВНЫХ МАТЧЕЙ</div>
+              </div>
+            )}
+            <Link to="/arena" className="block mt-3 font-mono text-[10px] text-primary hover:text-primary/80 transition-colors text-center">
+              ПЕРЕЙТИ В АРЕНУ →
+            </Link>
           </motion.div>
 
-          {/* Small: Player stats */}
-          <motion.div
-            variants={itemVariants}
-            className="col-span-6 md:col-span-3 bento-card group"
-          >
+          {/* Player count */}
+          <motion.div variants={itemVariants} className="col-span-6 md:col-span-3 bento-card group">
             <div className="flex items-center gap-2 mb-3">
               <Users className="w-4 h-4 text-neon-cyan" />
               <span className="font-mono text-[10px] tracking-wider text-neon-cyan">PLAYERS</span>
             </div>
             <div className="font-display text-3xl font-bold text-foreground group-hover:text-neon-cyan transition-colors">
-              1,247
+              {playerCount ?? 0}
             </div>
-            <div className="font-mono text-[9px] text-muted-foreground mt-1">REGISTERED_ATHLETES</div>
-            <div className="flex items-center gap-1 mt-2">
-              <TrendingUp className="w-3 h-3 text-neon-green" />
-              <span className="font-mono text-[10px] text-neon-green">+12.4%</span>
-            </div>
+            <div className="font-mono text-[9px] text-muted-foreground mt-1">ЗАРЕГИСТРИРОВАННЫХ ИГРОКОВ</div>
           </motion.div>
 
-          {/* Small: Active tournaments */}
-          <motion.div
-            variants={itemVariants}
-            className="col-span-6 md:col-span-3 bento-card group"
-          >
+          {/* Team count */}
+          <motion.div variants={itemVariants} className="col-span-6 md:col-span-3 bento-card group">
             <div className="flex items-center gap-2 mb-3">
               <Gamepad2 className="w-4 h-4 text-neon-magenta" />
-              <span className="font-mono text-[10px] tracking-wider text-neon-magenta">ACTIVE</span>
+              <span className="font-mono text-[10px] tracking-wider text-neon-magenta">TEAMS</span>
             </div>
             <div className="font-display text-3xl font-bold text-foreground group-hover:text-neon-magenta transition-colors">
-              8
+              {teamCount ?? 0}
             </div>
-            <div className="font-mono text-[9px] text-muted-foreground mt-1">RUNNING_TOURNAMENTS</div>
-            <div className="mt-2 flex gap-1">
-              {[1,2,3,4,5,6,7,8].map(i => (
-                <div key={i} className="w-2 h-2 bg-neon-magenta/60 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
-              ))}
-            </div>
+            <div className="font-mono text-[9px] text-muted-foreground mt-1">АКТИВНЫХ КОМАНД</div>
           </motion.div>
 
-          {/* Wide: Regional ranking */}
-          <motion.div
-            variants={itemVariants}
-            className="col-span-12 md:col-span-6 bento-card group"
-          >
-            <div className="flex items-center gap-2 mb-4">
-              <Target className="w-4 h-4 text-primary" />
-              <span className="font-mono text-[10px] tracking-wider text-primary">REGIONAL_RANKING</span>
+          {/* Top teams from DB */}
+          <motion.div variants={itemVariants} className="col-span-12 md:col-span-6 bento-card group">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Target className="w-4 h-4 text-primary" />
+                <span className="font-mono text-[10px] tracking-wider text-primary">TOP_TEAMS</span>
+              </div>
+              <Link to="/ratings" className="font-mono text-[10px] text-muted-foreground hover:text-primary transition-colors">
+                ВСЕ →
+              </Link>
             </div>
             <div className="space-y-2">
-              {[
-                { rank: 1, name: "CrimeaStorm", points: 2840, change: "+3" },
-                { rank: 2, name: "BlackSeaGG", points: 2650, change: "+1" },
-                { rank: 3, name: "YaltaRise", points: 2410, change: "-1" },
-                { rank: 4, name: "SevaStar", points: 2280, change: "0" },
-                { rank: 5, name: "KerchForce", points: 2100, change: "+2" },
-              ].map((team) => (
-                <div key={team.rank} className="flex items-center gap-3 py-1.5 px-2 hover:bg-muted/30 transition-colors border border-transparent hover:border-border">
-                  <span className={`font-display text-sm font-bold w-6 text-center ${team.rank <= 3 ? 'text-primary' : 'text-muted-foreground'}`}>
-                    {String(team.rank).padStart(2, "0")}
-                  </span>
-                  <span className="font-mono text-xs flex-1 text-foreground">{team.name}</span>
-                  <span className="font-mono text-xs text-muted-foreground">{team.points} PTS</span>
-                  <span className={`font-mono text-[10px] ${team.change.startsWith('+') ? 'text-neon-green' : team.change === '0' ? 'text-muted-foreground' : 'text-destructive'}`}>
-                    {team.change !== '0' ? team.change : '—'}
-                  </span>
-                </div>
-              ))}
+              {topTeams?.map((team, i) => {
+                const total = team.wins + team.losses;
+                const wr = total > 0 ? Math.round((team.wins / total) * 100) : 0;
+                return (
+                  <Link
+                    key={team.id}
+                    to={`/ratings/team/${team.id}`}
+                    className="flex items-center gap-3 py-1.5 px-2 hover:bg-muted/30 transition-colors border border-transparent hover:border-border"
+                  >
+                    <span className={`font-display text-sm font-bold w-6 text-center ${i < 3 ? "text-primary" : "text-muted-foreground"}`}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {team.logo_url ? (
+                      <img src={team.logo_url} alt={team.tag} className="w-6 h-6 rounded object-cover border border-border" />
+                    ) : (
+                      <div className="w-6 h-6 rounded border border-border bg-muted/40 flex items-center justify-center font-mono text-[8px] text-muted-foreground">
+                        {team.tag.slice(0, 2)}
+                      </div>
+                    )}
+                    <span className="font-mono text-xs flex-1 text-foreground">{team.name}</span>
+                    <span className="font-mono text-[10px] text-muted-foreground">{team.discipline}</span>
+                    <span className="font-mono text-[10px] text-muted-foreground">{wr}% WR</span>
+                    <span className="font-mono text-xs text-primary font-bold">{team.rating}</span>
+                  </Link>
+                );
+              })}
+              {(!topTeams || topTeams.length === 0) && (
+                <div className="font-mono text-xs text-muted-foreground text-center py-4">Нет данных</div>
+              )}
             </div>
           </motion.div>
 
-          {/* Disciplines grid */}
-          <motion.div
-            variants={itemVariants}
-            className="col-span-12 md:col-span-6 bento-card"
-          >
+          {/* Disciplines */}
+          <motion.div variants={itemVariants} className="col-span-12 md:col-span-6 bento-card">
             <div className="flex items-center gap-2 mb-4">
               <Gamepad2 className="w-4 h-4 text-neon-green" />
               <span className="font-mono text-[10px] tracking-wider text-neon-green">DISCIPLINES</span>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 gap-3">
               {[
-                { name: "CS2", players: 342 },
-                { name: "Dota 2", players: 287 },
-                { name: "Valorant", players: 198 },
-                { name: "LoL", players: 156 },
-                { name: "Mobile Legends", players: 134 },
-                { name: "FIFA 26", players: 130 },
+                { name: "CS2", href: "/ratings?tab=cs2", icon: "🎯" },
+                { name: "Dota 2", href: "/ratings?tab=dota2", icon: "⚔️" },
               ].map((d) => (
-                <div key={d.name} className="p-3 border border-border hover:border-neon-green/50 transition-all text-center group/d cursor-default">
+                <Link
+                  key={d.name}
+                  to={d.href}
+                  className="p-4 border border-border hover:border-neon-green/50 transition-all text-center group/d"
+                >
+                  <div className="text-2xl mb-2">{d.icon}</div>
                   <div className="font-display text-sm font-bold group-hover/d:text-neon-green transition-colors">{d.name}</div>
-                  <div className="font-mono text-[9px] text-muted-foreground mt-1">{d.players} PLAYERS</div>
-                </div>
+                  <div className="font-mono text-[9px] text-muted-foreground mt-1">РЕЙТИНГ →</div>
+                </Link>
               ))}
             </div>
           </motion.div>
