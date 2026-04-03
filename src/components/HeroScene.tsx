@@ -38,12 +38,8 @@ export default function HeroScene() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-display font-extrabold text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-center leading-tight"
         >
-          <span className="bg-gradient-to-r from-neon-purple via-foreground to-neon-cyan bg-clip-text text-transparent">
-            CYBER
-          </span>
-          <br />
-          <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-[0.2em] text-foreground/80">
-            CRIMEA
+          <span className="bg-gradient-to-r from-neon-purple via-foreground to-neon-cyan bg-clip-text text-transparent tracking-[0.1em]">
+            ФКС РК
           </span>
         </motion.h1>
 
