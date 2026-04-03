@@ -14,6 +14,122 @@ export type Database = {
   }
   public: {
     Tables: {
+      arena_matches: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          discipline: string
+          finished_at: string | null
+          format: string
+          id: string
+          map: string | null
+          player1_id: string | null
+          player2_id: string | null
+          scheduled_at: string | null
+          score: string | null
+          started_at: string | null
+          status: string
+          stream_url: string | null
+          team1_id: string | null
+          team2_id: string | null
+          updated_at: string
+          winner_player_id: string | null
+          winner_team_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          discipline: string
+          finished_at?: string | null
+          format?: string
+          id?: string
+          map?: string | null
+          player1_id?: string | null
+          player2_id?: string | null
+          scheduled_at?: string | null
+          score?: string | null
+          started_at?: string | null
+          status?: string
+          stream_url?: string | null
+          team1_id?: string | null
+          team2_id?: string | null
+          updated_at?: string
+          winner_player_id?: string | null
+          winner_team_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          discipline?: string
+          finished_at?: string | null
+          format?: string
+          id?: string
+          map?: string | null
+          player1_id?: string | null
+          player2_id?: string | null
+          scheduled_at?: string | null
+          score?: string | null
+          started_at?: string | null
+          status?: string
+          stream_url?: string | null
+          team1_id?: string | null
+          team2_id?: string | null
+          updated_at?: string
+          winner_player_id?: string | null
+          winner_team_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "arena_matches_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "arena_matches_player1_id_fkey"
+            columns: ["player1_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "arena_matches_player2_id_fkey"
+            columns: ["player2_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "arena_matches_team1_id_fkey"
+            columns: ["team1_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "arena_matches_team2_id_fkey"
+            columns: ["team2_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "arena_matches_winner_player_id_fkey"
+            columns: ["winner_player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "arena_matches_winner_team_id_fkey"
+            columns: ["winner_team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       matches: {
         Row: {
           created_at: string
