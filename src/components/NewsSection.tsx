@@ -1,41 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
-
-const newsData = [
-  {
-    id: 1,
-    title: "Crimea Cyber Cup 2026: Открыта регистрация на крупнейший LAN-финал в Симферополе",
-    excerpt: "Призовой фонд 500,000₽. Дисциплины: CS2, Dota 2, Valorant. Регистрация до 28 марта.",
-    date: "15 марта 2026",
-    category: "ТУРНИРЫ",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "CrimeaStorm выходит в финал регионального чемпионата по CS2",
-    excerpt: "Команда одержала уверенную победу со счётом 2:0 над BlackSeaGG в полуфинале.",
-    date: "14 марта 2026",
-    category: "МАТЧИ",
-    featured: false,
-  },
-  {
-    id: 3,
-    title: "Новая программа подготовки киберспортсменов стартует в апреле",
-    excerpt: "ФКС РК запускает бесплатную образовательную программу для начинающих игроков.",
-    date: "12 марта 2026",
-    category: "РАЗВИТИЕ",
-    featured: false,
-  },
-  {
-    id: 4,
-    title: "Итоги зимнего сезона: рейтинг обновлён",
-    excerpt: "Обновлён региональный рейтинг команд по итогам зимнего сезона 2025/2026.",
-    date: "10 марта 2026",
-    category: "РЕЙТИНГИ",
-    featured: false,
-  },
-];
+import { feed } from "@/data/mediaFeed";
 
 const containerVariants = {
   hidden: {},
@@ -48,13 +14,18 @@ const itemVariants = {
 };
 
 export default function NewsSection() {
-  const featured = newsData.find(n => n.featured);
-  const rest = newsData.filter(n => !n.featured);
+  // Use real data from mediaFeed, sorted by date
+  const sortedFeed = [...feed].sort((a, b) => {
+    if (!a.date || !b.date) return 0;
+    return new Date(b.date.split(" ").reverse().join("-")).getTime() - new Date(a.date.split(" ").reverse().join("-")).getTime();
+  });
+
+  const featured = sortedFeed[0];
+  const rest = sortedFeed.slice(1, 4);
 
   return (
     <section className="py-20 px-4 border-t border-border">
       <div className="container mx-auto">
-        {/* Section header */}
         <div className="flex items-center justify-between mb-12">
           <div>
             <div className="font-mono text-[10px] tracking-[0.3em] text-neon-cyan mb-2">// NEWS_FEED</div>
@@ -68,7 +39,6 @@ export default function NewsSection() {
           </Link>
         </div>
 
-        {/* Asymmetric grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -76,21 +46,19 @@ export default function NewsSection() {
           viewport={{ once: true }}
           className="grid grid-cols-12 gap-4"
         >
-          {/* Featured large */}
           {featured && (
             <motion.article
               variants={itemVariants}
               className="col-span-12 md:col-span-7 bento-card group relative min-h-[300px] flex flex-col justify-end"
             >
-              {/* Gradient bg */}
               <div className="absolute inset-0 bg-gradient-to-t from-card via-card/80 to-primary/10 rounded-[var(--radius)]" />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-3">
                   <span className="font-mono text-[9px] tracking-wider px-2 py-1 bg-primary/20 text-primary border border-primary/30">
-                    {featured.category}
+                    {featured.type}
                   </span>
                   <span className="font-mono text-[9px] text-muted-foreground flex items-center gap-1">
-                    <Clock className="w-3 h-3" /> {featured.date}
+                    <Clock className="w-3 h-3" /> {featured.date ?? featured.stat}
                   </span>
                 </div>
                 <h3 className="font-display text-xl md:text-2xl font-bold mb-3 group-hover:text-primary transition-colors leading-tight">
@@ -99,40 +67,42 @@ export default function NewsSection() {
                 <p className="font-body text-sm text-muted-foreground mb-4 line-clamp-2">
                   {featured.excerpt}
                 </p>
-                <span className="inline-flex items-center gap-2 font-mono text-xs text-primary group-hover:gap-3 transition-all cursor-pointer">
+                <Link
+                  to={`/news/${featured.id}`}
+                  className="inline-flex items-center gap-2 font-mono text-xs text-primary group-hover:gap-3 transition-all"
+                >
                   ПОДРОБНЕЕ <ArrowRight className="w-3 h-3" />
-                </span>
+                </Link>
               </div>
             </motion.article>
           )}
 
-          {/* Side stack with offset */}
           <div className="col-span-12 md:col-span-5 space-y-4 md:-mt-4">
-            {rest.map((news, i) => (
+            {rest.map((news) => (
               <motion.article
                 key={news.id}
                 variants={itemVariants}
-                className="bento-card group cursor-pointer"
-                style={{ marginLeft: i === 1 ? '1rem' : '0' }}
+                className="bento-card group"
               >
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="font-mono text-[9px] tracking-wider px-2 py-0.5 bg-muted text-muted-foreground border border-border">
-                    {news.category}
-                  </span>
-                  <span className="font-mono text-[9px] text-muted-foreground">{news.date}</span>
-                </div>
-                <h3 className="font-display text-sm font-bold group-hover:text-primary transition-colors leading-tight mb-1">
-                  {news.title}
-                </h3>
-                <p className="font-body text-xs text-muted-foreground line-clamp-2">
-                  {news.excerpt}
-                </p>
+                <Link to={`/news/${news.id}`}>
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="font-mono text-[9px] tracking-wider px-2 py-0.5 bg-muted text-muted-foreground border border-border">
+                      {news.type}
+                    </span>
+                    <span className="font-mono text-[9px] text-muted-foreground">{news.date ?? news.stat}</span>
+                  </div>
+                  <h3 className="font-display text-sm font-bold group-hover:text-primary transition-colors leading-tight mb-1">
+                    {news.title}
+                  </h3>
+                  <p className="font-body text-xs text-muted-foreground line-clamp-2">
+                    {news.excerpt}
+                  </p>
+                </Link>
               </motion.article>
             ))}
           </div>
         </motion.div>
 
-        {/* Mobile link */}
         <div className="mt-8 sm:hidden text-center">
           <Link
             to="/news"
