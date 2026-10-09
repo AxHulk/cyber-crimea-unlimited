@@ -71,11 +71,11 @@ export default function Article() {
 
               {article.comparison && (
                 <div className="mt-8 border-y border-border py-6">
-                  <h2 className="font-display text-xl font-bold mb-4">Сравнение рас: не рекорд, а выбор под маршрут</h2>
+                  <h2 className="font-display text-xl font-bold mb-4">{article.comparisonTitle ?? "Сравнение рас"}</h2>
                   <div className="overflow-x-auto">
                     <table className="w-full min-w-[560px] text-left font-body text-sm">
                       <thead className="text-primary border-b border-border">
-                        <tr>{["Раса и классы", "Преимущество", "Вывод"].map((label) => <th key={label} scope="col" className="py-3 pr-4 font-medium">{label}</th>)}</tr>
+                        <tr>{(article.comparisonHeaders ?? ["Раса и классы", "Преимущество", "Вывод"]).map((label) => <th key={label} scope="col" className="py-3 pr-4 font-medium">{label}</th>)}</tr>
                       </thead>
                       <tbody>
                         {article.comparison.map((row) => (
