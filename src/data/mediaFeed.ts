@@ -18,6 +18,8 @@ export type FeedItem = {
   externalLink?: { label: string; url: string };
   sections?: Array<{ heading: string; paragraphs: string[] }>;
   comparison?: Array<{ race: string; classes: string; advantage: string; verdict: string }>;
+  comparisonTitle?: string;
+  comparisonHeaders?: [string, string, string];
   sources?: Array<{ label: string; url: string }>;
 };
 

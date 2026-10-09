@@ -71,15 +71,15 @@ export default function Article() {
 
               {article.comparison && (
                 <div className="mt-8 border-y border-border py-6">
-                  <h2 className="font-display text-xl font-bold mb-4">Сравнение рас: не рекорд, а выбор под маршрут</h2>
+                  <h2 className="font-display text-xl font-bold mb-4">{article.comparisonTitle ?? "Сравнение рас"}</h2>
                   <div className="overflow-x-auto">
                     <table className="w-full min-w-[560px] text-left font-body text-sm">
                       <thead className="text-primary border-b border-border">
-                        <tr>{["Раса и классы", "Преимущество", "Вывод"].map((label) => <th key={label} scope="col" className="py-3 pr-4 font-medium">{label}</th>)}</tr>
+                        <tr>{(article.comparisonHeaders ?? ["Раса и классы", "Преимущество", "Вывод"]).map((label) => <th key={label} scope="col" className="py-3 pr-4 font-medium">{label}</th>)}</tr>
                       </thead>
                       <tbody>
                         {article.comparison.map((row) => (
-                          <tr key={row.race} className="border-b border-border last:border-0">
+                          <tr key={row.race + row.classes} className="border-b border-border last:border-0">
                             <th scope="row" className="py-4 pr-4 font-medium align-top">{row.race}<span className="block mt-1 font-normal text-xs text-muted-foreground">{row.classes}</span></th>
                             <td className="py-4 pr-4 align-top text-muted-foreground">{row.advantage}</td>
                             <td className="py-4 align-top text-muted-foreground">{row.verdict}</td>
@@ -108,7 +108,7 @@ export default function Article() {
                 </section>
               ))}
 
-              {article.sources && (
+              {article.sources && article.sources.length > 0 && (
                 <section className="mt-10 border-t border-border pt-6">
                   <h2 className="font-display text-xl font-bold mb-4">Источники и границы сравнения</h2>
                   <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4">Ссылки подтверждают отдельные механики и условия. Они не содержат единого теста на 800 квестов; материалы поздних версий используются только для описания базовых особенностей классов.</p>
