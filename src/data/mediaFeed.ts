@@ -1,4 +1,6 @@
-export type CategoryKey = "all" | "news" | "results" | "updates" | "interview" | "guides" | "gallery";
+import { perfectWorldArticle } from "./perfectWorldArticle";
+
+export type CategoryKey = "all" | "news" | "results" | "updates" | "interview" | "guides" | "gallery" | "articles";
 
 export type FeedItem = {
   id: string;
@@ -14,9 +16,13 @@ export type FeedItem = {
   embedUrl?: string;
   details?: string[];
   externalLink?: { label: string; url: string };
+  sections?: Array<{ heading: string; paragraphs: string[] }>;
+  comparison?: Array<{ race: string; classes: string; advantage: string; verdict: string }>;
+  sources?: Array<{ label: string; url: string }>;
 };
 
 export const feed: FeedItem[] = [
+  perfectWorldArticle,
   {
     id: "n1",
     title: "Киберлига Крыма 2024 по Dota 2: Rampage Arena — чемпионы!",
