@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link, useSearchParams } from "react-router-dom";
 import HudNavbar from "@/components/HudNavbar";
 import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
 
 import catNews from "@/assets/mediahub/cat_news.png";
 import catResults from "@/assets/mediahub/cat_results.png";
@@ -29,6 +30,7 @@ import { feed, type CategoryKey } from "@/data/mediaFeed";
 const categories: Array<{ key: CategoryKey; label: string; icon: string }> = [
   { key: "all", label: "ВСЁ", icon: catUpdates },
   { key: "news", label: "Новости ФКС", icon: catNews },
+  { key: "articles", label: "Статьи", icon: typeReport },
   { key: "results", label: "Итоги турниров", icon: catResults },
   { key: "interview", label: "Интервью", icon: catInterview },
   { key: "guides", label: "Анонсы", icon: catGuides },
@@ -98,7 +100,7 @@ export default function MediaHub() {
           <p className="font-mono text-[10px] tracking-[0.35em] text-primary mb-3">// MEDIA_HUB</p>
           <h1 className="font-display text-5xl md:text-7xl font-black text-foreground">МЕДИА-ХАБ</h1>
           <p className="font-mono text-xs md:text-sm text-muted-foreground mt-3 max-w-3xl mx-auto">
-            Динамичная контент-лента ФКС РК: новости, итоги турниров, интервью, гайды, галереи и комьюнити-активности.
+            Новости ФКС РК, статьи об играх, итоги турниров, интервью, анонсы и галереи.
           </p>
         </div>
       </section>
@@ -108,14 +110,16 @@ export default function MediaHub() {
           <div className="font-mono text-[10px] tracking-widest text-primary mb-3">// CONTENT_FILTERS</div>
           <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-2">
             {categories.map((c) => (
-              <button
+              <Button
+                variant="outline"
                 key={c.key}
                 onClick={() => setActiveCategory(c.key)}
-                className={`border p-2 flex items-center gap-2 transition-colors ${active === c.key ? "border-primary bg-primary/10" : "border-border bg-muted/20 hover:border-primary/50"} ${categoryCounts[c.key] === 0 ? "opacity-40" : ""}`}
+                aria-pressed={active === c.key}
+                className={`h-auto min-h-12 rounded-none justify-start whitespace-normal border p-2 flex items-center gap-2 transition-colors ${active === c.key ? "border-primary bg-primary/10" : "border-border bg-muted/20 hover:border-primary/50"} ${categoryCounts[c.key] === 0 ? "opacity-40" : ""}`}
               >
                 <img src={c.icon} alt={c.label} className="w-8 h-8 object-contain" loading="lazy" />
                 <span className="font-mono text-[10px] uppercase tracking-wider text-foreground">{c.label}</span>
-              </button>
+              </Button>
             ))}
           </div>
         </div>

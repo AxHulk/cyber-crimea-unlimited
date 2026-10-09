@@ -64,10 +64,59 @@ export default function Article() {
         >
           {/* Main content */}
           <div className="col-span-12 lg:col-span-8 space-y-6">
-            <div className="bento-card hud-corner p-6 md:p-8">
+            <div className={article.sections ? "py-2 md:pr-6" : "bento-card hud-corner p-6 md:p-8"}>
               <p className="font-body text-sm md:text-base text-foreground/90 leading-relaxed">
                 {article.excerpt}
               </p>
+
+              {article.comparison && (
+                <div className="mt-8 border-y border-border py-6">
+                  <h2 className="font-display text-xl font-bold mb-4">Сравнение рас: не рекорд, а выбор под маршрут</h2>
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[560px] text-left font-body text-sm">
+                      <thead className="text-primary border-b border-border">
+                        <tr>{["Раса и классы", "Преимущество", "Вывод"].map((label) => <th key={label} scope="col" className="py-3 pr-4 font-medium">{label}</th>)}</tr>
+                      </thead>
+                      <tbody>
+                        {article.comparison.map((row) => (
+                          <tr key={row.race} className="border-b border-border last:border-0">
+                            <th scope="row" className="py-4 pr-4 font-medium align-top">{row.race}<span className="block mt-1 font-normal text-xs text-muted-foreground">{row.classes}</span></th>
+                            <td className="py-4 pr-4 align-top text-muted-foreground">{row.advantage}</td>
+                            <td className="py-4 align-top text-muted-foreground">{row.verdict}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {article.sections?.map((section) => (
+                <section key={section.heading} className="mt-8">
+                  <h2 className="font-display text-xl md:text-2xl font-bold leading-snug mb-4">{section.heading}</h2>
+                  <div className="space-y-4">
+                    {section.paragraphs.map((paragraph, index) => (
+                      <p key={index} className="font-body text-sm md:text-base text-foreground/90 leading-relaxed">
+                        {paragraph.split(/(\[\d+\])/g).map((part, partIndex) => {
+                          const match = part.match(/^\[(\d+)\]$/);
+                          const source = match ? article.sources?.[Number(match[1]) - 1] : undefined;
+                          return source ? <a key={partIndex} href={source.url} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">{part}</a> : part;
+                        })}
+                      </p>
+                    ))}
+                  </div>
+                </section>
+              ))}
+
+              {article.sources && (
+                <section className="mt-10 border-t border-border pt-6">
+                  <h2 className="font-display text-xl font-bold mb-4">Источники и границы сравнения</h2>
+                  <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4">Ссылки подтверждают отдельные механики и условия. Они не содержат единого теста на 800 квестов; материалы поздних версий используются только для описания базовых особенностей классов.</p>
+                  <ul className="space-y-3">
+                    {article.sources.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="font-body text-sm text-primary underline underline-offset-4 break-words">{source.label}</a></li>)}
+                  </ul>
+                </section>
+              )}
 
               {article.details && (
                 <div className="mt-6 space-y-3 border-t border-border pt-6">
