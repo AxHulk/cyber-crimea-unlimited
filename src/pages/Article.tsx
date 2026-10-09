@@ -79,7 +79,7 @@ export default function Article() {
                       </thead>
                       <tbody>
                         {article.comparison.map((row) => (
-                          <tr key={row.race} className="border-b border-border last:border-0">
+                          <tr key={row.race + row.classes} className="border-b border-border last:border-0">
                             <th scope="row" className="py-4 pr-4 font-medium align-top">{row.race}<span className="block mt-1 font-normal text-xs text-muted-foreground">{row.classes}</span></th>
                             <td className="py-4 pr-4 align-top text-muted-foreground">{row.advantage}</td>
                             <td className="py-4 align-top text-muted-foreground">{row.verdict}</td>
