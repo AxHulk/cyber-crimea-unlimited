@@ -108,7 +108,7 @@ export default function Article() {
                 </section>
               ))}
 
-              {article.sources && (
+              {article.sources && article.sources.length > 0 && (
                 <section className="mt-10 border-t border-border pt-6">
                   <h2 className="font-display text-xl font-bold mb-4">Источники и границы сравнения</h2>
                   <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4">Ссылки подтверждают отдельные механики и условия. Они не содержат единого теста на 800 квестов; материалы поздних версий используются только для описания базовых особенностей классов.</p>
