@@ -1,4 +1,5 @@
 import { perfectWorldArticle } from "./perfectWorldArticle";
+import { pwHumansGuide, pwElvesGuide, pwBeastsGuide } from "./pwRaceGuides";
 
 export type CategoryKey = "all" | "news" | "results" | "updates" | "interview" | "guides" | "gallery" | "articles";
 
@@ -25,6 +26,9 @@ export type FeedItem = {
 
 export const feed: FeedItem[] = [
   perfectWorldArticle,
+  pwHumansGuide,
+  pwElvesGuide,
+  pwBeastsGuide,
   {
     id: "n1",
     title: "Киберлига Крыма 2024 по Dota 2: Rampage Arena — чемпионы!",
